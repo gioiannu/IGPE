@@ -1,5 +1,6 @@
 package main.core;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -14,18 +15,32 @@ import main.managers.GameManager;
 public class MyPanel extends JPanel{
 	GameManager gameManager=new GameManager();
 	Toolkit tk=Toolkit.getDefaultToolkit();
+	
 	Image []player=new Image[15];
+	
 	Image background;
+	Image scaledBackground;
+	
 	Image brick;
+	
 	Image stair;
+	
 	Image []enemyAI= new Image[11];
+	
 	Image object7;
+	
 	Image lastImageP;
 	Image lastImageE;
+	
 	Image [] bullet=new Image[2];
+	
 	boolean shooting=false;
 	
 	private int fattore=10;
+	
+	Dimension screenSize = tk.getScreenSize();
+	int width = (int) screenSize.getWidth();
+	int height = (int) screenSize.getHeight();
 
 	
 	public MyPanel() 
@@ -49,8 +64,12 @@ public class MyPanel extends JPanel{
 	private void initGUI() {
 		this.setFocusable(true);
 		background=tk.getImage(this.getClass().getResource("SFONDO.png"));
+		scaledBackground = background.getScaledInstance(width, height,Image.SCALE_DEFAULT);
+		
 		brick=tk.getImage(this.getClass().getResource("BLOCCO.png"));
+		
 		stair=tk.getImage(this.getClass().getResource("SCALA.png"));
+		
 		object7=tk.getImage(this.getClass().getResource("MOVABLE.png"));
 		
 		player[0]=tk.getImage(this.getClass().getResource("GOKUF1DX.png"));
@@ -59,7 +78,7 @@ public class MyPanel extends JPanel{
 		player[3]=tk.getImage(this.getClass().getResource("GOKUF1SX.png"));
 		player[4]=tk.getImage(this.getClass().getResource("GOKUF1SX.png"));
 		player[5]=tk.getImage(this.getClass().getResource("GOKUSX.png"));
-		player[6]=tk.getImage(this.getClass().getResource("GOKUTEL.png"));
+		player[6]=tk.getImage(this.getClass().getResource("enemyy.png"));
 		player[7]=tk.getImage(this.getClass().getResource("GOKUJUMPDX.png"));
 		player[8]=tk.getImage(this.getClass().getResource("GOKUJUMPSX.png"));
 		player[9]=tk.getImage(this.getClass().getResource("GOKUDOWNSX.png"));
@@ -67,7 +86,8 @@ public class MyPanel extends JPanel{
 		player[11]=tk.getImage(this.getClass().getResource("GOKUSHOOTDX1.png"));
 		player[12]=tk.getImage(this.getClass().getResource("GOKUSHOOTDX2.png"));
 		player[13]=tk.getImage(this.getClass().getResource("GOKUSHOOTSX1.png"));
-		player[14]=tk.getImage(this.getClass().getResource("GOKUSHOOTSX2.png"));
+		player[14]=tk.getImage(this.getClass().getResource("GOKUSHOOTSX2.png"));	
+		
 		
 		lastImageP=player[0];
 		
@@ -83,9 +103,14 @@ public class MyPanel extends JPanel{
 		enemyAI[9]=tk.getImage(this.getClass().getResource("ENEMYDOWNSX.png"));
 		enemyAI[10]=tk.getImage(this.getClass().getResource("ENEMYDOWNDX.png"));
 		
+		
 		lastImageE=enemyAI[0];
+		
 		bullet[0]=tk.getImage(this.getClass().getResource("PROIETTILEDX.png"));
 		bullet[1]=tk.getImage(this.getClass().getResource("PROIETTILESX.png"));
+		
+		
+		
 	}
 	private void initEH() {
 		this.addKeyListener(new KeyListener() {
@@ -176,11 +201,11 @@ public class MyPanel extends JPanel{
 	
 	private int convertiX(int x) {
 		
-		return (50*x)/fattore;
+		return (94*x)/fattore;
 	}
 
 	private int convertiY(int y) {
-		return (30*y)/fattore;
+		return (48*y)/fattore;
 	}
 
 	private Image playerMovement(Player p)

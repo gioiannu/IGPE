@@ -9,9 +9,8 @@ public class Enemy extends AbstractDynamicObject{
 	Player player;
 	Directions dir=Directions.RIGHT;
 	int movimento;
-	public Enemy(World world, int x, int y, Directions dir, int speed,Player player) {
+	public Enemy(World world, int x, int y, Directions dir, int speed) {
 		super(world, x, y, dir, speed);
-		this.player=player;
 		Random random=new Random();
 		movimento= random.nextInt(2);
 		

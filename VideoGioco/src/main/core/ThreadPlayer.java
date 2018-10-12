@@ -15,11 +15,11 @@ public class ThreadPlayer extends Thread{
 		while(!GM.gameOver()) {
 			GM.getPlayer().update();
 			GM.getPlayer().setPlayerLastDir(GM.getPlayer().getDirection());
-			GM.getPlayer().setDirection(Directions.STOP);
+			//GM.getPlayer().setDirection(Directions.STOP);
 
 			//panel.repaint();
 			try {
-				sleep(40);
+				sleep(50);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

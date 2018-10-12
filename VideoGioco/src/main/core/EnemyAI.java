@@ -6,7 +6,8 @@ import main.core.interfaces.Directions;
 
 public class EnemyAI extends Enemy{
 	public EnemyAI(World world, int x, int y, Directions dir, int speed,Player player) {
-		super(world, x, y, dir, speed,player);
+		super(world, x, y, dir, speed);
+		this.player=player;
 		
 	}
 	@Override

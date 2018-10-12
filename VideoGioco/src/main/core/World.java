@@ -19,6 +19,17 @@ public class World {
 					matrix[i][j]=new EmptyObject (0,0);
 		}
 		
+		public World(int width, int height, Object[][] m)
+		{
+			this.height= height;
+			this.width=width;
+			
+			
+			for(int i=0;i<height; i++)
+				for(int j=0;j<width; j++)
+					m[i][j]=new EmptyObject (0,0);
+		}
+		
 		public void add(int i, int j, GameObject g)
 		{
 			matrix[j][i]= g;

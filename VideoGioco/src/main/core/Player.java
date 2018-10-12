@@ -13,7 +13,7 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	
 	private final Proiettile proiettile;
 	
-	public Directions lastDirection=Directions.STOP;
+	public Directions lastDirection=Directions.RIGHT;
 
 	
 	
@@ -64,9 +64,16 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 			proiettile.setY(getY());
 			
 		}
-		else if(getDirection()==Directions.STOP&&lastDirection!=Directions.UP&&lastDirection!=Directions.DOWN) {
+		else if(getDirection()==Directions.STOP&&lastDirection==Directions.RIGHT) {
 			proiettile.setVisible(true);	
-			proiettile.setDirection(lastDirection);
+			proiettile.setDirection(Directions.RIGHT);
+			proiettile.setSpeed(1);
+			proiettile.setX(getX());
+			proiettile.setY(getY());
+		}
+		else if(getDirection()==Directions.STOP&&lastDirection==Directions.LEFT) {
+			proiettile.setVisible(true);	
+			proiettile.setDirection(Directions.LEFT);
 			proiettile.setSpeed(1);
 			proiettile.setX(getX());
 			proiettile.setY(getY());
@@ -83,6 +90,7 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	{
 		switch (getDirection())
         {
+			
             case UP:
             	for(int i=getX()-10;i<getX()+10;i++) {
             	if(world.getObject(i, getY()) instanceof Stairs||world.getObject(i, getY()-1) instanceof Stairs)
