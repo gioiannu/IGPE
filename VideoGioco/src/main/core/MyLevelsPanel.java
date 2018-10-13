@@ -52,6 +52,11 @@ public class MyLevelsPanel extends JPanel{
 		liv1 = tk.getImage(urlLiv1);
 		liv2 = tk.getImage(urlLiv2);
 		liv3 = tk.getImage(urlLiv3);
+		
+		liv1= liv1.getScaledInstance(width*412/1920,height*436/1080, 1);
+		liv2= liv2.getScaledInstance(width*388/1920,height*390/1080, 1);
+		liv3= liv3.getScaledInstance(width*382/1920,height*394/1080, 1);
+		
 		mt.start();
 	}
 	
@@ -62,18 +67,18 @@ public class MyLevelsPanel extends JPanel{
 		
 		if(position[0]==1)
 		{
-			g.drawImage(liv2, 313, 226, this);
-			g.drawImage(liv3, 651, 101, this);
+			g.drawImage(liv2, 313*width/1920, 226*height/1080, this);
+			g.drawImage(liv3, 651*width/1920, 101*height/1080, this);
 		}
 		if(position[1]==1)
 		{
-			g.drawImage(liv1, 1230, 335, this);
-			g.drawImage(liv3, 651, 101, this);
+			g.drawImage(liv1, 1230*width/1920, 335*height/1080, this);
+			g.drawImage(liv3, 651*width/1920, 101*height/1080, this);
 		}
 		if(position[2]==1)
 		{
-			g.drawImage(liv1, 1230, 335, this);
-			g.drawImage(liv2, 313, 226, this);
+			g.drawImage(liv1, 1230*width/1920, 335*height/1080, this);
+			g.drawImage(liv2, 313*width/1920, 226*height/1080, this);
 		}
 		
 	}

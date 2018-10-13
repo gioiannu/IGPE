@@ -1,17 +1,24 @@
 package main.core;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 
 public class MyFrame extends JFrame{
 
-	MyPanel panel=new MyPanel();
+	MyPanel panel;
+	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static int height=(int) screenSize.getHeight();
+	public static int width=(int) screenSize.getWidth();
 	
 	public MyFrame() {
 		super();
 		init();
 	}
 	public void init() {
-		this.setSize(1920, 1080);
+		panel=new MyPanel();
+		this.setSize(width,height);
 		this.setContentPane(panel);
 		this.setVisible(true);	
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -20,9 +27,9 @@ public class MyFrame extends JFrame{
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
 	
-	public static void main(final String[] args){
+	/*public static void main(final String[] args){
 		MyFrame f=new MyFrame();
-	}
+	}*/
 	
 
 }

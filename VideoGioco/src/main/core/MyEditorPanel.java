@@ -59,12 +59,12 @@ public class MyEditorPanel extends JPanel{
 	int width = (int) screenSize.getWidth();
 	int height = (int) screenSize.getHeight();
 	
-	Image editorBackground = editorBG.getScaledInstance(width, height,Image.SCALE_DEFAULT);
+	Image editorBackground = editorBG.getScaledInstance(width, height,1);
 	
-	int x = 728;  
-	int y = 39;	
-	int altezza = 1000;
-	int larghezza = 1150;
+	int x = 728*width/1920;  
+	int y = 39*height/1080;	
+	int altezza = 1000*height/1080;
+	int larghezza = 1150*width/1920;
 	
 	private Vector<Point> points = new Vector<Point>();
 	
@@ -101,12 +101,12 @@ public class MyEditorPanel extends JPanel{
 		
 		URL urlEvidenzia = this.getClass().getResource("EVIDENZIA.png");
 		
-		blocco_editor = tk.getImage(urlBlocco);
-		scala_editor = tk.getImage(urlScala);
-		enemy_editor = tk.getImage(urlEnemy);
-		movable_editor = tk.getImage(urlMovable);
-		elementoEvidenziato = tk.getImage(urlEvidenzia);
-		mappa_editor= tk.getImage(urlMappa);
+		blocco_editor = tk.getImage(urlBlocco).getScaledInstance(width*50/1920,height*50/1080, 1);
+		scala_editor = tk.getImage(urlScala).getScaledInstance(width*50/1920,height*50/1080, 1);
+		enemy_editor = tk.getImage(urlEnemy).getScaledInstance(width*50/1920,height*50/1080, 1);
+		movable_editor = tk.getImage(urlMovable).getScaledInstance(width*50/1920,height*50/1080, 1);
+		elementoEvidenziato = tk.getImage(urlEvidenzia).getScaledInstance(width*50/1920,height*50/1080, 1);
+		mappa_editor= tk.getImage(urlMappa).getScaledInstance(width*50/1920,height*50/1080, 1);
 		
 		mt.start();
 	}

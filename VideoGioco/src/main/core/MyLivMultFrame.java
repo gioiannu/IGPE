@@ -1,5 +1,8 @@
 package main.core;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 
 public class MyLivMultFrame extends JFrame {
@@ -8,14 +11,19 @@ public class MyLivMultFrame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	MyLivMultPanel mlmp = new MyLivMultPanel();
+	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static int height=(int) screenSize.getHeight();
+	public static int width=(int) screenSize.getWidth();
+	
+	MyLivMultPanel mlmp ;
 	
 
 	
 	public MyLivMultFrame() {
 		super();
+		mlmp= new MyLivMultPanel();
 		this.setTitle("LivMult");
-		this.setSize(1024, 514);
+		this.setSize(width, height);
 		this.setContentPane(mlmp);
 		mlmp.setFocusable(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -25,8 +33,8 @@ public class MyLivMultFrame extends JFrame {
 		
 	}
 	
-	public static void main(final String[] args) {
+	/*public static void main(final String[] args) {
 		MyLivMultFrame livMult = new MyLivMultFrame();
 
-	}
+	}*/
 }

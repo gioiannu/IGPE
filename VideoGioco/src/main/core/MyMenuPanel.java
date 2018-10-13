@@ -29,7 +29,7 @@ public class MyMenuPanel extends JPanel{
 	Image esci;
 	Toolkit tk = Toolkit.getDefaultToolkit();
 	int [] position;
-	MyMenuThread mt = new MyMenuThread(this);
+	MyMenuThread mt ;
 	MyLivMultFrame lvMult;
 	MyEditorFrame myEdit;
 	URL urlMenuBackground = this.getClass().getResource("MENU.png");
@@ -39,7 +39,7 @@ public class MyMenuPanel extends JPanel{
 	int width = (int) screenSize.getWidth();
 	int height = (int) screenSize.getHeight();
 	
-	Image menuBackground = menuBG.getScaledInstance(width, height,Image.SCALE_DEFAULT);
+	Image menuBackground = menuBG.getScaledInstance(width, height,1);
 	
 	
 	
@@ -51,6 +51,7 @@ public class MyMenuPanel extends JPanel{
 		
 		position = new int [4];
 		position[0]=1; position[1]=0; position[2]=0; position[3]=0;
+		mt = new MyMenuThread(this);
 		initMENU();
 		initListener();
 		
@@ -67,21 +68,26 @@ public class MyMenuPanel extends JPanel{
 		editor = tk.getImage(urlEditor);
 		how = tk.getImage(urlHow);
 		esci = tk.getImage(urlEsci);
+		gioca= gioca.getScaledInstance(width*410/1920,height*195/1080, 1);
+		editor= editor.getScaledInstance(width*413/1920,height*186/1080, 1);
+		how= how.getScaledInstance(width*697/1920,height*188/1080, 1);
+		esci= esci.getScaledInstance(width*293/1920,height*175/1080, 1);
+
 		mt.start();
 	}
-	
+
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(menuBackground, 0, 0, this);
 		if(position[0]==1)
-		g.drawImage(gioca, 923, 373, this);
+		g.drawImage(gioca, (923*width/1920), (373*height/1080), this);
 		if(position[1]==1)
-		g.drawImage(editor, 922, 546, this);
+		g.drawImage(editor, (922*width/1920), (546*height/1080), this);
 		if(position[2]==1)
-		g.drawImage(how, 781, 710, this);
+		g.drawImage(how, (781*width/1920), (710*height/1080), this);
 		if(position[3]==1)
-		g.drawImage(esci, 987, 868, this);
+		g.drawImage(esci, (987*width/1920), (868*height/1080), this);
 		
 		
 		

@@ -59,6 +59,9 @@ public class MyLivMultPanel extends JPanel{
 		liv = tk.getImage(urlLiv);
 		mult = tk.getImage(urlMult);
 		
+		liv=liv.getScaledInstance(width*538/1920,height*167/1080, 1);
+		mult=mult.getScaledInstance(width*842/1920,height*186/1080, 1);
+		
 		mt.start();
 	}
 	
@@ -68,10 +71,10 @@ public class MyLivMultPanel extends JPanel{
 		g.drawImage(livMBackground, 0, 0, this);
 		
 		if(position[0]==1)
-		g.drawImage(liv, 936, 525, this);
+		g.drawImage(liv, 936*width/1920, 525*height/1080, this);
 		
 		if(position[1]==1)
-		g.drawImage(mult, 934, 683, this);
+		g.drawImage(mult, 934*width/1920, 683*height/1080, this);
 		
 }
 	
