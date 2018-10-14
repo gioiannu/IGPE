@@ -225,7 +225,7 @@ public class GameManager {
 	{
 		playerLastDir=d;
 	}
-	public void update()
+	/*public void update()
 	{
 		//player.update();
 		//setPlayerLastDir(player.getDirection());
@@ -248,7 +248,7 @@ public class GameManager {
 		
 		world.update(player, enemies, movableObjects, solidBricks, stairs,eai);
 		
-	}
+	}*/
 	
 	public void printWorld()
 	{

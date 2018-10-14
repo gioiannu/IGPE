@@ -53,15 +53,11 @@ public class MyPanel extends JPanel{
 		initGUI();
 		initEH();
 		gameManager.startGame(1);
-		ThreadGame tg=new ThreadGame(gameManager/*,this*/);
-		ThreadEnemy te=new ThreadEnemy(gameManager/*,this*/);
-		ThreadPlayer tplayer=new ThreadPlayer(gameManager/*,this*/);
+		ThreadDinamicObject te=new ThreadDinamicObject(gameManager/*,this*/);
 		ThreadMovableObject tm=new ThreadMovableObject(gameManager/*,this*/);
 		ThreadPanel tp= new ThreadPanel(this,gameManager);
-		tg.start();
 		te.start();
 		tp.start();
-		tplayer.start();
 		tm.start();
 	}
 	
@@ -96,7 +92,7 @@ public class MyPanel extends JPanel{
 		lastImageP=player[0];
 		
 		enemyAI[0]=tk.getImage(this.getClass().getResource("ENEMYF1DX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
-		enemyAI[1]=tk.getImage(this.getClass().getResource("ENEMYF2DX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[1]=tk.getImage(this.getClass().getResource("ENEMYF1DX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[2]=tk.getImage(this.getClass().getResource("ENEMYDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[3]=tk.getImage(this.getClass().getResource("ENEMYF1SX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[4]=tk.getImage(this.getClass().getResource("ENEMYF2SX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);

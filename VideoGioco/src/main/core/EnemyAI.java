@@ -14,6 +14,7 @@ public class EnemyAI extends Enemy{
 	public void update() {
 		//Random random=new Random();
 				//int movimento= random.nextInt(2);
+		if(injured==false) {
 				if(player.getY()>this.getY()) {
 					if(world.getObject(getX(), getY()+1) instanceof Stairs) {
 						this.setDirection(Directions.DOWN);
@@ -84,6 +85,11 @@ public class EnemyAI extends Enemy{
 		            default:
 		                break;
 		        }
+		}
+		else{
+			injured=false;
+			this.setDirection(Directions.LEFT);
+		}
 		
 	}
 	
