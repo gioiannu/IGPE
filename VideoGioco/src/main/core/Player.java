@@ -13,7 +13,7 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	
 	private final Proiettile proiettile;
 	
-	public Directions lastDirection=Directions.RIGHT;
+	public Directions lastDirection=Directions.STOP;
 
 	
 	
@@ -56,7 +56,11 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	@Override
 	public void shoot()
 	{
-		if(getDirection()==Directions.RIGHT||getDirection()==Directions.LEFT) {
+		proiettile.setVisible(true);
+		proiettile.setSpeed(1);
+		proiettile.setX(getX());
+		proiettile.setY(getY());
+		/*if(getDirection()==Directions.RIGHT||getDirection()==Directions.LEFT) {
 			proiettile.setVisible(true);
 			proiettile.setDirection(getDirection());
 			proiettile.setSpeed(1);
@@ -64,20 +68,13 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 			proiettile.setY(getY());
 			
 		}
-		else if(getDirection()==Directions.STOP&&lastDirection==Directions.RIGHT) {
+		else if(getDirection()==Directions.STOP&&lastDirection!=Directions.UP&&lastDirection!=Directions.DOWN) {
 			proiettile.setVisible(true);	
-			proiettile.setDirection(Directions.RIGHT);
+			proiettile.setDirection(lastDirection);
 			proiettile.setSpeed(1);
 			proiettile.setX(getX());
 			proiettile.setY(getY());
-		}
-		else if(getDirection()==Directions.STOP&&lastDirection==Directions.LEFT) {
-			proiettile.setVisible(true);	
-			proiettile.setDirection(Directions.LEFT);
-			proiettile.setSpeed(1);
-			proiettile.setX(getX());
-			proiettile.setY(getY());
-		}
+		}*/
 	}
 	
 	public void removeOneLife()
@@ -90,15 +87,15 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	{
 		switch (getDirection())
         {
-			
             case UP:
-            	for(int i=getX()-10;i<getX()+10;i++) {
+            	for(int i=getX()-fattore/2;i<getX()+fattore/2;i++) {
             	if(world.getObject(i, getY()) instanceof Stairs||world.getObject(i, getY()-1) instanceof Stairs)
             			setY(getY() - getSpeed());
-            	}            	lastDirection=Directions.UP;
+            	}            	
+            	lastDirection=Directions.UP;
                 break;
             case DOWN:
-            	for(int i=getX()-10;i<getX()+10;i++) {
+            	for(int i=getX()-fattore;i<getX()+fattore/2;i++) {
             	if(world.getObject(i, getY()+1) instanceof Stairs)
             		setY(getY() + getSpeed());
             	}
@@ -110,6 +107,8 @@ public class Player extends AbstractDynamicObject implements CanShoot {
             		else if(world.getObject(getX()-1, getY()+1) instanceof Stairs||world.getObject(getX()-1, getY()+1) instanceof SolidBrick)
             			setX(getX() - getSpeed());
             	lastDirection=Directions.LEFT;
+            	if(proiettile.isVisible()==false)
+            		proiettile.setDirection(Directions.LEFT);
                 break;
             case RIGHT:
             		if(getX()==world.getWidth()-1&&((world.getObject(0, getY()+1) instanceof Stairs||world.getObject(0, getY()+1) instanceof SolidBrick)))
@@ -117,9 +116,12 @@ public class Player extends AbstractDynamicObject implements CanShoot {
             		else if(world.getObject(getX()+1, getY()+1) instanceof Stairs||world.getObject(getX()+1, getY()+1) instanceof SolidBrick)
             			setX(getX() + getSpeed());
             	lastDirection=Directions.RIGHT;
+            	if(proiettile.isVisible()==false)
+            		proiettile.setDirection(Directions.RIGHT);
                 break;
 
             default:
+            	
                 break;
         }
 		

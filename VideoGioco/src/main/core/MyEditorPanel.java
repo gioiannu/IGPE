@@ -36,6 +36,7 @@ public class MyEditorPanel extends JPanel{
 	Image movable_editor;
 	Image enemy_editor;
 	Image mappa_editor;
+	int fattore= 10;
 	//Player pl;
 	
 	private World myWorld;
@@ -59,12 +60,12 @@ public class MyEditorPanel extends JPanel{
 	int width = (int) screenSize.getWidth();
 	int height = (int) screenSize.getHeight();
 	
-	Image editorBackground = editorBG.getScaledInstance(width, height,Image.SCALE_DEFAULT);
+	Image editorBackground = editorBG.getScaledInstance(width, height,1);
 	
-	int x = 728;  
-	int y = 39;	
-	int altezza = 1000;
-	int larghezza = 1150;
+	int x = 898*width/1920;  ;  
+	int y = 16*height/1080;	;	
+	int altezza = 1035*height/1080;;
+	int larghezza = 900*width/1920;;
 	
 	private Vector<Point> points = new Vector<Point>();
 	
@@ -76,14 +77,14 @@ public class MyEditorPanel extends JPanel{
 		this.setEnabled(true);
 		
 		//pl=new Player(myWorld, 11,18,Directions.STOP,0);
-		myWorld = new World(20,23);
+		myWorld = new World(20*fattore,23*fattore);
 		editor = new Editor();
 		
 		position = new int [4];
 		position[0]=1; position[1]=0; position[2]=0; position[3]=0;
-		matrix= new String [23][20];
-		for(int i=0;i<23; i++)
-			for(int j=0;j<20; j++)
+		matrix= new String [20][23];
+		for(int i=0;i<20; i++)
+			for(int j=0;j<23; j++)
 				matrix[i][j]= " ";
 		initEDITOR();
 		initListener();
@@ -101,12 +102,12 @@ public class MyEditorPanel extends JPanel{
 		
 		URL urlEvidenzia = this.getClass().getResource("EVIDENZIA.png");
 		
-		blocco_editor = tk.getImage(urlBlocco);
-		scala_editor = tk.getImage(urlScala);
-		enemy_editor = tk.getImage(urlEnemy);
-		movable_editor = tk.getImage(urlMovable);
-		elementoEvidenziato = tk.getImage(urlEvidenzia);
-		mappa_editor= tk.getImage(urlMappa);
+		blocco_editor = tk.getImage(urlBlocco).getScaledInstance(width*45/1920,height*45/1080, 1);
+		scala_editor = tk.getImage(urlScala).getScaledInstance(width*45/1920,height*45/1080, 1);
+		enemy_editor = tk.getImage(urlEnemy).getScaledInstance(width*45/1920,height*45/1080, 1);
+		movable_editor = tk.getImage(urlMovable).getScaledInstance(width*45/1920,height*45/1080, 1);
+		elementoEvidenziato = tk.getImage(urlEvidenzia).getScaledInstance(width*45/1920,height*45/1080, 1);
+		mappa_editor= tk.getImage(urlMappa).getScaledInstance(width*900/1920,height*1035/1080, 1);
 		
 		mt.start();
 	}
@@ -116,8 +117,8 @@ public class MyEditorPanel extends JPanel{
 		int px=i;
 		int py=j;
 		
-		px=(px-x)/50;
-		py=(py-y)/50;
+		px=(px-x)/45;
+		py=(py-y)/45;
 		
 		Point p= new Point (px,py);
 		return p;
@@ -145,19 +146,19 @@ public class MyEditorPanel extends JPanel{
 		for(int i=0; i< points.size(); i++)
 		{
 			Point tmp= points.get(i);
-			for(int l=0;l<23; l++)
-				for(int t=0;t<20; t++)
+			for(int l=0;l<20; l++)
+				for(int t=0;t<23; t++)
 				{
 					if( tmp.x == l && tmp.y==t)
 					{
 						if(matrix[l][t] == "blocco")
-							g.drawImage(blocco_editor, x+(l*50), y+(t*50), this);
+							g.drawImage(blocco_editor, x+(l*45), y+(t*45), this);
 						else if(matrix[l][t] == "sfera")
-							g.drawImage(movable_editor, x+(l*50), y+(t*50), this);
+							g.drawImage(movable_editor, x+(l*45), y+(t*45), this);
 						else if(matrix[l][t] == "nemico")
-							g.drawImage(enemy_editor, x+(l*50), y+(t*50), this);
+							g.drawImage(enemy_editor, x+(l*45), y+(t*45), this);
 						else if(matrix[l][t] == "scala")
-							g.drawImage(scala_editor, x+(l*50), y+(t*50), this);
+							g.drawImage(scala_editor, x+(l*45), y+(t*45), this);
 					}
 				}
 		}
@@ -206,7 +207,9 @@ public void initListener() {
 					
 				}
 				else if(e.getKeyCode()==10) {
-					mf = new MyFrame();
+					mf = new MyFrame(editor);
+					
+					
 					 JComponent comp = (JComponent) e.getSource();
 					  Window win = SwingUtilities.getWindowAncestor(comp);
 					  win.dispose();
@@ -250,22 +253,27 @@ public void initListener() {
 						{
 								if(position[0]==1)
 								{
-									if(matrix[(int)(k-x)/50][(int)(h-y)/50] == " ")
+									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " ")
 									{
-										matrix[(int)(k-x)/50][(int)(h-y)/50]="blocco";
-										SolidBrick s= new SolidBrick(myWorld,(int)(k-x)/50,(int)(h-y)/50);
-										editor.addElement((int)(k-x)/50,(int)(h-y)/50,s);
-										editor.addSolidBrick(s);
+										matrix[(int)(k-x)/45][(int)(h-y)/45]="blocco";
+										for(int i=0;i<20;i++) {
+											SolidBrick s= new SolidBrick(myWorld,(int)((k-x)/45)*10+i,(int)((h-y)/45)*10);
+										
+										
+											//editor.addElement(((int)(k-x)/45)*10+i , ((int)(h-y)/45)*10+i ,s);
+										
+											editor.addSolidBrick(s);
+										}
 									}
 								}
 
 								else if(position[1]==1)
 								{
-									if(matrix[(int)(k-x)/50][(int)(h-y)/50] == " ")
+									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " ")
 									{
-										matrix[(int)(k-x)/50][(int)(h-y)/50]="sfera";
-										MovableObject m= new MovableObject(myWorld,(int)(k-x)/50,(int)(h-y)/50,Directions.STOP, 0);
-										editor.addElement((int)(k-x)/50,(int)(h-y)/50,m);
+										matrix[(int)(k-x)/45][(int)(h-y)/45]="sfera";
+										MovableObject m= new MovableObject(myWorld,((int)(k-x)/45)*10,((int)(h-y)/45)*10,Directions.STOP, 0);
+										//editor.addElement(((int)(k-x)/45)*10+i , ((int)(h-y)/45)*10+i,m);
 										editor.addMovableObject(m);
 									}
 									
@@ -273,23 +281,26 @@ public void initListener() {
 
 								else if(position[2]==1)
 								{
-									if(matrix[(int)(k-x)/50][(int)(h-y)/50] == " ")
+									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " ")
 									{
-										matrix[(int)(k-x)/50][(int)(h-y)/50]="nemico";
-										Enemy en= new Enemy(myWorld,(int)(k-x)/50,(int)(h-y)/50,Directions.STOP, 0);
-										editor.addElement((int)(k-x)/50,(int)(h-y)/50,en);
+										matrix[(int)(k-x)/45][(int)(h-y)/45]="nemico";
+										Enemy en= new Enemy(myWorld,(int)(k-x)/45*10,(int)(h-y)/45*10,Directions.STOP, 0);
+										//editor.addElement(((int)(k-x)/45)* 10+i , ((int)(h-y)/45)* 10+i,en);
 										editor.addEnemy(en);
+										
 									}
 								}
 
 								else if(position[3]==1)
 								{
-									if(matrix[(int)(k-x)/50][(int)(h-y)/50] == " ")
+									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " ")
 									{
-										matrix[(int)(k-x)/50][(int)(h-y)/50]="scala";
-										Stairs st= new Stairs(myWorld,(int)(k-x)/50,(int)(h-y)/50);
-										editor.addElement((int)(k-x)/50,(int)(h-y)/50,st);
+										matrix[(int)(k-x)/45][(int)(h-y)/45]="scala";
+										for(int i=0;i<20;i++) {
+										Stairs st= new Stairs(myWorld,(int)(k-x)/45*10,(int)(h-y)/45*10+i);
+										//editor.addElement(((int)(k-x)/45)* 10+i , ((int)(h-y)/45)* 10+i,st);
 										editor.addStair(st);
+										}
 									}
 								}
 								

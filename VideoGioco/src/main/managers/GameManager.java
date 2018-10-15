@@ -16,9 +16,6 @@ public class GameManager {
 	
 	private World world;
 	
-	private MyEditorPanel me;
-	
-	private Editor editor;
 	
 	private int fattore=10;
 
@@ -38,6 +35,10 @@ public class GameManager {
     
     private Directions playerLastDir= Directions.STOP;
     
+    MyEditorPanel me;
+    
+    Editor editor;
+    
     
     
     
@@ -47,7 +48,6 @@ public class GameManager {
 	public GameManager()
 	{
 		editor= new Editor();
-		me=new MyEditorPanel();
 	}
 	
 	
@@ -108,6 +108,11 @@ public class GameManager {
 	}
 	
 	
+	public void setMatrix(Object[][] m)
+	{
+		world = new World (20*fattore, 23*fattore, m);
+	}
+	
 	
 	
 	
@@ -166,45 +171,92 @@ public class GameManager {
 			
 		}
 		
-		else if(levels==2)
+		
+		
+		
+		
+		
+		
+		
+				
+		
+		
+	}
+	
+	
+	public void startGame(int levels,Editor editor)
+	{
+		world= new World (20*fattore,23*fattore);
+		
+			/*solidBricks= new SolidBrick[editor.getSolidBricks().size()];
+			for(int i=0,k=0; i<editor.getSolidBricks().size(); i++)
+			{
+				
+					solidBricks[k++]= new SolidBrick (world,editor.getSolidBricks().get(i).getX()*fattore,editor.getSolidBricks().get(i).getY()*fattore) ;
+					for(int j=0; j<20; j++)
+						solidBricks[k++]= new SolidBrick (world,editor.getSolidBricks().get(i).getX()*fattore+j,editor.getSolidBricks().get(i).getY()*fattore+j) ;
+
+			}
+			
+			movableObjects = new MovableObject[editor.getMovableObjects().size()];
+			
+			for(int i=0; i<editor.getMovableObjects().size(); i++)
+			{
+				
+				movableObjects[i]= new MovableObject(world,editor.getMovableObjects().get(i).getX()*fattore,editor.getMovableObjects().get(i).getY()*fattore+fattore-1,Directions.STOP,0 );
+			}
+			
+			enemies=new Enemy[editor.getEnemies().size()];
+			for(int i=0; i<editor.getEnemies().size(); i++)
+			{
+				enemies[i]=new Enemy(world,editor.getEnemies().get(i).getX()*fattore,editor.getEnemies().get(i).getY()*fattore+fattore-1,Directions.STOP,1);
+
+			}
+			
+			stairs=new Stairs[editor.getStairs().size()*fattore];
+			for(int i=0,k=0; i<editor.getStairs().size(); i++)
+			{
+				
+					stairs[k++]= new Stairs (world,editor.getStairs().get(i).getX()*fattore,editor.getStairs().get(i).getY()*fattore) ;
+					for(int j=0; j<23; j++)
+						stairs[k++]= new Stairs (world,editor.getStairs().get(i).getX()*fattore+j,editor.getStairs().get(i).getY()*fattore+j) ;
+
+			}*/
+		
+		solidBricks= new SolidBrick[editor.getSolidBricks().size()];
+		movableObjects = new MovableObject[editor.getMovableObjects().size()];
+		enemies=new Enemy[editor.getEnemies().size()];
+		stairs=new Stairs[editor.getStairs().size()];
+		
+		
+		
+		for(int i=0; i<editor.getSolidBricks().size(); i++)
 		{
-			world = new World(20*fattore,23*fattore,me.getEditor().getMatrix());
-			
-			
-			solidBricks= new SolidBrick[me.getEditor().getSolidBricks().size()*fattore];
-			for(int i=0,k=0; i<me.getEditor().getSolidBricks().size(); i++)
-			{
-				
-					solidBricks[k++]= new SolidBrick (world,me.getEditor().getSolidBricks().get(i).getX()*fattore,me.getEditor().getSolidBricks().get(i).getY()*fattore) ;
-					for(int j=0; j<20; j++)
-						solidBricks[k++]= new SolidBrick (world,me.getEditor().getSolidBricks().get(i).getX()*fattore+j,me.getEditor().getSolidBricks().get(i).getY()*fattore+j) ;
+			solidBricks[i]= editor.getSolidBricks().get(i);
+		}
+		
+		for(int i=0; i<editor.getMovableObjects().size(); i++)
+		{
+			movableObjects[i]= editor.getMovableObjects().get(i);
+		}
+		
+		for(int i=0; i<editor.getEnemies().size(); i++)
+		{
+			enemies[i]= editor.getEnemies().get(i);
+		}
+		
+		for(int i=0; i<editor.getStairs().size(); i++)
+		{
+			stairs[i]= editor.getStairs().get(i);
+		}
 
-			}
-			
-			movableObjects = new MovableObject[me.getEditor().getMovableObjects().size()];
-			
-			for(int i=0; i<me.getEditor().getMovableObjects().size(); i++)
-			{
-				
-				movableObjects[i]= new MovableObject(world,me.getEditor().getMovableObjects().get(i).getX()*fattore,me.getEditor().getMovableObjects().get(i).getY()*fattore+fattore-1,Directions.STOP,0 );
-			}
-			
-			enemies=new Enemy[me.getEditor().getEnemies().size()];
-			for(int i=0; i<me.getEditor().getEnemies().size(); i++)
-			{
-				enemies[i]=new Enemy(world,me.getEditor().getEnemies().get(i).getX()*fattore,me.getEditor().getEnemies().get(i).getY()*fattore+fattore-1,Directions.STOP,1);
-
-			}
-			
-			stairs=new Stairs[me.getEditor().getStairs().size()*fattore];
-			for(int i=0,k=0; i<me.getEditor().getStairs().size(); i++)
-			{
-				
-					stairs[k++]= new Stairs (world,me.getEditor().getStairs().get(i).getX()*fattore,me.getEditor().getStairs().get(i).getY()*fattore) ;
-					for(int j=0; j<20; j++)
-						stairs[k++]= new Stairs (world,me.getEditor().getStairs().get(i).getX()*fattore+j,me.getEditor().getStairs().get(i).getY()*fattore+j) ;
-
-			}
+		
+		
+		
+		
+		
+		
+		
 
 			
 			player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1);
@@ -213,14 +265,13 @@ public class GameManager {
 			world.update(player, enemies, movableObjects, solidBricks, stairs, eai);
 			
 			
-			
-		}
-		
-		
-				
-		
-		
 	}
+	
+	
+	
+	
+	
+	
 	public void setPlayerLastDir(Directions d)
 	{
 		playerLastDir=d;

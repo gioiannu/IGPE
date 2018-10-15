@@ -2,21 +2,25 @@ package main.core;
 
 import java.util.Random;
 
+import javax.swing.Timer;
+
 import main.core.interfaces.Directions;
 
 public class Enemy extends AbstractDynamicObject{
-	
 	Player player;
 	Directions dir=Directions.RIGHT;
 	int movimento;
+	boolean injured=false;
 	public Enemy(World world, int x, int y, Directions dir, int speed) {
 		super(world, x, y, dir, speed);
 		Random random=new Random();
 		movimento= random.nextInt(2);
 		
 	}
+	public static native void sleep(long millis) throws InterruptedException;
 	@Override
 	public void update() {
+		if(injured==false) {
 		if(movimento==1) {
 			if(world.getObject(getX(), getY()+1) instanceof Stairs) 
 				this.setDirection(Directions.DOWN);
@@ -69,7 +73,19 @@ public class Enemy extends AbstractDynamicObject{
             default:
                 break;
         }
+		}
+		else{
+			injured=false;
+			this.setDirection(Directions.LEFT);
+		}
 		
+	}
+	public void injuring(Proiettile p) {
+		if(p.isVisible() && getX()==p.getX() && getY()==p.getY()) {
+			injured=true;
+			p.setVisible(false);
+			this.setDirection(Directions.STOP);
+		}
 	}
 	
 

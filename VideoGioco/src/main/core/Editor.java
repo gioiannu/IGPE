@@ -36,14 +36,14 @@ public class Editor {
 	private ArrayList <MovableObject> movableObjects;
 	private ArrayList <Enemy> enemies;
 	
-	int width= 23;
-	int height= 20;
+	int width= 20;
+	int height= 23;
 	
 	
 	public Editor ()
 	{
 		
-		matrix= new Object[23*10][20*10];
+		matrix= new Object[20*10][23*10];
 		solidBricks = new ArrayList<>();
 		stairs = new ArrayList<>();
 		movableObjects= new ArrayList<>();
@@ -89,7 +89,7 @@ public class Editor {
 	
 
 	
-	public List <Enemy> getEnemies() {
+	public ArrayList <Enemy> getEnemies() {
 		return enemies;
 	}
 
@@ -112,7 +112,9 @@ public class Editor {
 	
 	public void addElement (int x, int y,GameObject g)
 	{
-		matrix[x][y]=g;
+					matrix[x][y]=g;
+			
+		
 	}
 	
 	

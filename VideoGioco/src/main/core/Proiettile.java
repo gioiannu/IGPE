@@ -1,7 +1,7 @@
 package main.core;
 
 import main.core.interfaces.Directions;
-import main.core.interfaces.GameObject;
+
 
 public class Proiettile extends AbstractDynamicObject{
 	
@@ -9,7 +9,7 @@ public class Proiettile extends AbstractDynamicObject{
 	
 	public Proiettile(final World world, int x, int y, Directions dir,int speed)
 	{
-		super(world,x,y,dir,speed);
+		super(world,x,y,Directions.RIGHT,speed);
 	}
 	
 	public boolean isVisible()
@@ -30,7 +30,6 @@ public class Proiettile extends AbstractDynamicObject{
             case LEFT:
             	if(getX()==0) {
             		setVisible(false);
-        			setDirection(Directions.STOP);
             	}
             	else 
             		setX(getX() - getSpeed());
@@ -38,7 +37,6 @@ public class Proiettile extends AbstractDynamicObject{
             case RIGHT:
             	if(getX()==world.getWidth()-1) {
             		setVisible(false);
-        			setDirection(Directions.STOP);
             	}
             	else 
             		setX(getX() + getSpeed());
@@ -46,7 +44,6 @@ public class Proiettile extends AbstractDynamicObject{
 
             default:
             	setVisible(false);
-    			setDirection(Directions.STOP);
                 break;
         }
 	}

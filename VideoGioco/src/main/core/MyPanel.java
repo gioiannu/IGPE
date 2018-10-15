@@ -13,6 +13,10 @@ import main.core.interfaces.Directions;
 import main.managers.GameManager;
 
 public class MyPanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7756238667816638729L;
 	GameManager gameManager=new GameManager();
 	Toolkit tk=Toolkit.getDefaultToolkit();
 	
@@ -33,6 +37,7 @@ public class MyPanel extends JPanel{
 	Image lastImageE;
 	
 	Image [] bullet=new Image[2];
+	MyEditorPanel me= new MyEditorPanel();
 	
 	boolean shooting=false;
 	
@@ -41,7 +46,7 @@ public class MyPanel extends JPanel{
 	Dimension screenSize = tk.getScreenSize();
 	int width = (int) screenSize.getWidth();
 	int height = (int) screenSize.getHeight();
-
+	
 	
 	public MyPanel() 
 	{
@@ -49,65 +54,74 @@ public class MyPanel extends JPanel{
 		initGUI();
 		initEH();
 		gameManager.startGame(1);
-		ThreadGame tg=new ThreadGame(gameManager/*,this*/);
-		ThreadEnemy te=new ThreadEnemy(gameManager/*,this*/);
-		ThreadPlayer tplayer=new ThreadPlayer(gameManager/*,this*/);
+		ThreadDinamicObject te=new ThreadDinamicObject(gameManager/*,this*/);
 		ThreadMovableObject tm=new ThreadMovableObject(gameManager/*,this*/);
 		ThreadPanel tp= new ThreadPanel(this,gameManager);
-		tg.start();
 		te.start();
 		tp.start();
-		tplayer.start();
+		tm.start();
+	}
+	public MyPanel( Editor editor) 
+	{
+		super();
+		initGUI();
+		initEH();
+		gameManager.startGame(4,editor);
+		ThreadDinamicObject te=new ThreadDinamicObject(gameManager/*,this*/);
+		ThreadMovableObject tm=new ThreadMovableObject(gameManager/*,this*/);
+		ThreadPanel tp= new ThreadPanel(this,gameManager);
+		te.start();
+		tp.start();
 		tm.start();
 	}
 	
 	private void initGUI() {
 		this.setFocusable(true);
-		background=tk.getImage(this.getClass().getResource("SFONDO.png"));
-		scaledBackground = background.getScaledInstance(width, height,Image.SCALE_DEFAULT);
+		background=tk.getImage(this.getClass().getResource("SFONDO.png")).getScaledInstance(width,height,1);
+		//scaledBackground = background.getScaledInstance(width,height,1);
 		
-		brick=tk.getImage(this.getClass().getResource("BLOCCO.png"));
+		brick=tk.getImage(this.getClass().getResource("BLOCCO.png")).getScaledInstance(width*130/1920,height*80/1080, 1);
 		
-		stair=tk.getImage(this.getClass().getResource("SCALA.png"));
+		stair=tk.getImage(this.getClass().getResource("SCALA.png")).getScaledInstance(width*130/1920,height*80/1080, 1);
 		
-		object7=tk.getImage(this.getClass().getResource("MOVABLE.png"));
+		object7=tk.getImage(this.getClass().getResource("MOVABLE.png")).getScaledInstance(width*58/1920,height*58/1080, 1);
 		
-		player[0]=tk.getImage(this.getClass().getResource("GOKUF1DX.png"));
-		player[1]=tk.getImage(this.getClass().getResource("GOKUF1DX.png"));
-		player[2]=tk.getImage(this.getClass().getResource("GOKUDX.png"));
-		player[3]=tk.getImage(this.getClass().getResource("GOKUF1SX.png"));
-		player[4]=tk.getImage(this.getClass().getResource("GOKUF1SX.png"));
-		player[5]=tk.getImage(this.getClass().getResource("GOKUSX.png"));
-		player[6]=tk.getImage(this.getClass().getResource("enemyy.png"));
-		player[7]=tk.getImage(this.getClass().getResource("GOKUJUMPDX.png"));
-		player[8]=tk.getImage(this.getClass().getResource("GOKUJUMPSX.png"));
-		player[9]=tk.getImage(this.getClass().getResource("GOKUDOWNSX.png"));
-		player[10]=tk.getImage(this.getClass().getResource("GOKUDOWNDX.png"));
-		player[11]=tk.getImage(this.getClass().getResource("GOKUSHOOTDX1.png"));
-		player[12]=tk.getImage(this.getClass().getResource("GOKUSHOOTDX2.png"));
-		player[13]=tk.getImage(this.getClass().getResource("GOKUSHOOTSX1.png"));
-		player[14]=tk.getImage(this.getClass().getResource("GOKUSHOOTSX2.png"));	
+		player[0]=tk.getImage(this.getClass().getResource("GOKUF1DX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[1]=tk.getImage(this.getClass().getResource("GOKUF1DX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[2]=tk.getImage(this.getClass().getResource("GOKUDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[3]=tk.getImage(this.getClass().getResource("GOKUF1SX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[4]=tk.getImage(this.getClass().getResource("GOKUF1SX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[5]=tk.getImage(this.getClass().getResource("GOKUSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[6]=tk.getImage(this.getClass().getResource("enemyy.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[7]=tk.getImage(this.getClass().getResource("GOKUJUMPDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[8]=tk.getImage(this.getClass().getResource("GOKUJUMPSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[9]=tk.getImage(this.getClass().getResource("GOKUDOWNSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[10]=tk.getImage(this.getClass().getResource("GOKUDOWNDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[11]=tk.getImage(this.getClass().getResource("GOKUSHOOTDX1.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[12]=tk.getImage(this.getClass().getResource("GOKUSHOOTDX2.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[13]=tk.getImage(this.getClass().getResource("GOKUSHOOTSX1.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[14]=tk.getImage(this.getClass().getResource("GOKUSHOOTSX2.png")).getScaledInstance(width*46/1920,height*58/1080, 1);	
 		
 		
 		lastImageP=player[0];
 		
-		enemyAI[0]=tk.getImage(this.getClass().getResource("ENEMYF1DX.png"));
-		enemyAI[1]=tk.getImage(this.getClass().getResource("ENEMYF2DX.png"));
-		enemyAI[2]=tk.getImage(this.getClass().getResource("ENEMYDX.png"));
-		enemyAI[3]=tk.getImage(this.getClass().getResource("ENEMYF1SX.png"));
-		enemyAI[4]=tk.getImage(this.getClass().getResource("ENEMYF2SX.png"));
-		enemyAI[5]=tk.getImage(this.getClass().getResource("ENEMYSX.png"));
-		enemyAI[6]=tk.getImage(this.getClass().getResource("ENEMYTEL.png"));
-		enemyAI[7]=tk.getImage(this.getClass().getResource("ENEMYJUMPDX.png"));
-		enemyAI[8]=tk.getImage(this.getClass().getResource("ENEMYJUMPSX.png"));
-		enemyAI[9]=tk.getImage(this.getClass().getResource("ENEMYDOWNSX.png"));
-		enemyAI[10]=tk.getImage(this.getClass().getResource("ENEMYDOWNDX.png"));
+		enemyAI[0]=tk.getImage(this.getClass().getResource("ENEMYF1DX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[1]=tk.getImage(this.getClass().getResource("ENEMYF1DX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[2]=tk.getImage(this.getClass().getResource("ENEMYDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[3]=tk.getImage(this.getClass().getResource("ENEMYF1SX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[4]=tk.getImage(this.getClass().getResource("ENEMYF2SX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[5]=tk.getImage(this.getClass().getResource("ENEMYSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[6]=tk.getImage(this.getClass().getResource("ENEMYTEL.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[7]=tk.getImage(this.getClass().getResource("ENEMYJUMPDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[8]=tk.getImage(this.getClass().getResource("ENEMYJUMPSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[9]=tk.getImage(this.getClass().getResource("ENEMYDOWNSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[10]=tk.getImage(this.getClass().getResource("ENEMYDOWNDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		
 		
 		lastImageE=enemyAI[0];
 		
-		bullet[0]=tk.getImage(this.getClass().getResource("PROIETTILEDX.png"));
-		bullet[1]=tk.getImage(this.getClass().getResource("PROIETTILESX.png"));
+		bullet[0]=tk.getImage(this.getClass().getResource("PROIETTILEDX.png")).getScaledInstance(width*80/1920,height*40/1080, 1);
+		bullet[1]=tk.getImage(this.getClass().getResource("PROIETTILESX.png")).getScaledInstance(width*80/1920,height*40/1080, 1);
 		
 		
 		
@@ -201,11 +215,11 @@ public class MyPanel extends JPanel{
 	
 	private int convertiX(int x) {
 		
-		return (94*x)/fattore;
+		return (/*94*/(94*width/1920)*x)/fattore;
 	}
 
 	private int convertiY(int y) {
-		return (48*y)/fattore;
+		return (/*48*/(48*height/1080)*y)/fattore;
 	}
 
 	private Image playerMovement(Player p)
