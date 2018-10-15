@@ -159,8 +159,6 @@ public class MyEditorPanel extends JPanel{
 			g.drawImage(press_x, 54, 630, this);
 		if(elementi[1] ==1)
 			g.drawImage(eraser, 70, 625, this);
-
-		//BISOGNA ADATTARE ALLA DIMENSIONE
 		
 		for(int i=0; i< points.size(); i++)
 		{
