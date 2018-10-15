@@ -64,7 +64,7 @@ public class MyEditorPanel extends JPanel{
 	
 	int x = 898*width/1920;  ;  
 	int y = 16*height/1080;	;	
-	int altezza = 1035*height/1080;;
+	int altezza = 900*height/1080;;
 	int larghezza = 900*width/1920;;
 	
 	private Vector<Point> points = new Vector<Point>();
@@ -86,6 +86,9 @@ public class MyEditorPanel extends JPanel{
 		for(int i=0;i<20; i++)
 			for(int j=0;j<23; j++)
 				matrix[i][j]= " ";
+		
+		matrix[11][18] = "player";
+		matrix[1][9] = "enemyAI";
 		initEDITOR();
 		initListener();
 
@@ -253,10 +256,10 @@ public void initListener() {
 						{
 								if(position[0]==1)
 								{
-									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " ")
+									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " " &&  (matrix[(int)(k-x)/45][(int)(h-y)/45] != "player" || matrix[(int)(k-x)/45][(int)(h-y)/45] != "enemyAI"))
 									{
 										matrix[(int)(k-x)/45][(int)(h-y)/45]="blocco";
-										for(int i=0;i<20;i++) {
+										for(int i=0;i<10;i++) {
 											SolidBrick s= new SolidBrick(myWorld,(int)((k-x)/45)*10+i,(int)((h-y)/45)*10);
 										
 										
@@ -269,10 +272,10 @@ public void initListener() {
 
 								else if(position[1]==1)
 								{
-									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " ")
+									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " " &&  matrix[(int)(k-x)/45][(int)(h-y)/45] != "player" && matrix[(int)(k-x)/45][(int)(h-y)/45] != "enemyAI")
 									{
 										matrix[(int)(k-x)/45][(int)(h-y)/45]="sfera";
-										MovableObject m= new MovableObject(myWorld,((int)(k-x)/45)*10,((int)(h-y)/45)*10,Directions.STOP, 0);
+										MovableObject m= new MovableObject(myWorld,((int)(k-x)/45)*10,((int)(h-y)/45)*10+10-1,Directions.STOP, 0);
 										//editor.addElement(((int)(k-x)/45)*10+i , ((int)(h-y)/45)*10+i,m);
 										editor.addMovableObject(m);
 									}
@@ -281,10 +284,10 @@ public void initListener() {
 
 								else if(position[2]==1)
 								{
-									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " ")
+									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " " &&  matrix[(int)(k-x)/45][(int)(h-y)/45] != "player" && matrix[(int)(k-x)/45][(int)(h-y)/45] != "enemyAI")
 									{
 										matrix[(int)(k-x)/45][(int)(h-y)/45]="nemico";
-										Enemy en= new Enemy(myWorld,(int)(k-x)/45*10,(int)(h-y)/45*10,Directions.STOP, 0);
+										Enemy en= new Enemy(myWorld,(int)(k-x)/45*10,(int)(h-y)/45*10+10-1,Directions.STOP, 0);
 										//editor.addElement(((int)(k-x)/45)* 10+i , ((int)(h-y)/45)* 10+i,en);
 										editor.addEnemy(en);
 										
@@ -293,10 +296,10 @@ public void initListener() {
 
 								else if(position[3]==1)
 								{
-									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " ")
+									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " " &&  matrix[(int)(k-x)/45][(int)(h-y)/45] != "player" && matrix[(int)(k-x)/45][(int)(h-y)/45] != "enemyAI")
 									{
 										matrix[(int)(k-x)/45][(int)(h-y)/45]="scala";
-										for(int i=0;i<20;i++) {
+										for(int i=0;i<10;i++) {
 										Stairs st= new Stairs(myWorld,(int)(k-x)/45*10,(int)(h-y)/45*10+i);
 										//editor.addElement(((int)(k-x)/45)* 10+i , ((int)(h-y)/45)* 10+i,st);
 										editor.addStair(st);
