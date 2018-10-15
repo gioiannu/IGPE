@@ -1,5 +1,7 @@
 package main.core;
 
+import java.util.ArrayList;
+
 import main.core.interfaces.GameObject;
 
 public class World {
@@ -24,10 +26,7 @@ public class World {
 			this.height= height;
 			this.width=width;
 			
-			
-			for(int i=0;i<height; i++)
-				for(int j=0;j<width; j++)
-					m[i][j]=new EmptyObject (0,0);
+			matrix=m;
 		}
 		
 		public void add(int i, int j, GameObject g)
@@ -127,6 +126,12 @@ public class World {
 			}
 			
 		}
+		
+		
+		
+		
+		
+		
 		public GameObject getObject(int x,int y) {
 			return (GameObject) matrix[y][x];
 		}

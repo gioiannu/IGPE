@@ -37,6 +37,7 @@ public class MyPanel extends JPanel{
 	Image lastImageE;
 	
 	Image [] bullet=new Image[2];
+	MyEditorPanel me= new MyEditorPanel();
 	
 	boolean shooting=false;
 	
@@ -45,7 +46,7 @@ public class MyPanel extends JPanel{
 	Dimension screenSize = tk.getScreenSize();
 	int width = (int) screenSize.getWidth();
 	int height = (int) screenSize.getHeight();
-
+	
 	
 	public MyPanel() 
 	{
@@ -53,6 +54,19 @@ public class MyPanel extends JPanel{
 		initGUI();
 		initEH();
 		gameManager.startGame(1);
+		ThreadDinamicObject te=new ThreadDinamicObject(gameManager/*,this*/);
+		ThreadMovableObject tm=new ThreadMovableObject(gameManager/*,this*/);
+		ThreadPanel tp= new ThreadPanel(this,gameManager);
+		te.start();
+		tp.start();
+		tm.start();
+	}
+	public MyPanel( Editor editor) 
+	{
+		super();
+		initGUI();
+		initEH();
+		gameManager.startGame(4,editor);
 		ThreadDinamicObject te=new ThreadDinamicObject(gameManager/*,this*/);
 		ThreadMovableObject tm=new ThreadMovableObject(gameManager/*,this*/);
 		ThreadPanel tp= new ThreadPanel(this,gameManager);
@@ -106,8 +120,8 @@ public class MyPanel extends JPanel{
 		
 		lastImageE=enemyAI[0];
 		
-		bullet[0]=tk.getImage(this.getClass().getResource("PROIETTILEDX.png")).getScaledInstance(width*50/1920,height*30/1080, 1);
-		bullet[1]=tk.getImage(this.getClass().getResource("PROIETTILESX.png")).getScaledInstance(width*50/1920,height*30/1080, 1);
+		bullet[0]=tk.getImage(this.getClass().getResource("PROIETTILEDX.png")).getScaledInstance(width*80/1920,height*40/1080, 1);
+		bullet[1]=tk.getImage(this.getClass().getResource("PROIETTILESX.png")).getScaledInstance(width*80/1920,height*40/1080, 1);
 		
 		
 		

@@ -11,10 +11,17 @@ public class MyFrame extends JFrame{
 	private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static int height=(int) screenSize.getHeight();
 	public static int width=(int) screenSize.getWidth();
+	Editor editor;
 	
 	public MyFrame() {
 		super();
 		init();
+	}
+	public MyFrame(Editor editor) {
+		super();
+		this.editor=editor;
+		init2();
+			
 	}
 	public void init() {
 		panel=new MyPanel();
@@ -26,6 +33,19 @@ public class MyFrame extends JFrame{
 		panel.setFocusable(true);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	}
+	
+	public void init2() {
+		System.out.println("SONO NELL'EDITOR");
+		panel=new MyPanel(editor);
+		this.setSize(width,height);
+		this.setContentPane(panel);
+		this.setVisible(true);	
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setResizable(false);
+		panel.setFocusable(true);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	}
+	
 	
 	/*public static void main(final String[] args){
 		MyFrame f=new MyFrame();
