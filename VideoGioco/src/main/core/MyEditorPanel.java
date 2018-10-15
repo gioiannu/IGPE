@@ -160,7 +160,7 @@ public class MyEditorPanel extends JPanel{
 		if(elementi[1] ==1)
 			g.drawImage(eraser, 70, 625, this);
 
-
+		//BISOGNA ADATTARE ALLA DIMENSIONE
 		
 		for(int i=0; i< points.size(); i++)
 		{
