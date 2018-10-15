@@ -36,6 +36,8 @@ public class MyEditorPanel extends JPanel{
 	Image movable_editor;
 	Image enemy_editor;
 	Image mappa_editor;
+	Image press_x;
+	Image eraser;
 	int fattore= 10;
 	//Player pl;
 	
@@ -89,6 +91,10 @@ public class MyEditorPanel extends JPanel{
 		
 		matrix[11][18] = "player";
 		matrix[1][9] = "enemyAI";
+		
+		
+		elementi = new int [2];
+		elementi[0]=1; elementi [1] =0;
 		initEDITOR();
 		initListener();
 
@@ -104,13 +110,17 @@ public class MyEditorPanel extends JPanel{
 		URL urlMappa = this.getClass().getResource("mappa_editor.png");
 		
 		URL urlEvidenzia = this.getClass().getResource("EVIDENZIA.png");
+		URL urlPressX = this.getClass().getResource("PRESS_X");
+		URL urlEraser = this.getClass().getResource("ERASER");
 		
 		blocco_editor = tk.getImage(urlBlocco).getScaledInstance(width*45/1920,height*45/1080, 1);
 		scala_editor = tk.getImage(urlScala).getScaledInstance(width*45/1920,height*45/1080, 1);
 		enemy_editor = tk.getImage(urlEnemy).getScaledInstance(width*45/1920,height*45/1080, 1);
 		movable_editor = tk.getImage(urlMovable).getScaledInstance(width*45/1920,height*45/1080, 1);
 		elementoEvidenziato = tk.getImage(urlEvidenzia).getScaledInstance(width*45/1920,height*45/1080, 1);
-		mappa_editor= tk.getImage(urlMappa).getScaledInstance(width*900/1920,height*1035/1080, 1);
+		mappa_editor= tk.getImage(urlMappa).getScaledInstance(width*900/1920,height*900/1080, 1);
+		press_x = tk.getImage(urlPressX).getScaledInstance(width*406/1920, height*40/1080, 1);
+		eraser = tk.getImage(urlEraser).getScaledInstance(width*325/1920, height*48/1080, 1);
 		
 		mt.start();
 	}
@@ -144,6 +154,12 @@ public class MyEditorPanel extends JPanel{
 		g.drawImage(elementoEvidenziato, 267, 565, this);
 		if(position[3]==1)
 		g.drawImage(elementoEvidenziato, 416, 565, this);
+		
+		if(elementi[0] ==1)
+			g.drawImage(press_x, 200, 600, this);
+		if(elementi[1] ==1)
+			g.drawImage(eraser, 200, 600, this);
+
 
 		
 		for(int i=0; i< points.size(); i++)
@@ -188,6 +204,8 @@ public void initListener() {
 					position[1]=0;
 					position[2]=0;
 					position[3]=0;
+					elementi[0]=1;
+					elementi[1]=0;
 				}
 					
 				if(e.getKeyCode()==50) {
@@ -195,20 +213,36 @@ public void initListener() {
 					position[1]=1;
 					position[2]=0;
 					position[3]=0;
+					elementi[0]=1;
+					elementi[1]=0;
 				}
 				if(e.getKeyCode()==51) {
 					position[2]=1;
 					position[0]=0;
 					position[1]=0;
 					position[3]=0;
+					elementi[0]=1;
+					elementi[1]=0;
 				}
 				if(e.getKeyCode()==52) {
 					position[3]=1;
 					position[0]=0;
 					position[1]=0;
 					position[2]=0;
+					elementi[0]=1;
+					elementi[1]=0;
 					
 				}
+				if(e.getKeyCode()==88) {
+					position[0]=0;
+					position[1]=0;
+					position[2]=0;
+					position[3]=0;
+					elementi[0]=0;
+					elementi[1]=1;
+					
+				}
+				
 				else if(e.getKeyCode()==10) {
 					mf = new MyFrame(editor);
 					
@@ -272,7 +306,7 @@ public void initListener() {
 
 								else if(position[1]==1)
 								{
-									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " " &&  matrix[(int)(k-x)/45][(int)(h-y)/45] != "player" && matrix[(int)(k-x)/45][(int)(h-y)/45] != "enemyAI")
+									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " " &&  (matrix[(int)(k-x)/45][(int)(h-y)/45] != "player" || matrix[(int)(k-x)/45][(int)(h-y)/45] != "enemyAI"))
 									{
 										matrix[(int)(k-x)/45][(int)(h-y)/45]="sfera";
 										MovableObject m= new MovableObject(myWorld,((int)(k-x)/45)*10,((int)(h-y)/45)*10+10-1,Directions.STOP, 0);
@@ -284,7 +318,7 @@ public void initListener() {
 
 								else if(position[2]==1)
 								{
-									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " " &&  matrix[(int)(k-x)/45][(int)(h-y)/45] != "player" && matrix[(int)(k-x)/45][(int)(h-y)/45] != "enemyAI")
+									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " " &&  (matrix[(int)(k-x)/45][(int)(h-y)/45] != "player" || matrix[(int)(k-x)/45][(int)(h-y)/45] != "enemyAI"))
 									{
 										matrix[(int)(k-x)/45][(int)(h-y)/45]="nemico";
 										Enemy en= new Enemy(myWorld,(int)(k-x)/45*10,(int)(h-y)/45*10+10-1,Directions.STOP, 0);
@@ -296,7 +330,7 @@ public void initListener() {
 
 								else if(position[3]==1)
 								{
-									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " " &&  matrix[(int)(k-x)/45][(int)(h-y)/45] != "player" && matrix[(int)(k-x)/45][(int)(h-y)/45] != "enemyAI")
+									if(matrix[(int)(k-x)/45][(int)(h-y)/45] == " " &&  (matrix[(int)(k-x)/45][(int)(h-y)/45] != "player" || matrix[(int)(k-x)/45][(int)(h-y)/45] != "enemyAI"))
 									{
 										matrix[(int)(k-x)/45][(int)(h-y)/45]="scala";
 										for(int i=0;i<10;i++) {
@@ -310,6 +344,12 @@ public void initListener() {
 							points.add(p);
 								
 							
+						}
+						
+						if(elementi[1]==1)
+						{
+							if(matrix[(int)(k-x)/45][(int)(h-y)/45]=="blocco")
+								matrix[(int)(k-x)/45][(int)(h-y)/45]= " ";
 						}
 						
 						System.out.println(p.x);
