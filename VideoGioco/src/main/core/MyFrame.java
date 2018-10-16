@@ -13,9 +13,9 @@ public class MyFrame extends JFrame{
 	public static int width=(int) screenSize.getWidth();
 	Editor editor;
 	
-	public MyFrame() {
+	public MyFrame(int l) {
 		super();
-		init();
+		init(l);
 	}
 	public MyFrame(Editor editor) {
 		super();
@@ -23,8 +23,8 @@ public class MyFrame extends JFrame{
 		init2();
 			
 	}
-	public void init() {
-		panel=new MyPanel();
+	public void init(int l) {
+		panel=new MyPanel(l);
 		this.setSize(width,height);
 		this.setContentPane(panel);
 		this.setVisible(true);	

@@ -64,10 +64,10 @@ public class MyEditorPanel extends JPanel{
 	
 	Image editorBackground = editorBG.getScaledInstance(width, height,1);
 	
-	int x = 898*width/1920;  ;  
-	int y = 16*height/1080;	;	
-	int altezza = 900*height/1080;;
-	int larghezza = 900*width/1920;;
+	int x = 898*width/1920;  
+	int y = 16*height/1080;	
+	int altezza = 900*height/1080;
+	int larghezza = 900*width/1920;
 	
 	private Vector<Point> points = new Vector<Point>();
 	
@@ -130,8 +130,8 @@ public class MyEditorPanel extends JPanel{
 		int px=i;
 		int py=j;
 		
-		px=(px-x)/45;
-		py=(py-y)/45;
+		px=(px-x)/(45*width/1920);
+		py=(py-y)/(45*height/1080);
 		
 		Point p= new Point (px,py);
 		return p;
@@ -147,18 +147,18 @@ public class MyEditorPanel extends JPanel{
 		g.drawImage(mappa_editor,x,y,this);
 		
 		if(position[0]==1)
-		g.drawImage(elementoEvidenziato, 243, 292, this);
+		g.drawImage(elementoEvidenziato, 243*width/1920, 292*height/1080, this);
 		if(position[1]==1)
-		g.drawImage(elementoEvidenziato, 243, 381, this);
+		g.drawImage(elementoEvidenziato, 243*width/1920, 381*height/1080, this);
 		if(position[2]==1)
-		g.drawImage(elementoEvidenziato, 243, 470, this);
+		g.drawImage(elementoEvidenziato, 243*width/1920, 470*height/1080, this);
 		if(position[3]==1)
-		g.drawImage(elementoEvidenziato, 243, 552, this);
+		g.drawImage(elementoEvidenziato, 243*width/1920, 552*height/1080, this);
 		
 		if(elementi[0] ==1)
-			g.drawImage(press_x, 54, 630, this);
+			g.drawImage(press_x, 54*width/1920, 630*height/1080, this);
 		if(elementi[1] ==1)
-			g.drawImage(eraser, 70, 625, this);
+			g.drawImage(eraser, 70*width/1920, 625*height/1080, this);
 		
 		//BISOGNA RIADATTARE LE DIMENSIONI DI QUESTE ULTIME IMMAGINI
 		
@@ -171,13 +171,13 @@ public class MyEditorPanel extends JPanel{
 					if( tmp.x == l && tmp.y==t)
 					{
 						if(matrix[l][t].getS() == "blocco")
-							g.drawImage(blocco_editor, x+(l*45), y+(t*45), this);
+							g.drawImage(blocco_editor, x+l*(45*width/1920), y+t*(45*height/1080), this);
 						else if(matrix[l][t].getS() == "sfera")
-							g.drawImage(movable_editor, x+(l*45), y+(t*45), this);
+							g.drawImage(movable_editor, x+l*(45*width/1920), y+t*(45*height/1080), this);
 						else if(matrix[l][t].getS() == "nemico")
-							g.drawImage(enemy_editor, x+(l*45), y+(t*45), this);
+							g.drawImage(enemy_editor, x+l*(45*width/1920), y+t*(45*height/1080), this);
 						else if(matrix[l][t].getS() == "scala")
-							g.drawImage(scala_editor, x+(l*45), y+(t*45), this);
+							g.drawImage(scala_editor, x+l*(45*width/1920), y+t*(45*height/1080), this);
 					}
 				}
 		}
@@ -316,35 +316,35 @@ public void initListener() {
 						{
 								if(position[0]==1)
 								{
-									if(matrix[(int)(k-x)/45][(int)(h-y)/45].getS() == "" &&  (matrix[(int)(k-x)/45][(int)(h-y)/45].getS() != "player" || matrix[(int)(k-x)/45][(int)(h-y)/45].getS() != "enemyAI"))
+									if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() == "" &&  (matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "player" || matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "enemyAI"))
 									{
-										matrix[(int)(k-x)/45][(int)(h-y)/45]=new ContenutoMatriceEditor("blocco",(int)(k-x)/45,(int)(h-y)/45);
+										matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)]=new ContenutoMatriceEditor("blocco",(int)(k-x)/(45*width/1920),(int)(h-y)/(45*height/1080));
 									}
 								}
 
 								else if(position[1]==1)
 								{
-									if(matrix[(int)(k-x)/45][(int)(h-y)/45].getS() == "" &&  (matrix[(int)(k-x)/45][(int)(h-y)/45].getS() != "player" || matrix[(int)(k-x)/45][(int)(h-y)/45].getS() != "enemyAI"))
+									if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() == "" &&  (matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "player" || matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "enemyAI"))
 									{
-										matrix[(int)(k-x)/45][(int)(h-y)/45]=new ContenutoMatriceEditor("sfera",(int)(k-x)/45,(int)(h-y)/45);
+										matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)]=new ContenutoMatriceEditor("sfera",(int)(k-x)/(45*width/1920),(int)(h-y)/(45*height/1080));
 									}
 									
 								}
 
 								else if(position[2]==1)
 								{
-									if(matrix[(int)(k-x)/45][(int)(h-y)/45].getS() == "" &&  (matrix[(int)(k-x)/45][(int)(h-y)/45].getS() != "player" || matrix[(int)(k-x)/45][(int)(h-y)/45].getS() != "enemyAI"))
+									if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() == "" &&  (matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "player" || matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "enemyAI"))
 									{
-										matrix[(int)(k-x)/45][(int)(h-y)/45]=new ContenutoMatriceEditor("nemico",(int)(k-x)/45,(int)(h-y)/45);
+										matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)]=new ContenutoMatriceEditor("nemico",(int)(k-x)/(45*width/1920),(int)(h-y)/(45*height/1080));
 										
 									}
 								}
 
 								else if(position[3]==1)
 								{
-									if(matrix[(int)(k-x)/45][(int)(h-y)/45].getS() == "" &&  (matrix[(int)(k-x)/45][(int)(h-y)/45].getS() != "player" || matrix[(int)(k-x)/45][(int)(h-y)/45].getS() != "enemyAI"))
+									if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() == "" &&  (matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "player" || matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "enemyAI"))
 									{
-										matrix[(int)(k-x)/45][(int)(h-y)/45]=new ContenutoMatriceEditor("scala",(int)(k-x)/45,(int)(h-y)/45);
+										matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)]=new ContenutoMatriceEditor("scala",(int)(k-x)/(45*width/1920),(int)(h-y)/(45*height/1080));
 										for(int i=0;i<10;i++) {
 										}
 									}
@@ -357,32 +357,32 @@ public void initListener() {
 						
 						if(elementi[1]==1)
 						{
-							if(matrix[(int)(k-x)/45][(int)(h-y)/45].getS()=="blocco")
+							if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS()=="blocco")
 							{
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setS("");
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setCoordinataX(0);
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setCoordinataY(0);
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setS("");
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setCoordinataX(0);
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setCoordinataY(0);
 
 							}
-							if(matrix[(int)(k-x)/45][(int)(h-y)/45].getS()=="scala")
+							if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS()=="scala")
 							{
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setS("");
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setCoordinataX(0);
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setCoordinataY(0);
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setS("");
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setCoordinataX(0);
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setCoordinataY(0);
 
 							}
-							if(matrix[(int)(k-x)/45][(int)(h-y)/45].getS()=="sfera")
+							if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS()=="sfera")
 							{
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setS("");
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setCoordinataX(0);
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setCoordinataY(0);
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setS("");
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setCoordinataX(0);
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setCoordinataY(0);
 
 							}
-							if(matrix[(int)(k-x)/45][(int)(h-y)/45].getS()=="nemico")
+							if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS()=="nemico")
 							{
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setS("");
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setCoordinataX(0);
-								matrix[(int)(k-x)/45][(int)(h-y)/45].setCoordinataY(0);
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setS("");
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setCoordinataX(0);
+								matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].setCoordinataY(0);
 
 							}
 							

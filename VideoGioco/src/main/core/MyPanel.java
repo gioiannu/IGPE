@@ -48,12 +48,12 @@ public class MyPanel extends JPanel{
 	int height = (int) screenSize.getHeight();
 	
 	
-	public MyPanel() 
+	public MyPanel(int l) 
 	{
 		super();
 		initGUI();
 		initEH();
-		gameManager.startGame(1);
+		gameManager.startGame(l);
 		ThreadDinamicObject te=new ThreadDinamicObject(gameManager/*,this*/);
 		ThreadMovableObject tm=new ThreadMovableObject(gameManager/*,this*/);
 		ThreadPanel tp= new ThreadPanel(this,gameManager);
@@ -204,9 +204,13 @@ public class MyPanel extends JPanel{
 			if(21*fattore>gameManager.getMovableObject()[i].getY())
 				g.drawImage(object7,convertiX(gameManager.getMovableObject()[i].getX()),convertiY(gameManager.getMovableObject()[i].getY()-fattore), this);
 		}
+		for(int i=0;i<gameManager.getEnemy().length;i++)
+		{
+			g.drawImage(player[6],convertiX(gameManager.getEnemy()[i].getX()),convertiY(gameManager.getEnemy()[i].getY()-fattore), this);
+		}
 		g.drawImage(playerMovement(gameManager.getPlayer()), convertiX(gameManager.getPlayer().getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
 		g.drawImage(enemyMovement(gameManager.getEai()), convertiX(gameManager.getEai().getX()), convertiY(gameManager.getEai().getY()-fattore), this);
-		g.drawImage(player[6],convertiX(gameManager.getEnemy()[0].getX()),convertiY(gameManager.getEnemy()[0].getY()-fattore), this);
+		
 		if(gameManager.getPlayer().getProiettile().isVisible()==true&&gameManager.getPlayer().getProiettile().getDirection()==Directions.RIGHT)
 			g.drawImage(bullet[0], convertiX(gameManager.getPlayer().getProiettile().getX()), convertiY(gameManager.getPlayer().getProiettile().getY()-fattore), this);
 		else if(gameManager.getPlayer().getProiettile().isVisible()==true&&gameManager.getPlayer().getProiettile().getDirection()==Directions.LEFT)

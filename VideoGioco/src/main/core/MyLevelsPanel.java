@@ -113,11 +113,25 @@ public void initListener() {
 				}
 				else if(e.getKeyCode()==10) {
 					if(position[0]==1) {
-						game = new MyFrame();
+						game = new MyFrame(1);
 						 JComponent comp = (JComponent) e.getSource();
 						  Window win = SwingUtilities.getWindowAncestor(comp);
 						  win.dispose();
 					}
+					else if(position[1]==1) {
+						game = new MyFrame(2);
+						 JComponent comp = (JComponent) e.getSource();
+						  Window win = SwingUtilities.getWindowAncestor(comp);
+						  win.dispose();
+					}
+					else {
+						game = new MyFrame(3);
+						 JComponent comp = (JComponent) e.getSource();
+						  Window win = SwingUtilities.getWindowAncestor(comp);
+						  win.dispose();
+					}
+						
+						
 					
 						
 				}
