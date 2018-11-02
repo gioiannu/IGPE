@@ -25,6 +25,7 @@ public class Proiettile extends AbstractDynamicObject{
 	@Override
 	public void update()
 	{
+		if(visible==true) {
 		switch (getDirection())
         {
             case LEFT:
@@ -46,6 +47,7 @@ public class Proiettile extends AbstractDynamicObject{
             	setVisible(false);
                 break;
         }
+		}
 	}
 
 	/*@Override

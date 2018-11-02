@@ -14,6 +14,11 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	private final Proiettile proiettile;
 	
 	public Directions lastDirection=Directions.STOP;
+	
+	boolean conteggio1=false;
+	boolean conteggio2=false;
+	int cont=0;
+	int cont2=0;
 
 	
 	
@@ -85,6 +90,23 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	@Override
 	public void update()
 	{
+		if(conteggio1==true) {
+			if(cont>200) {
+			cont=0;
+			conteggio1=false;
+			}
+			else 
+				cont++;
+		}
+		
+		if(conteggio2==true) {
+			if(cont2>200) {
+			cont2=0;
+			conteggio2=false;
+			}
+			else 
+				cont2++;
+		}
 		switch (getDirection())
         {
             case UP:

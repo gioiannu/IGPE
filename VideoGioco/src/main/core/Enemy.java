@@ -5,22 +5,29 @@ import java.util.Random;
 import javax.swing.Timer;
 
 import main.core.interfaces.Directions;
+import main.core.interfaces.GameObject;
 
 public class Enemy extends AbstractDynamicObject{
 	Player player;
 	Directions dir=Directions.RIGHT;
 	int movimento;
-	boolean injured=false;
+	int fattore=10;
 	public Enemy(World world, int x, int y, Directions dir, int speed) {
 		super(world, x, y, dir, speed);
 		Random random=new Random();
 		movimento= random.nextInt(2);
 		
 	}
-	public static native void sleep(long millis) throws InterruptedException;
+	public void insertP(Player p) {
+		player=p;
+	}
 	@Override
 	public void update() {
-		if(injured==false) {
+		if(speed==0 && player.cont>=200) {
+			this.setDirection(Directions.RIGHT);
+			this.setSpeed(1);
+		}
+			
 		if(movimento==1) {
 			if(world.getObject(getX(), getY()+1) instanceof Stairs) 
 				this.setDirection(Directions.DOWN);
@@ -73,19 +80,29 @@ public class Enemy extends AbstractDynamicObject{
             default:
                 break;
         }
-		}
-		else{
-			injured=false;
-			this.setDirection(Directions.LEFT);
-		}
+	}
+	public void collisione(Proiettile g) {
+		for(int i=g.getX()-fattore/2;i<g.getX()+fattore/2;i++)
+			for(int j=this.getX()-fattore/2;j<this.getX()+fattore/2;j++)
+				if(g.getY()==this.getY()&&i==j)
+				{
+					this.setSpeed(0);
+					this.setDirection(Directions.STOP);
+					g.setVisible(false);
+					g.setX(player.getX());
+					g.setY(player.getY());
+					player.conteggio1=true;
+				}
 		
 	}
-	public void injuring(Proiettile p) {
-		if(p.isVisible() && getX()==p.getX() && getY()==p.getY()) {
-			injured=true;
-			p.setVisible(false);
-			this.setDirection(Directions.STOP);
-		}
+	public void collisionep(Player g) {
+		for(int i=g.getX()-fattore/2;i<g.getX()+fattore/2;i++)
+			for(int j=this.getX()-fattore/2;j<this.getX()+fattore/2;j++)
+				if(g.getY()==this.getY()&&i==j)
+				{
+					System.out.println("SONO MORTO");
+				}
+		
 	}
 	
 

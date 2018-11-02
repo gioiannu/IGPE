@@ -14,7 +14,9 @@ public class EnemyAI extends Enemy{
 	public void update() {
 		//Random random=new Random();
 				//int movimento= random.nextInt(2);
-		if(injured==false) {
+				if(speed==0 && player.cont2>=200)
+					this.setSpeed(1);
+		
 				if(player.getY()>this.getY()) {
 					if(world.getObject(getX(), getY()+1) instanceof Stairs) {
 						this.setDirection(Directions.DOWN);
@@ -85,11 +87,21 @@ public class EnemyAI extends Enemy{
 		            default:
 		                break;
 		        }
-		}
-		else{
-			injured=false;
-			this.setDirection(Directions.LEFT);
-		}
+		
+	}
+	@Override
+	public void collisione(Proiettile g) {
+		for(int i=g.getX()-fattore/2;i<g.getX()+fattore/2;i++)
+			for(int j=this.getX()-fattore/2;j<this.getX()+fattore/2;j++)
+				if(g.getY()==this.getY()&&i==j)
+				{
+					this.setSpeed(0);
+					this.setDirection(Directions.STOP);
+					g.setVisible(false);
+					g.setX(player.getX());
+					g.setY(player.getY());
+					player.conteggio2=true;
+				}
 		
 	}
 	

@@ -135,6 +135,7 @@ public class GameManager {
 			movableObjects =new MovableObject[4];
 			enemies=new Enemy[1];
 			enemies[0]=new Enemy(world,1*fattore,9*fattore+fattore-1,Directions.STOP,1);
+			enemies[0].insertP(player);
 			eai=new EnemyAI(world,1*fattore,9*fattore+fattore-1,Directions.STOP,1,player);
 		
 			for(int i=0;i<20*fattore;i++)
@@ -182,6 +183,8 @@ public class GameManager {
 			enemies=new Enemy[2];
 			enemies[0]=new Enemy(world,1*fattore,18*fattore+fattore-1,Directions.STOP,1);
 			enemies[1]=new Enemy(world,15*fattore,8*fattore+fattore-1,Directions.STOP,1);
+			enemies[0].insertP(player);
+			enemies[1].insertP(player);
 			eai=new EnemyAI(world,11*fattore,9*fattore+fattore-1,Directions.STOP,1,player);
 		
 			for(int i=0;i<20*fattore;i++)
@@ -250,6 +253,7 @@ public class GameManager {
 			movableObjects =new MovableObject[4];
 			enemies=new Enemy[1];
 			enemies[0]=new Enemy(world,1*fattore,9*fattore+fattore-1,Directions.STOP,1);
+			enemies[0].insertP(player);
 			eai=new EnemyAI(world,1*fattore,9*fattore+fattore-1,Directions.STOP,1,player);
 		
 			for(int i=0;i<20*fattore;i++)
@@ -302,6 +306,8 @@ public class GameManager {
 	{
 		world= new World (20*fattore,23*fattore);
 		
+		player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1);
+		eai=new EnemyAI(world,1*fattore,9*fattore+fattore-1,Directions.STOP,1,player);
 		solidBricks= new SolidBrick[editor.getSolidBricks().size()];
 		movableObjects = new MovableObject[editor.getMovableObjects().size()];
 		enemies=new Enemy[editor.getEnemies().size()];
@@ -322,6 +328,7 @@ public class GameManager {
 		for(int i=0; i<editor.getEnemies().size(); i++)
 		{
 			enemies[i]= editor.getEnemies().get(i);
+			enemies[i].insertP(player);
 		}
 		
 		for(int i=0; i<editor.getStairs().size(); i++)
@@ -330,8 +337,7 @@ public class GameManager {
 		}
 
 			
-			player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1);
-			eai=new EnemyAI(world,1*fattore,9*fattore+fattore-1,Directions.STOP,1,player);
+		
 			
 			world.update(player, enemies, movableObjects, solidBricks, stairs, eai);
 			
