@@ -18,14 +18,22 @@ public class ThreadDinamicObject extends Thread{
 			GM.getPlayer().setPlayerLastDir(GM.getPlayer().getDirection());
 			
 			GM.getEai().collisione(GM.getPlayer().getProiettile());
-			GM.getEai().collisionep(GM.getPlayer());
+			if(GM.getEai().collisionep(GM.getPlayer())) {
+				GM.startGame(GM.getLevels());
+				continue;
+			}
+				
+			
 			GM.getEai().update();
 			
 			for(int i=0; i<GM.getEnemy().length; i++)
 			{
 				if(GM.getEnemy()[i]!= null) {
 					GM.getEnemy()[i].collisione(GM.getPlayer().getProiettile());
-					GM.getEnemy()[i].collisionep(GM.getPlayer());
+					if(GM.getEnemy()[i].collisionep(GM.getPlayer())) {
+						GM.startGame(GM.getLevels());
+						break;
+					}
 					GM.getEnemy()[i].update();
 				}
 				

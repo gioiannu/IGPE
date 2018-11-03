@@ -95,14 +95,15 @@ public class Enemy extends AbstractDynamicObject{
 				}
 		
 	}
-	public void collisionep(Player g) {
+	public boolean collisionep(Player g) {
 		for(int i=g.getX()-fattore/2;i<g.getX()+fattore/2;i++)
 			for(int j=this.getX()-fattore/2;j<this.getX()+fattore/2;j++)
 				if(g.getY()==this.getY()&&i==j)
 				{
-					System.out.println("SONO MORTO");
+					return true;
 				}
-		
+	
+		return false;
 	}
 	
 
