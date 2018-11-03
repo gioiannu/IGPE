@@ -38,6 +38,7 @@ public class GameManager {
     MyEditorPanel me;
     
     Editor editor;
+    boolean ed=false;
     
     
     
@@ -301,9 +302,16 @@ public class GameManager {
 		
 	}
 	
-	
+	public boolean getED() {
+		return ed;
+	}
+	public Editor getEDITOR() {
+		return editor;
+	}
 	public void startGame(int levels,Editor editor)
 	{
+		this.editor=editor;
+		ed=true;
 		world= new World (20*fattore,23*fattore);
 		
 		player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1);
