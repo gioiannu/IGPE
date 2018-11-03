@@ -91,17 +91,21 @@ public class EnemyAI extends Enemy{
 	}
 	@Override
 	public void collisione(Proiettile g) {
-		for(int i=g.getX()-fattore/2;i<g.getX()+fattore/2;i++)
-			for(int j=this.getX()-fattore/2;j<this.getX()+fattore/2;j++)
-				if(g.getY()==this.getY()&&i==j)
-				{
-					this.setSpeed(0);
-					this.setDirection(Directions.STOP);
-					g.setVisible(false);
-					g.setX(player.getX());
-					g.setY(player.getY());
-					player.conteggio2=true;
-				}
+		
+		if(g.isVisible())
+		{
+			for(int i=g.getX()-fattore/2;i<g.getX()+fattore/2;i++)
+				for(int j=this.getX()-fattore/2;j<this.getX()+fattore/2;j++)
+					if(g.getY()==this.getY()&&i==j)
+					{
+						this.setSpeed(0);
+						this.setDirection(Directions.STOP);
+						g.setVisible(false);
+						g.setX(player.getX());
+						g.setY(player.getY());
+						player.conteggio2=true;
+					}
+		}
 		
 	}
 	
