@@ -19,6 +19,9 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	boolean conteggio2=false;
 	int cont=0;
 	int cont2=0;
+	
+	int contbullet=0;
+	int bullet=3;
 
 	
 	
@@ -61,6 +64,7 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	@Override
 	public void shoot()
 	{
+		bullet--;
 		proiettile.setVisible(true);
 		proiettile.setSpeed(1);
 		proiettile.setX(getX());
@@ -107,6 +111,14 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 			else 
 				cont2++;
 		}
+		if(bullet<3) {
+			contbullet++;
+			if(contbullet>=500) {
+				contbullet=0;
+				bullet++;
+			}
+		}
+			
 		switch (getDirection())
         {
             case UP:
@@ -126,6 +138,7 @@ public class Player extends AbstractDynamicObject implements CanShoot {
             case LEFT:
             		if(getX()==0&&(world.getObject(world.getWidth()-1, getY()+1) instanceof Stairs||world.getObject(world.getWidth()-1, getY()+1) instanceof SolidBrick))
             			setX(world.getWidth()-1);
+            		else if(getX()==0) {}
             		else if(world.getObject(getX()-1, getY()+1) instanceof Stairs||world.getObject(getX()-1, getY()+1) instanceof SolidBrick)
             			setX(getX() - getSpeed());
             	lastDirection=Directions.LEFT;
@@ -135,6 +148,7 @@ public class Player extends AbstractDynamicObject implements CanShoot {
             case RIGHT:
             		if(getX()==world.getWidth()-1&&((world.getObject(0, getY()+1) instanceof Stairs||world.getObject(0, getY()+1) instanceof SolidBrick)))
             			setX(0);
+            		else if(getX()==world.getWidth()) {}
             		else if(world.getObject(getX()+1, getY()+1) instanceof Stairs||world.getObject(getX()+1, getY()+1) instanceof SolidBrick)
             			setX(getX() + getSpeed());
             	lastDirection=Directions.RIGHT;

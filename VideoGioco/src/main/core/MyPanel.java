@@ -152,8 +152,10 @@ public class MyPanel extends JPanel{
 				else if(e.getKeyCode()==KeyEvent.VK_F)
 				{
 					if(!gameManager.getPlayer().getProiettile().isVisible()) {
-						gameManager.getPlayer().shoot();
-						shooting=true;
+						if(gameManager.getPlayer().bullet>0) {
+							gameManager.getPlayer().shoot();
+							shooting=true;
+						}
 						
 					}
 				}
