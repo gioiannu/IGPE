@@ -1,8 +1,12 @@
 package main.core;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import main.managers.audio.AudioManager;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -11,6 +15,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.net.URL;
 
 public class MyLevelsPanel extends JPanel{
@@ -19,6 +24,7 @@ public class MyLevelsPanel extends JPanel{
 	Image liv2;
 	Image liv3;
 	Toolkit tk = Toolkit.getDefaultToolkit();
+	AudioManager audio_manager;
 	int [] position;
 	MyLevelsThread mt = new MyLevelsThread(this);
 	MyFrame game;
@@ -39,6 +45,7 @@ public class MyLevelsPanel extends JPanel{
 		
 		position = new int [3];
 		position[0]=1; position[1]=0; position[2]=0;
+		audio_manager= new AudioManager();
 		initLEVELS();
 		initListener();
 		
@@ -58,6 +65,16 @@ public class MyLevelsPanel extends JPanel{
 		liv3= liv3.getScaledInstance(width*382/1920,height*394/1080, 1);
 		
 		mt.start();
+		
+		try {
+			
+			audio_manager.initMusic();
+			audio_manager.playMenu();
+		
+	} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	}
 	
 	
@@ -89,6 +106,7 @@ public void initListener() {
 		this.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e){
 				if(e.getKeyCode()==40) {
+					audio_manager.playButton19();
 					if(position[0]==1) {
 						position[0]=0;
 						position[1]=1;
@@ -101,6 +119,7 @@ public void initListener() {
 					}
 				}
 				else if(e.getKeyCode()==38) {
+					audio_manager.playButton19();
 					
 					if(position[2]==1) {
 						position[2]=0;
@@ -112,19 +131,24 @@ public void initListener() {
 					}
 				}
 				else if(e.getKeyCode()==10) {
+					audio_manager.playButton3();
+					audio_manager.stopMenu();
 					if(position[0]==1) {
+						
 						game = new MyFrame(1);
 						 JComponent comp = (JComponent) e.getSource();
 						  Window win = SwingUtilities.getWindowAncestor(comp);
 						  win.dispose();
 					}
 					else if(position[1]==1) {
+						
 						game = new MyFrame(2);
 						 JComponent comp = (JComponent) e.getSource();
 						  Window win = SwingUtilities.getWindowAncestor(comp);
 						  win.dispose();
 					}
 					else {
+						
 						game = new MyFrame(3);
 						 JComponent comp = (JComponent) e.getSource();
 						  Window win = SwingUtilities.getWindowAncestor(comp);

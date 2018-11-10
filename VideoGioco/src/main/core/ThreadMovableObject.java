@@ -1,13 +1,16 @@
 package main.core;
 import main.managers.GameManager;
+import main.managers.audio.AudioManager;
 
 public class ThreadMovableObject extends Thread{
 	private GameManager GM;
+	private AudioManager AM;
 	//private MyPanel panel;
 	private int fattore=10;
 	
-	public ThreadMovableObject(GameManager g/*, MyPanel panel*/) {
+	public ThreadMovableObject(GameManager g,AudioManager a) {
 		GM=g;
+		AM=a;
 		//this.panel=panel;
 	}
 	@Override
@@ -18,12 +21,18 @@ public class ThreadMovableObject extends Thread{
 				if(GM.getMovableObject()[i]!= null)
 				{
 					if(GM.getPlayer().collision(GM.getMovableObject()[i]))
+					{
 						GM.getMovableObject()[i].falling();
+						AM.playCatch();
+						
+							
+					}
 					for(int j=0;j<GM.getMovableObject().length; j++)
 					{
 						if(j!=i && GM.getMovableObject()[i].collision(GM.getMovableObject()[j]))
 						{
 							GM.getMovableObject()[j].falling();
+							AM.playCatch();
 							//if(movableObjects[i].getY()<=21)
 								
 						}

@@ -7,11 +7,16 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.net.URL;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import main.managers.audio.AudioManager;
 
 public class MyLivMultPanel extends JPanel{
 	
@@ -24,6 +29,7 @@ public class MyLivMultPanel extends JPanel{
 	
 	Toolkit tk = Toolkit.getDefaultToolkit();
 	int [] position;
+	AudioManager audio_manager;
 	MyLivMultThread mt = new MyLivMultThread(this);
 	MyLevelsFrame lv;
 	URL urlLivMultBackground = this.getClass().getResource("LIVELLI_MULT.png");
@@ -43,6 +49,7 @@ public class MyLivMultPanel extends JPanel{
 		
 		position = new int [2];
 		position[0]=1; position[1]=0;
+		audio_manager=new AudioManager();
 		initLMB();
 		initListener();
 		
@@ -61,6 +68,16 @@ public class MyLivMultPanel extends JPanel{
 		
 		liv=liv.getScaledInstance(width*538/1920,height*167/1080, 1);
 		mult=mult.getScaledInstance(width*842/1920,height*186/1080, 1);
+		
+		try {
+			
+			audio_manager.initMusic();
+			audio_manager.playMenu();
+		
+	} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 		
 		mt.start();
 	}
@@ -84,6 +101,7 @@ public void initListener() {
 		this.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e){
 				if(e.getKeyCode()==40) {
+					audio_manager.playButton19();
 					if(position[0]==1) {
 						position[0]=0;
 						position[1]=1;
@@ -91,13 +109,17 @@ public void initListener() {
 					}
 				}
 				else if(e.getKeyCode()==38) {
+					audio_manager.playButton19();
 					if(position[1]==1) {
 						position[1]=0;
 						position[0]=1;
 					}
 				}
 				else if(e.getKeyCode()==10) {
+					audio_manager.playButton3();
+					audio_manager.stopMenu();
 					if(position[0]==1) {
+						
 						lv = new MyLevelsFrame();
 						 JComponent comp = (JComponent) e.getSource();
 						  Window win = SwingUtilities.getWindowAncestor(comp);

@@ -90,7 +90,7 @@ public class EnemyAI extends Enemy{
 		
 	}
 	@Override
-	public void collisione(Proiettile g) {
+	public boolean collisione(Proiettile g) {
 		
 		if(g.isVisible())
 		{
@@ -104,9 +104,12 @@ public class EnemyAI extends Enemy{
 						g.setX(player.getX());
 						g.setY(player.getY());
 						player.conteggio2=true;
+						return true;
 					}
-		}
+			
 		
+		}
+		return false;
 	}
 	
 

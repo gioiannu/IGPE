@@ -1,28 +1,41 @@
 package main.core;
 
 import main.managers.GameManager;
+import main.managers.audio.AudioManager;
 
 public class ThreadDinamicObject extends Thread{
 	private GameManager GM;
+	private AudioManager AM;
 	//private MyPanel panel;
 	
-	public ThreadDinamicObject(GameManager g/*, MyPanel panel*/) {
+
+	public ThreadDinamicObject(GameManager g,AudioManager a) {
 		GM=g;
+		AM=a;
 		//this.panel=panel;
 	}
 	@Override
 	public void run() {
-		while(!GM.gameOver()) {
+		while(!GM.gameOver()&& !GM.win()) {
 			synchronized (this){
 			GM.getPlayer().update();
 			GM.getPlayer().setPlayerLastDir(GM.getPlayer().getDirection());
 			
-			GM.getEai().collisione(GM.getPlayer().getProiettile());
+			if(GM.getEai().collisione(GM.getPlayer().getProiettile()))
+			AM.playHit();
 			if(GM.getEai().collisionep(GM.getPlayer())&&(GM.getEai().getSpeed()!=0)) {
+				if(GM.getPlayer().getLives()!=1)
+					AM.playHit();
+				else
+				{
+					AM.playGameOver();
+					AM.stopMusic();
+				}
+				System.out.println("LE VITE SONO "+ GM.getPlayer().getLives());
 				if(GM.getED())
-					GM.startGame(GM.getLevels(),GM.getEDITOR());
+					GM.startGame(GM.getLevels(),GM.getEDITOR(),GM.getPlayer().getLives()-1);
 				else	
-					GM.startGame(GM.getLevels());
+					GM.startGame(GM.getLevels(),GM.getPlayer().getLives()-1);
 				continue;
 			}
 				
@@ -32,12 +45,20 @@ public class ThreadDinamicObject extends Thread{
 			for(int i=0; i<GM.getEnemy().length; i++)
 			{
 				if(GM.getEnemy()[i]!= null) {
-					GM.getEnemy()[i].collisione(GM.getPlayer().getProiettile());
+					if(GM.getEnemy()[i].collisione(GM.getPlayer().getProiettile()))
+						if(GM.getPlayer().getLives()!=1)
+							AM.playHit();
+						else
+						{
+							AM.playGameOver();
+							AM.stopMusic();
+						}
 					if(GM.getEnemy()[i].collisionep(GM.getPlayer())&&(GM.getEnemy()[i].getSpeed()!=0)) {
+						AM.playHit();
 						if(GM.getED())
-							GM.startGame(GM.getLevels(),GM.getEDITOR());
+							GM.startGame(GM.getLevels(),GM.getEDITOR(),GM.getPlayer().getLives()-1);
 						else	
-							GM.startGame(GM.getLevels());
+							GM.startGame(GM.getLevels(),GM.getPlayer().getLives()-1);
 						break;
 					}
 					GM.getEnemy()[i].update();

@@ -26,13 +26,13 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	
 	
 	
-	public Player(final World world, int x, int y,Directions dir, final int speed)
+	public Player(final World world, int x, int y,Directions dir, final int speed,int lives)
 	{
 		super(world,x,y,dir,speed);
 		
 		proiettile= new Proiettile(world,x,y,Directions.STOP, 1);
 		
-		lives=3;
+		this.lives=lives;
 	}
 	@Override
 	public boolean collision(GameObject g) {

@@ -13,7 +13,7 @@ public class ThreadPanel extends Thread{
 		this.GM=GM;
 	}
 	public void run() {
-		while(!GM.gameOver()) {
+		while(true) {
 			p.repaint();
 			try {
 				sleep(5);

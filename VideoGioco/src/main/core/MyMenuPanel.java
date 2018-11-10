@@ -9,14 +9,18 @@ import java.awt.Window;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
+import main.managers.audio.AudioManager;
 
 public class MyMenuPanel extends JPanel{
 	/**
@@ -27,6 +31,7 @@ public class MyMenuPanel extends JPanel{
 	Image editor;
 	Image how;
 	Image esci;
+	AudioManager audio_manager;
 	Toolkit tk = Toolkit.getDefaultToolkit();
 	int [] position;
 	MyMenuThread mt ;
@@ -51,6 +56,7 @@ public class MyMenuPanel extends JPanel{
 		
 		position = new int [4];
 		position[0]=1; position[1]=0; position[2]=0; position[3]=0;
+		audio_manager= new AudioManager();
 		mt = new MyMenuThread(this);
 		initMENU();
 		initListener();
@@ -72,7 +78,16 @@ public class MyMenuPanel extends JPanel{
 		editor= editor.getScaledInstance(width*413/1920,height*186/1080, 1);
 		how= how.getScaledInstance(width*697/1920,height*188/1080, 1);
 		esci= esci.getScaledInstance(width*293/1920,height*175/1080, 1);
-
+		
+		try {
+			
+			audio_manager.initMusic();
+			audio_manager.playMenu();
+		
+	} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 		mt.start();
 	}
 
@@ -99,6 +114,7 @@ public void initListener() {
 		this.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e){
 				if(e.getKeyCode()==40) {
+					audio_manager.playButton19();
 					if(position[0]==1) {
 						position[0]=0;
 						position[1]=1;
@@ -116,6 +132,7 @@ public void initListener() {
 					}
 				}
 				else if(e.getKeyCode()==38) {
+					audio_manager.playButton19();
 					if(position[3]==1) {
 						position[3]=0;
 						position[2]=1;
@@ -130,7 +147,9 @@ public void initListener() {
 					}
 				}
 				else if(e.getKeyCode()==10) {
-					if(position[0]==1) {
+					audio_manager.playButton3();
+					audio_manager.stopMenu();
+					if(position[0]==1) {						
 						lvMult = new MyLivMultFrame();
 						 JComponent comp = (JComponent) e.getSource();
 						  Window win = SwingUtilities.getWindowAncestor(comp);

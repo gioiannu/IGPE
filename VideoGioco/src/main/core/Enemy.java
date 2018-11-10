@@ -81,7 +81,7 @@ public class Enemy extends AbstractDynamicObject{
                 break;
         }
 	}
-	public void collisione(Proiettile g) {
+	public boolean collisione(Proiettile g) {
 		
 		
 		if(g.isVisible())
@@ -96,14 +96,19 @@ public class Enemy extends AbstractDynamicObject{
 						g.setX(player.getX());
 						g.setY(player.getY());
 						player.conteggio1=true;
+						return true;
 					}
 		}	
+		return false;
 	}
 	public boolean collisionep(Player g) {
 		for(int i=g.getX()-fattore/2;i<g.getX()+fattore/2;i++)
 			for(int j=this.getX()-fattore/2;j<this.getX()+fattore/2;j++)
 				if(g.getY()==this.getY()&&i==j)
 				{
+					//System.out.println("LE VITE SONO "+ g.getLives());
+					//g.removeOneLife();
+					//System.out.println("LE VITE SONO "+ g.getLives());
 					return true;
 				}
 	

@@ -13,9 +13,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Vector;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -23,6 +26,7 @@ import javax.swing.SwingUtilities;
 
 import jdk.internal.util.xml.impl.Pair;
 import main.core.interfaces.Directions;
+import main.managers.audio.AudioManager;
 
 
 public class MyEditorPanel extends JPanel{
@@ -39,6 +43,7 @@ public class MyEditorPanel extends JPanel{
 	Image press_x;
 	Image eraser;
 	int fattore= 10;
+	AudioManager audio_manager;
 	//Player pl;
 	
 	private World myWorld;
@@ -92,6 +97,8 @@ public class MyEditorPanel extends JPanel{
 		matrix[11][18] = new ContenutoMatriceEditor("player",11,18);
 		matrix[1][9] = new ContenutoMatriceEditor("enemyAI",1,9);
 		
+		audio_manager=new AudioManager();
+		
 		
 		elementi = new int [2];
 		elementi[0]=1; elementi [1] =0;
@@ -122,6 +129,15 @@ public class MyEditorPanel extends JPanel{
 		press_x = tk.getImage(urlPressX).getScaledInstance(width*406/1920, height*40/1080, 1);
 		eraser = tk.getImage(urlEraser).getScaledInstance(width*325/1920, height*48/1080, 1);
 		
+		
+		try {
+			
+			audio_manager.initMusic();
+		
+	} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 		mt.start();
 	}
 	
@@ -178,6 +194,8 @@ public class MyEditorPanel extends JPanel{
 							g.drawImage(enemy_editor, x+l*(45*width/1920), y+t*(45*height/1080), this);
 						else if(matrix[l][t].getS() == "scala")
 							g.drawImage(scala_editor, x+l*(45*width/1920), y+t*(45*height/1080), this);
+						else if(matrix[l][t].getS() == "bloccoScala")
+							g.drawImage(scala_editor, x+l*(45*width/1920), y+t*(45*height/1080), this);
 					}
 				}
 		}
@@ -200,6 +218,7 @@ public void initListener() {
 		this.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e){
 				if(e.getKeyCode()==49) {
+					audio_manager.playButton19();
 					position[0]=1;
 					position[1]=0;
 					position[2]=0;
@@ -209,6 +228,7 @@ public void initListener() {
 				}
 					
 				if(e.getKeyCode()==50) {
+					audio_manager.playButton19();
 					position[0]=0;
 					position[1]=1;
 					position[2]=0;
@@ -217,6 +237,7 @@ public void initListener() {
 					elementi[1]=0;
 				}
 				if(e.getKeyCode()==51) {
+					audio_manager.playButton19();
 					position[2]=1;
 					position[0]=0;
 					position[1]=0;
@@ -225,6 +246,7 @@ public void initListener() {
 					elementi[1]=0;
 				}
 				if(e.getKeyCode()==52) {
+					audio_manager.playButton19();
 					position[3]=1;
 					position[0]=0;
 					position[1]=0;
@@ -234,6 +256,7 @@ public void initListener() {
 					
 				}
 				if(e.getKeyCode()==88) {
+					audio_manager.playButton19();
 					position[0]=0;
 					position[1]=0;
 					position[2]=0;
@@ -244,6 +267,8 @@ public void initListener() {
 				}
 				
 				else if(e.getKeyCode()==10) {
+					audio_manager.playButton3();
+					
 					for(int i=0; i<20; i++)
 					{
 						for(int j=0; j<23; j++)
@@ -264,15 +289,21 @@ public void initListener() {
 							}
 							if(matrix[i][j].getS()=="nemico")
 							{
-								editor.addEnemy(new Enemy(myWorld,matrix[i][j].getCoordinataX()*10,matrix[i][j].getCoordinataY()*10+10-1,Directions.STOP, 0));
+								editor.addEnemy(new Enemy(myWorld,matrix[i][j].getCoordinataX()*10,matrix[i][j].getCoordinataY()*10+10-1,Directions.STOP, 1));
+							}
+							if(matrix[i][j].getS()=="bloccoScala")
+							{
+								for(int t=0;t<10;t++) 
+									editor.addSolidBrick(new SolidBrick(myWorld,matrix[i][j].getCoordinataX()*10+t,matrix[i][j].getCoordinataY()*10));
+								for(int t=0;t<10;t++) 
+									editor.addStair(new Stairs(myWorld,matrix[i][j].getCoordinataX()*10,matrix[i][j].getCoordinataY()*10+t));	
 							}
 								
 						}
 						
 					}
+					
 					mf = new MyFrame(editor);
-					
-					
 					 JComponent comp = (JComponent) e.getSource();
 					  Window win = SwingUtilities.getWindowAncestor(comp);
 					  win.dispose();
@@ -300,7 +331,7 @@ public void initListener() {
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					
+					audio_manager.playButton19();
 					int k= e.getX();
 					int h= e.getY();
 					Point p= clickToGrid(k,h);
@@ -319,6 +350,11 @@ public void initListener() {
 									if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() == "" &&  (matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "player" || matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "enemyAI"))
 									{
 										matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)]=new ContenutoMatriceEditor("blocco",(int)(k-x)/(45*width/1920),(int)(h-y)/(45*height/1080));
+									}
+									
+									if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() == "scala")
+									{
+										matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)]=new ContenutoMatriceEditor("bloccoScala",(int)(k-x)/(45*width/1920),(int)(h-y)/(45*height/1080));
 									}
 								}
 
@@ -345,9 +381,11 @@ public void initListener() {
 									if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() == "" &&  (matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "player" || matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() != "enemyAI"))
 									{
 										matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)]=new ContenutoMatriceEditor("scala",(int)(k-x)/(45*width/1920),(int)(h-y)/(45*height/1080));
-										for(int i=0;i<10;i++) {
-										}
+										//for(int i=0;i<10;i++) {
+										//}
 									}
+									if(matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)].getS() == "blocco")
+										matrix[(int)(k-x)/(45*width/1920)][(int)(h-y)/(45*height/1080)]=new ContenutoMatriceEditor("bloccoScala",(int)(k-x)/(45*width/1920),(int)(h-y)/(45*height/1080));
 								}
 								
 							points.add(p);

@@ -5,9 +5,11 @@ import main.core.interfaces.Directions;
 public class MovableObject extends AbstractDynamicObject {
 
 	private int fattore=10;
+	public boolean removed;
 	
 	public MovableObject(World world, int x, int y, Directions dir, int speed) {
 		super(world, x, y, dir, speed);
+		removed=false;
 		
 	}
 	public void falling(){
@@ -20,7 +22,10 @@ public class MovableObject extends AbstractDynamicObject {
 		switch (getDirection())
         {
             case DOWN:
-            	if(getY()>=21*fattore) {
+            	if(getY()>=20*fattore) {
+            		world.remove(getX(), getY());
+            		System.out.println("CIAO");
+            		world.removeOneCounter();
             		setSpeed(0);
         			setDirection(Directions.STOP);
         			break;
@@ -34,7 +39,9 @@ public class MovableObject extends AbstractDynamicObject {
                 
             case STOP:
             	if(getY()>=21*fattore) {
-        			world.remove(getX(), getY());
+        			world.remove(getY(), getX());
+        			System.out.println("CIAO");
+        			world.removeOneCounter();
             	}
             	break;
                 

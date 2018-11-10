@@ -8,7 +8,10 @@ public class World {
 		private Object[][] matrix;
 		private int height;
 		private int width;
+		int winnerCounter=0;
 		
+		
+
 		public World(int width, int height)
 		{
 			this.height= height;
@@ -113,7 +116,10 @@ public class World {
 			for( final MovableObject mo : m)
 			{
 				if(mo.getY()<this.getHeight())
+				{
 					this.add(mo.getX(), mo.getY(), mo);
+					winnerCounter++;
+				}
 			}
 			
 			for(final SolidBrick sb : s)
@@ -128,7 +134,18 @@ public class World {
 		}
 		
 		
+		public int getWinnerCounter() {
+			return winnerCounter;
+		}
+
+		public void setWinnerCounter(int winnerCounter) {
+			this.winnerCounter = winnerCounter;
+		}
 		
+		public void removeOneCounter()
+		{
+			winnerCounter--;
+		}
 		
 		
 		

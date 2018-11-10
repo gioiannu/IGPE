@@ -39,7 +39,8 @@ public class GameManager {
     
     Editor editor;
     boolean ed=false;
-    
+    boolean victory;
+    int playerLives;
     
     
     
@@ -48,6 +49,7 @@ public class GameManager {
 	
 	public GameManager()
 	{
+		playerLives=3;
 		editor= new Editor();
 	}
 	
@@ -122,7 +124,12 @@ public class GameManager {
 		return getPlayer().getLives() <=0;
 	}
 	
-	public void startGame(int levels)
+	public boolean win()
+	{
+		return world.getWinnerCounter()==0;
+	}
+	
+	public void startGame(int levels,int lives)
 	{
 		this.levels=levels;
 		
@@ -130,7 +137,7 @@ public class GameManager {
 			world= new World (20*fattore,23*fattore);
 			
 			
-			player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1);
+			player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
 			solidBricks=new SolidBrick[65*fattore];
 			stairs=new Stairs[23*fattore];
 			movableObjects =new MovableObject[4];
@@ -169,6 +176,7 @@ public class GameManager {
 			movableObjects[cont++]=new MovableObject(world,18*fattore,13*fattore+fattore-1,Directions.STOP,0);
 			movableObjects[cont++]=new MovableObject(world,10*fattore,9*fattore+fattore-1,Directions.STOP,0);
 			
+					
 			world.update(player, enemies, movableObjects, solidBricks, stairs, eai);
 			
 			
@@ -177,7 +185,7 @@ public class GameManager {
 			world= new World (20*fattore,23*fattore);
 			
 			
-			player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1);
+			player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
 			solidBricks=new SolidBrick[56*fattore];
 			stairs=new Stairs[38*fattore];
 			movableObjects =new MovableObject[5];
@@ -248,7 +256,7 @@ public class GameManager {
 			world= new World (20*fattore,23*fattore);
 			
 			
-			player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1);
+			player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
 			solidBricks=new SolidBrick[65*fattore];
 			stairs=new Stairs[23*fattore];
 			movableObjects =new MovableObject[4];
@@ -308,13 +316,13 @@ public class GameManager {
 	public Editor getEDITOR() {
 		return editor;
 	}
-	public void startGame(int levels,Editor editor)
+	public void startGame(int levels,Editor editor,int lives)
 	{
 		this.editor=editor;
 		ed=true;
 		world= new World (20*fattore,23*fattore);
 		
-		player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1);
+		player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
 		eai=new EnemyAI(world,1*fattore,9*fattore+fattore-1,Directions.STOP,1,player);
 		solidBricks= new SolidBrick[editor.getSolidBricks().size()];
 		movableObjects = new MovableObject[editor.getMovableObjects().size()];
@@ -335,7 +343,8 @@ public class GameManager {
 		
 		for(int i=0; i<editor.getEnemies().size(); i++)
 		{
-			enemies[i]= editor.getEnemies().get(i);
+			enemies[i]= new Enemy(world,editor.getEnemies().get(i).getX(),editor.getEnemies().get(i).getY(),Directions.STOP,1);
+		//	enemies[i]= editor.getEnemies().get(i);
 			enemies[i].insertP(player);
 		}
 		
@@ -415,6 +424,11 @@ public class GameManager {
 	}
 	public World getWorld() {
 		return world;
+	}
+	
+	public boolean getCollision()
+	{
+		return eai.collisionep(player);
 	}
 
 }
