@@ -126,9 +126,10 @@ public class MyPanel extends JPanel{
 			e.printStackTrace();
 		}
 		if(gameManager.win())
+		{
 			audio_manager.stopMusic();
-		if(gameManager.win())
 			audio_manager.playYouWin();
+		}
 		background=tk.getImage(this.getClass().getResource("SFONDO.png")).getScaledInstance(width,height,1);
 		//scaledBackground = background.getScaledInstance(width,height,1);
 		

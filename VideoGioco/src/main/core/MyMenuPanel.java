@@ -37,6 +37,7 @@ public class MyMenuPanel extends JPanel{
 	MyMenuThread mt ;
 	MyLivMultFrame lvMult;
 	MyEditorFrame myEdit;
+	MyHTPFrame mhtp;
 	URL urlMenuBackground = this.getClass().getResource("MENU.png");
 	Image menuBG = tk.getImage(urlMenuBackground);
 	
@@ -158,6 +159,21 @@ public void initListener() {
 					else if(position[1]==1)
 					{
 						myEdit = new MyEditorFrame();
+						 JComponent comp = (JComponent) e.getSource();
+						  Window win = SwingUtilities.getWindowAncestor(comp);
+						  win.dispose();
+					}
+					else if(position[2]==1)
+					{
+						mhtp = new MyHTPFrame();
+						 JComponent comp = (JComponent) e.getSource();
+						  Window win = SwingUtilities.getWindowAncestor(comp);
+						  win.dispose();
+					}
+					
+					else if(position[3]==1)
+					{
+						
 						 JComponent comp = (JComponent) e.getSource();
 						  Window win = SwingUtilities.getWindowAncestor(comp);
 						  win.dispose();
