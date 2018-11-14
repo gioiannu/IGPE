@@ -21,7 +21,7 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	int cont2=0;
 	
 	int contbullet=0;
-	int bullet=3;
+	public int bullet=3;
 
 	
 	
@@ -148,7 +148,7 @@ public class Player extends AbstractDynamicObject implements CanShoot {
             case RIGHT:
             		if(getX()==world.getWidth()-1&&((world.getObject(0, getY()+1) instanceof Stairs||world.getObject(0, getY()+1) instanceof SolidBrick)))
             			setX(0);
-            		else if(getX()==world.getWidth()) {}
+            		else if(getX()==world.getWidth()-1) {}
             		else if(world.getObject(getX()+1, getY()+1) instanceof Stairs||world.getObject(getX()+1, getY()+1) instanceof SolidBrick)
             			setX(getX() + getSpeed());
             	lastDirection=Directions.RIGHT;

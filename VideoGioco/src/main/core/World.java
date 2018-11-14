@@ -132,6 +132,35 @@ public class World {
 			}
 			
 		}
+		public void update (final Player p, final MovableObject[] m, final SolidBrick[] s, final Stairs[] stairs, final Player player2) 
+		{
+			this.empty();
+			this.add(p.getX(), p.getY(), p);
+			if(p.getProiettile().isVisible())
+				this.add(p.getProiettile().getX(), p.getProiettile().getY(), p.getProiettile());
+			this.add(player2.getX(), player2.getY(), player2);
+			
+		
+			
+			for( final MovableObject mo : m)
+			{
+				if(mo.getY()<this.getHeight())
+				{
+					this.add(mo.getX(), mo.getY(), mo);
+					winnerCounter++;
+				}
+			}
+			
+			for(final SolidBrick sb : s)
+			{
+				this.add(sb.getX(), sb.getY(), sb);
+			}
+			for(final Stairs st : stairs)
+			{
+				this.add(st.getX(), st.getY(), st);
+			}
+			
+		}
 		
 		
 		public int getWinnerCounter() {

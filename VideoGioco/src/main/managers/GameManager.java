@@ -1,6 +1,7 @@
 package main.managers;
 
 import main.core.interfaces.Directions;
+import net.Client;
 import main.core.SolidBrick;
 import main.core.Editor;
 import main.core.Enemy;
@@ -29,11 +30,13 @@ public class GameManager {
     
     private EnemyAI eai;
 
-    private Player player;
+    public Player player;
+    public Player player2;
     
     private int levels=1;
     
     private Directions playerLastDir= Directions.STOP;
+    private Directions playerLastDir2= Directions.STOP;
     
     MyEditorPanel me;
     
@@ -41,7 +44,9 @@ public class GameManager {
     boolean ed=false;
     boolean victory;
     int playerLives;
-    
+    int playerLives2;
+    public boolean connected=false;
+    public Client c;
     
     
     
@@ -51,6 +56,7 @@ public class GameManager {
 	{
 		playerLives=3;
 		editor= new Editor();
+		playerLives2=3;
 	}
 	
 	
@@ -121,12 +127,16 @@ public class GameManager {
 	
 	public boolean gameOver()
 	{
-		return getPlayer().getLives() <=0;
+		if(getLevels()!=4||connected==true)
+			return player.getLives() <=0;
+		return false;
 	}
 	
 	public boolean win()
 	{
-		return world.getWinnerCounter()==0;
+		if(getLevels()!=4||connected==true)
+			return world.getWinnerCounter()==0;
+		return false;
 	}
 	
 	public void startGame(int levels,int lives)
@@ -252,7 +262,7 @@ public class GameManager {
 			
 			
 		}
-		else {
+		else if(levels==3){
 			world= new World (20*fattore,23*fattore);
 			
 			
@@ -296,6 +306,63 @@ public class GameManager {
 			movableObjects[cont++]=new MovableObject(world,10*fattore,9*fattore+fattore-1,Directions.STOP,0);
 			
 			world.update(player, enemies, movableObjects, solidBricks, stairs, eai);
+		}
+		else {
+			world= new World (20*fattore,23*fattore);
+			
+			
+			player= new Player (world,2*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
+			solidBricks=new SolidBrick[62*fattore];
+			stairs=new Stairs[28*fattore];
+			movableObjects =new MovableObject[2];
+			//enemies=new Enemy[1];
+			//enemies[0]=new Enemy(world,1*fattore,6*fattore+fattore-1,Directions.STOP,1);
+			//enemies[0].insertP(player);
+			player2=new Player(world,17*fattore,18*fattore+fattore-1,Directions.STOP,1,lives);
+		
+			for(int i=0;i<20*fattore;i++)
+				solidBricks[i]=new SolidBrick(world,i,19*fattore);
+			
+			for(int i=0,j=20*fattore ;i<8*fattore; i++,j++)
+				solidBricks[j]=new SolidBrick(world,i,15*fattore);
+			for(int i=12*fattore,j=28*fattore ;i<20*fattore; i++,j++)
+				solidBricks[j]=new SolidBrick(world,i,15*fattore);
+			
+			for(int i=0,j=36*fattore ;i<20*fattore; i++,j++)
+				solidBricks[j]=new SolidBrick(world,i,10*fattore);
+			
+			for(int i=0,j=56*fattore ;i<3*fattore; i++,j++)
+				solidBricks[j]=new SolidBrick(world,i,5*fattore);
+			for(int i=17*fattore,j=59*fattore ;i<20*fattore; i++,j++)
+				solidBricks[j]=new SolidBrick(world,i,5*fattore);
+			
+			
+			
+			for(int i=5*fattore,j=0;i<10*fattore;i++,j++)
+				stairs[j]=new Stairs(world,2*fattore,i);
+			for(int i=5*fattore,j=5*fattore;i<10*fattore;i++,j++)
+				stairs[j]=new Stairs(world,17*fattore,i);
+			
+			for(int i=10*fattore,j=10*fattore;i<15*fattore;i++,j++)
+				stairs[j]=new Stairs(world,1*fattore,i);
+			for(int i=10*fattore,j=15*fattore;i<15*fattore;i++,j++)
+				stairs[j]=new Stairs(world,18*fattore,i);
+			
+			for(int i=15*fattore,j=20*fattore;i<19*fattore;i++,j++)
+				stairs[j]=new Stairs(world,7*fattore,i);
+			for(int i=15*fattore,j=24*fattore;i<19*fattore;i++,j++)
+				stairs[j]=new Stairs(world,12*fattore,i);
+			
+			
+			
+			int cont=0;
+			movableObjects[cont++]=new MovableObject(world,1*fattore,4*fattore+fattore-1,Directions.STOP,0);
+			movableObjects[cont++]=new MovableObject(world,18*fattore,4*fattore+fattore-1,Directions.STOP,0);
+
+			
+			
+			world.update(player, movableObjects, solidBricks, stairs, player2);
+			
 		}
 		
 		
@@ -428,12 +495,48 @@ public class GameManager {
 	
 	public boolean getCollision()
 	{
-		return eai.collisionep(player);
+		if(levels!=4)
+			return eai.collisionep(player);
+		else
+			return player.collision(player2);
 	}
 
-}
-	
-	
-	
+
+
+	public void setConnected(boolean b) {
+		connected=b;
+		
+	}
+
+
+
+	public Directions getPlayerLastDir2() {
+		return player2.lastDirection;
+	}
+
+
+
+	public void cgo() {
+		c=new Client(this);
+		c.start();
+		
+	}
+	public void setplayer2(String s) {
+		if(s.equals("up"))
+			player2.setDirection(Directions.UP);
+		else if(s.equals("down"))
+			player2.setDirection(Directions.DOWN);
+		else if(s.equals("left"))
+			player2.setDirection(Directions.LEFT);
+		else if(s.equals("right"))
+			player2.setDirection(Directions.RIGHT);
+		else if(s.equals("shoot")) {
+			if(player2.getProiettile().isVisible())
+				if(player2.bullet>0)
+					player2.shoot();
+					//shooting2=true;
+		}
+	}
 	
 
+}
