@@ -20,7 +20,7 @@ public class Client extends Thread {
 	{
 		try
 		{
-			c=new Socket("127.0.0.1",8118);//ale 192.168.137.45 127.0.0.1
+			c=new Socket("192.168.137.45",8118);//ale 192.168.137.45 127.0.0.1
 			in=new BufferedReader(new InputStreamReader(c.getInputStream()));
 			out=new PrintWriter(c.getOutputStream());
 			

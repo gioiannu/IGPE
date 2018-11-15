@@ -17,6 +17,11 @@ public class GameManager {
 	
 	private World world;
 	
+	boolean conteggio1=false;
+	boolean conteggio2=false;
+	int pcont=0;
+	int pcont2=0;
+	
 	
 	private int fattore=10;
 
@@ -571,10 +576,39 @@ public class GameManager {
 						player.getProiettile().setVisible(false);
 						player.getProiettile().setX(player.getX());
 						player.getProiettile().setY(player.getY());
-						player.conteggio1=true;
+						conteggio1=true;
 					}
-		}
 		
-	
-
+		if(player2.getProiettile().isVisible())
+			for(int i=player2.getProiettile().getX()-fattore/2;i<player2.getProiettile().getX()+fattore/2;i++)
+				for(int j=player.getX()-fattore/2;j<player.getX()+fattore/2;j++)
+					if(player2.getProiettile().getY()==player.getY()&&i==j)
+					{
+						player.setSpeed(0);
+						player.setDirection(Directions.STOP);
+						player2.getProiettile().setVisible(false);
+						player2.getProiettile().setX(player2.getX());
+						player2.getProiettile().setY(player2.getY());
+						conteggio2=true;
+					}
+		if(conteggio1==true) {
+			if(pcont>=1000) {
+				conteggio1=false;
+				player2.setSpeed(1);
+				
+			}
+			else
+				pcont++;
+		}
+		if(conteggio2==true) {
+			if(pcont2>=1000) {
+				conteggio2=false;
+				player.setSpeed(1);
+				
+			}
+			else
+				pcont2++;
+		}
+	}
+		
 }
