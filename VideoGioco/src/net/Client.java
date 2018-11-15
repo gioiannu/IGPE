@@ -20,7 +20,7 @@ public class Client extends Thread {
 	{
 		try
 		{
-			c=new Socket("192.168.137.45",8118);//ale 192.168.137.45 127.0.0.1
+			c=new Socket("127.0.0.1",8118);//ale 192.168.137.45 127.0.0.1
 			in=new BufferedReader(new InputStreamReader(c.getInputStream()));
 			out=new PrintWriter(c.getOutputStream());
 			
@@ -54,6 +54,10 @@ public class Client extends Thread {
 				else if(s.equals("stop"))
 					game_manager.setplayer2(s);
 				else if(s.equals("shoot")) {
+					game_manager.setplayer2(s);
+							//shooting2????
+				}
+				else if(s.equals("shootof")) {
 					game_manager.setplayer2(s);
 							//shooting2????
 				}
@@ -112,6 +116,12 @@ public class Client extends Thread {
 		
 		
 		out.println(string);
+		out.flush();
+		
+	}
+
+	public void sendShootof() {
+		out.println("shootof");
 		out.flush();
 		
 	}

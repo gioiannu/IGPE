@@ -73,6 +73,8 @@ public class ThreadDinamicObject extends Thread{
 			}
 			else {
 				GM.player2.update();
+				GM.player2.setPlayerLastDir(GM.player2.getDirection());
+				GM.collisioneproiettili();
 				
 			}
 			}

@@ -15,8 +15,8 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	
 	public Directions lastDirection=Directions.STOP;
 	
-	boolean conteggio1=false;
-	boolean conteggio2=false;
+	public boolean conteggio1=false;
+	public boolean conteggio2=false;
 	int cont=0;
 	int cont2=0;
 	

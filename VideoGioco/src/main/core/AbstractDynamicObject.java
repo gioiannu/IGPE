@@ -33,7 +33,7 @@ public abstract class AbstractDynamicObject extends AbstractGameObject implement
 		
 	}
 
-	protected void setX(int x)
+	public void setX(int x)
 	{
 		if( x < 0 )
 		{
@@ -49,7 +49,7 @@ public abstract class AbstractDynamicObject extends AbstractGameObject implement
 		}
 	}
 	
-	protected void setY(int y)
+	public void setY(int y)
 	{
 		if(y < 0)
 		{

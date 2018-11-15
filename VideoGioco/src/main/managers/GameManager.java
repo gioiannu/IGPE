@@ -535,12 +535,46 @@ public class GameManager {
 		else if(s.equals("stop"))
 			player2.setDirection(Directions.STOP);
 		else if(s.equals("shoot")) {
-			if(player2.getProiettile().isVisible())
+			if(player2.getProiettile().isVisible()==false) {
+				player2.getProiettile().setVisible(true);
 				if(player2.bullet>0)
 					player2.shoot();
 					shooting2=true;
+			}
+		}
+		else if(s.equals("shootof")) {
+			shooting2=false;
 		}
 	}
+
+
+
+	public void collisioneproiettili() {
+		if(player.getProiettile().isVisible()&&player2.getProiettile().isVisible()) {
+			if(player.getProiettile().collision(player2.getProiettile())) {
+				player.getProiettile().setVisible(false);
+				player2.getProiettile().setVisible(false);
+				player.getProiettile().setX(player.getX());
+				player.getProiettile().setY(player.getY());
+				player2.getProiettile().setX(player2.getX());
+				player2.getProiettile().setY(player2.getY());
+			}
+		}
+		
+		if(player.getProiettile().isVisible())
+			for(int i=player.getProiettile().getX()-fattore/2;i<player.getProiettile().getX()+fattore/2;i++)
+				for(int j=player2.getX()-fattore/2;j<player2.getX()+fattore/2;j++)
+					if(player.getProiettile().getY()==player2.getY()&&i==j)
+					{
+						player2.setSpeed(0);
+						player2.setDirection(Directions.STOP);
+						player.getProiettile().setVisible(false);
+						player.getProiettile().setX(player.getX());
+						player.getProiettile().setY(player.getY());
+						player.conteggio1=true;
+					}
+		}
+		
 	
 
 }

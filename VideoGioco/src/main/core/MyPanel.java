@@ -323,6 +323,9 @@ public class MyPanel extends JPanel{
 				else if(e.getKeyCode()==KeyEvent.VK_F) {
 					shooting=false;
 					pressed=false;
+					if(gameManager.getLevels()==4)
+						c.sendDirection("stop");
+					c.sendShootof();
 				}
 				
 				
@@ -382,7 +385,7 @@ public class MyPanel extends JPanel{
 			g.drawImage(bullet[0], convertiX(gameManager.getPlayer().getProiettile().getX()), convertiY(gameManager.getPlayer().getProiettile().getY()-fattore), this);
 		else if(gameManager.getPlayer().getProiettile().isVisible()==true&&gameManager.getPlayer().getProiettile().getDirection()==Directions.LEFT)
 			g.drawImage(bullet[1], convertiX(gameManager.getPlayer().getProiettile().getX()), convertiY(gameManager.getPlayer().getProiettile().getY()-fattore), this);
-		if(gameManager.getLevels()==4) {
+		if(gameManager.connected==true) {
 			if(gameManager.player2.getProiettile().isVisible()==true&&gameManager.player2.getProiettile().getDirection()==Directions.RIGHT)
 				g.drawImage(bullet[0], convertiX(gameManager.player2.getProiettile().getX()), convertiY(gameManager.player2.getProiettile().getY()-fattore), this);
 			else if(gameManager.player2.getProiettile().isVisible()==true&&gameManager.player2.getProiettile().getDirection()==Directions.LEFT)
@@ -559,9 +562,22 @@ public class MyPanel extends JPanel{
 		return lastImageP;
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private Image playerMovement2(Player p)
 	{
-		if(gameManager.shooting2) {
+		if(gameManager.shooting2==true) {
 			if(gameManager.getPlayerLastDir2().equals(Directions.RIGHT)||lastImageP2==player[0]||lastImageP2==player[1]||lastImageP2==player[2]){
 				lastImageP2=player[12];
 			}
@@ -696,6 +712,25 @@ public class MyPanel extends JPanel{
 		return lastImageP2;
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private Image enemyMovement(EnemyAI e)
 	{
 		if(e.getDirection().equals(Directions.STOP))
