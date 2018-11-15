@@ -27,6 +27,14 @@ public class ThreadMovableObject extends Thread{
 						
 							
 					}
+					if(GM.getLevels()==4)
+						if(GM.player2.collision(GM.getMovableObject()[i]))
+						{
+							GM.getMovableObject()[i].falling();
+							AM.playCatch();
+						
+							
+						}
 					for(int j=0;j<GM.getMovableObject().length; j++)
 					{
 						if(j!=i && GM.getMovableObject()[i].collision(GM.getMovableObject()[j]))

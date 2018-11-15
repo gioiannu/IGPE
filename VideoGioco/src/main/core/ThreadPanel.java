@@ -14,7 +14,8 @@ public class ThreadPanel extends Thread{
 	}
 	public void run() {
 		while(true) {
-			p.repaint();
+			if(GM.connected==true||GM.getLevels()!=4)
+				p.repaint();
 			try {
 				sleep(5);
 			} catch (InterruptedException e) {

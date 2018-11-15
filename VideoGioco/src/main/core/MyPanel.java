@@ -19,6 +19,7 @@ import javax.swing.SwingUtilities;
 import main.core.interfaces.Directions;
 import main.managers.GameManager;
 import main.managers.audio.AudioManager;
+import net.Client;
 
 public class MyPanel extends JPanel{
 	/**
@@ -43,6 +44,7 @@ public class MyPanel extends JPanel{
 	Image object7;
 	
 	Image lastImageP;
+	Image lastImageP2;
 	Image lastImageE;
 	Image [] gameOver= new Image[3];
 	Image [] vittoria= new Image[3];
@@ -56,8 +58,10 @@ public class MyPanel extends JPanel{
 	MyMenuFrame mmp;
 	MyFrame mf;
 	Editor startEditor;
+	Client c;
 	
 	boolean shooting=false;
+	
 	boolean fire= false;
 	boolean creatoreDiLivelli=false;
 	
@@ -76,6 +80,10 @@ public class MyPanel extends JPanel{
 		pos2[0]=1; pos2[1]=0;
 		
 		gameManager.startGame(l,3);
+		if(l==4) {
+			c=new Client(gameManager);
+			c.start();
+		}
 		audio_manager = new AudioManager(this.gameManager);
 		initGUI();
 		initEH();
@@ -157,6 +165,7 @@ public class MyPanel extends JPanel{
 		
 		
 		lastImageP=player[0];
+		lastImageP2=player[0];
 		
 		enemyAI[0]=tk.getImage(this.getClass().getResource("ENEMYF1DX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[1]=tk.getImage(this.getClass().getResource("ENEMYF1DX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
@@ -206,6 +215,9 @@ public class MyPanel extends JPanel{
 				if(e.getKeyCode()==KeyEvent.VK_W)
 				{
 					gameManager.getPlayer().setDirection(Directions.UP);
+					if(gameManager.getLevels()==4)
+						c.sendDirection("up");
+					
 					 if (!pressed&& !gameManager.gameOver()&&!gameManager.win()) {
 						 audio_manager.playFly();
 				            pressed = true;
@@ -216,6 +228,8 @@ public class MyPanel extends JPanel{
 				else if(e.getKeyCode()==KeyEvent.VK_S)
 				{
 					gameManager.getPlayer().setDirection(Directions.DOWN);
+					if(gameManager.getLevels()==4)
+						c.sendDirection("down");
 					if (!pressed&& !gameManager.gameOver()&&!gameManager.win()) {
 						 audio_manager.playFly();
 				            pressed = true;
@@ -225,6 +239,8 @@ public class MyPanel extends JPanel{
 				else if(e.getKeyCode()==KeyEvent.VK_A)
 				{
 					gameManager.getPlayer().setDirection(Directions.LEFT);
+					if(gameManager.getLevels()==4)
+						c.sendDirection("right");
 					if (!pressed&& !gameManager.gameOver()&&!gameManager.win()) {
 						 audio_manager.playFly();
 				            pressed = true;
@@ -234,6 +250,8 @@ public class MyPanel extends JPanel{
 				else if(e.getKeyCode()==KeyEvent.VK_D)
 				{
 					gameManager.getPlayer().setDirection(Directions.RIGHT);
+					if(gameManager.getLevels()==4)
+						c.sendDirection("left");
 					if (!pressed&& !gameManager.gameOver()&&!gameManager.win()) {
 						 audio_manager.playFly();
 				            pressed = true;
@@ -246,6 +264,8 @@ public class MyPanel extends JPanel{
 						if(gameManager.getPlayer().bullet>0) {
 							gameManager.getPlayer().shoot();
 							shooting=true;
+							if(gameManager.getLevels()==4)
+								c.sendShoot();
 							if (!pressed && !gameManager.gameOver()&&!gameManager.win()) {
 								 audio_manager.playShoot();
 						            pressed = true;
@@ -267,24 +287,32 @@ public class MyPanel extends JPanel{
 				if(e.getKeyCode()==KeyEvent.VK_W)
 				{
 					gameManager.getPlayer().setDirection(Directions.STOP);
+					if(gameManager.getLevels()==4)
+						c.sendDirection("stop");
 					pressed=false;
 				}
 				
 				else if(e.getKeyCode()==KeyEvent.VK_S)
 				{
 					gameManager.getPlayer().setDirection(Directions.STOP);
+					if(gameManager.getLevels()==4)
+						c.sendDirection("stop");
 					pressed=false;
 				}
 				
 				else if(e.getKeyCode()==KeyEvent.VK_A)
 				{
 					gameManager.getPlayer().setDirection(Directions.STOP);
+					if(gameManager.getLevels()==4)
+						c.sendDirection("stop");
 					pressed=false;
 				}
 				
 				else if(e.getKeyCode()==KeyEvent.VK_D)
 				{
 					gameManager.getPlayer().setDirection(Directions.STOP);
+					if(gameManager.getLevels()==4)
+						c.sendDirection("stop");
 					pressed=false;
 				}
 				else if(e.getKeyCode()==KeyEvent.VK_F) {
@@ -305,6 +333,7 @@ public class MyPanel extends JPanel{
 		super.paintComponent(g);
 		
 	try {
+		if(gameManager.connected==true||gameManager.getLevels()!=4) {
 		g.drawImage(background,0,0,this);
 		
 		for(int i=0;i<gameManager.getPlayer().getLives(); i++)
@@ -327,17 +356,29 @@ public class MyPanel extends JPanel{
 			if(21*fattore>gameManager.getMovableObject()[i].getY())
 				g.drawImage(object7,convertiX(gameManager.getMovableObject()[i].getX()),convertiY(gameManager.getMovableObject()[i].getY()-fattore), this);
 		}
-		for(int i=0;i<gameManager.getEnemy().length;i++)
-		{
-			g.drawImage(player[6],convertiX(gameManager.getEnemy()[i].getX()),convertiY(gameManager.getEnemy()[i].getY()-fattore), this);
-		}
+		if(gameManager.getLevels()!=4)
+			for(int i=0;i<gameManager.getEnemy().length;i++)
+			{
+				g.drawImage(player[6],convertiX(gameManager.getEnemy()[i].getX()),convertiY(gameManager.getEnemy()[i].getY()-fattore), this);
+			}
 		g.drawImage(playerMovement(gameManager.getPlayer()), convertiX(gameManager.getPlayer().getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
-		g.drawImage(enemyMovement(gameManager.getEai()), convertiX(gameManager.getEai().getX()), convertiY(gameManager.getEai().getY()-fattore), this);
+		if(gameManager.getLevels()!=4)
+			g.drawImage(enemyMovement(gameManager.getEai()), convertiX(gameManager.getEai().getX()), convertiY(gameManager.getEai().getY()-fattore), this);
+		else
+			g.drawImage(playerMovement2(gameManager.player2), convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
+			
 		
 		if(gameManager.getPlayer().getProiettile().isVisible()==true&&gameManager.getPlayer().getProiettile().getDirection()==Directions.RIGHT)
 			g.drawImage(bullet[0], convertiX(gameManager.getPlayer().getProiettile().getX()), convertiY(gameManager.getPlayer().getProiettile().getY()-fattore), this);
 		else if(gameManager.getPlayer().getProiettile().isVisible()==true&&gameManager.getPlayer().getProiettile().getDirection()==Directions.LEFT)
 			g.drawImage(bullet[1], convertiX(gameManager.getPlayer().getProiettile().getX()), convertiY(gameManager.getPlayer().getProiettile().getY()-fattore), this);
+		if(gameManager.getLevels()==4) {
+			if(gameManager.player2.getProiettile().isVisible()==true&&gameManager.player2.getProiettile().getDirection()==Directions.RIGHT)
+				g.drawImage(bullet[0], convertiX(gameManager.player2.getProiettile().getX()), convertiY(gameManager.player2.getProiettile().getY()-fattore), this);
+			else if(gameManager.player2.getProiettile().isVisible()==true&&gameManager.player2.getProiettile().getDirection()==Directions.LEFT)
+				g.drawImage(bullet[1], convertiX(gameManager.player2.getProiettile().getX()), convertiY(gameManager.player2.getProiettile().getY()-fattore), this);
+		}
+		}
 	}
 	catch(NullPointerException n){
 		//System.out.println("");
@@ -506,6 +547,143 @@ public class MyPanel extends JPanel{
 		
 		}
 		return lastImageP;
+		
+	}
+	private Image playerMovement2(Player p)
+	{
+		if(gameManager.shooting2) {
+			if(gameManager.getPlayerLastDir2().equals(Directions.RIGHT)||lastImageP2==player[0]||lastImageP2==player[1]||lastImageP2==player[2]){
+				lastImageP2=player[12];
+			}
+			else if(gameManager.getPlayerLastDir2().equals(Directions.LEFT)||lastImageP2==player[3]||lastImageP2==player[4]||lastImageP2==player[5]){
+					lastImageP2=player[14];	
+			}
+		}
+		else {
+			if(lastImageP2==player[12]) {
+				lastImageP2=player[2];
+			}
+			if(lastImageP2==player[14]) {
+				lastImageP2=player[5];
+			}
+		
+			if(gameManager.getPlayerLastDir2().equals(Directions.STOP))
+			{
+				if(lastImageP2.equals(player[0]))
+				{
+					lastImageP2=player[1];
+					return player[1];
+				}
+				else if(lastImageP2.equals(player[1]))
+				{
+					lastImageP2=player[0];
+					return player[0];
+				}
+				else if(lastImageP2.equals(player[2]))
+				{
+					lastImageP2=player[0];
+					return player[0];
+				}
+						
+				else if(lastImageP2.equals(player[3]))
+				{
+					lastImageP2=player[4];
+					return player[4];
+				}
+				else if(lastImageP2.equals(player[4]))
+				{
+					lastImageP2=player[3];
+					return player[3];
+				}
+				else if(lastImageP2.equals(player[5]))
+				{
+					lastImageP2=player[3];
+					return player[3];
+				}
+				else if(lastImageP2.equals(player[7])) 
+				{
+					lastImageP2=player[0];
+					return player[0];
+				}
+				else if(lastImageP2.equals(player[8])) 
+				{
+					lastImageP2=player[3];
+					return player[3];
+				}
+				else if(lastImageP2.equals(player[9])) 
+				{
+					lastImageP2=player[3];
+					return player[3];
+				}
+				else if(lastImageP2.equals(player[10])) 
+				{
+					lastImageP2=player[0];
+					return player[0];
+				}
+			}
+			
+			else if(gameManager.getPlayerLastDir2().equals(Directions.RIGHT))
+			{
+				lastImageP2=player[2];
+				return player[2];
+			}
+			else if(gameManager.getPlayerLastDir2().equals(Directions.LEFT))
+			{
+				lastImageP2=player[5];
+				return player[5];
+			}
+			
+			else if(gameManager.getPlayerLastDir2().equals(Directions.UP))
+			{
+				if(lastImageP2.equals(player[3]) || lastImageP2.equals(player[4]))
+				{
+					lastImageP2=player[8];
+					return player[8];
+				}
+				else if(lastImageP2.equals(player[0]) || lastImageP2.equals(player[1]))
+				{
+					lastImageP2=player[7];
+					return player[7];
+				}
+				else if(lastImageP2.equals(player[9]))
+				{
+					lastImageP2=player[8];
+					return player[8];
+				}
+				else if(lastImageP2.equals(player[10]))
+				{
+					lastImageP2=player[7];
+					return player[7];
+				}
+				
+			}
+			
+			else if(gameManager.getPlayerLastDir2().equals(Directions.DOWN))
+			{
+				if(lastImageP2.equals(player[3]) || lastImageP2.equals(player[4]))
+				{
+					lastImageP2=player[9];
+					return player[9];
+				}
+				else if(lastImageP2.equals(player[0]) || lastImageP2.equals(player[1]))
+				{
+					lastImageP2=player[10];
+					return player[10];
+				}
+				else if(lastImageP2.equals(player[7]))
+				{
+					lastImageP2=player[10];
+					return player[10];
+				}
+				else if(lastImageP2.equals(player[8]))
+				{
+					lastImageP2=player[9];
+					return player[9];
+				}
+			}
+		
+		}
+		return lastImageP2;
 		
 	}
 	private Image enemyMovement(EnemyAI e)

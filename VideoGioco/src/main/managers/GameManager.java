@@ -48,6 +48,8 @@ public class GameManager {
     public boolean connected=false;
     public Client c;
     
+    public boolean shooting2=false;
+    
     
     
     
@@ -530,11 +532,13 @@ public class GameManager {
 			player2.setDirection(Directions.LEFT);
 		else if(s.equals("right"))
 			player2.setDirection(Directions.RIGHT);
+		else if(s.equals("stop"))
+			player2.setDirection(Directions.STOP);
 		else if(s.equals("shoot")) {
 			if(player2.getProiettile().isVisible())
 				if(player2.bullet>0)
 					player2.shoot();
-					//shooting2=true;
+					shooting2=true;
 		}
 	}
 	

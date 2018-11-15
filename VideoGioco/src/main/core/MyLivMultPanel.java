@@ -32,6 +32,7 @@ public class MyLivMultPanel extends JPanel{
 	AudioManager audio_manager;
 	MyLivMultThread mt = new MyLivMultThread(this);
 	MyLevelsFrame lv;
+	MyFrame mf;
 	URL urlLivMultBackground = this.getClass().getResource("LIVELLI_MULT.png");
 	Image livMBG = tk.getImage(urlLivMultBackground);
 	
@@ -121,6 +122,12 @@ public void initListener() {
 					if(position[0]==1) {
 						
 						lv = new MyLevelsFrame();
+						 JComponent comp = (JComponent) e.getSource();
+						  Window win = SwingUtilities.getWindowAncestor(comp);
+						  win.dispose();
+					}
+					else if(position[1]==1) {
+						mf=new MyFrame(4);
 						 JComponent comp = (JComponent) e.getSource();
 						  Window win = SwingUtilities.getWindowAncestor(comp);
 						  win.dispose();
