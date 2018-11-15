@@ -343,23 +343,23 @@ public class GameManager {
 			for(int i=5*fattore,j=0;i<10*fattore;i++,j++)
 				stairs[j]=new Stairs(world,2*fattore,i);
 			for(int i=5*fattore,j=5*fattore;i<10*fattore;i++,j++)
-				stairs[j]=new Stairs(world,17*fattore,i);
+				stairs[j]=new Stairs(world,18*fattore,i);
 			
 			for(int i=10*fattore,j=10*fattore;i<15*fattore;i++,j++)
 				stairs[j]=new Stairs(world,1*fattore,i);
 			for(int i=10*fattore,j=15*fattore;i<15*fattore;i++,j++)
-				stairs[j]=new Stairs(world,18*fattore,i);
+				stairs[j]=new Stairs(world,19*fattore,i);
 			
 			for(int i=15*fattore,j=20*fattore;i<19*fattore;i++,j++)
 				stairs[j]=new Stairs(world,7*fattore,i);
 			for(int i=15*fattore,j=24*fattore;i<19*fattore;i++,j++)
-				stairs[j]=new Stairs(world,12*fattore,i);
+				stairs[j]=new Stairs(world,13*fattore,i);
 			
 			
 			
 			int cont=0;
 			movableObjects[cont++]=new MovableObject(world,1*fattore,4*fattore+fattore-1,Directions.STOP,0);
-			movableObjects[cont++]=new MovableObject(world,18*fattore,4*fattore+fattore-1,Directions.STOP,0);
+			movableObjects[cont++]=new MovableObject(world,19*fattore,4*fattore+fattore-1,Directions.STOP,0);
 
 			
 			
