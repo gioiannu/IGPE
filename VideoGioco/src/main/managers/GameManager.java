@@ -556,14 +556,25 @@ public class GameManager {
 
 	public void collisioneproiettili() {
 		if(player.getProiettile().isVisible()&&player2.getProiettile().isVisible()) {
-			if(player.getProiettile().collision(player2.getProiettile())&&player2.getProiettile().collision(player.getProiettile())) {
+			for(int i=player.getProiettile().getX()-fattore/2;i<player.getProiettile().getX()+fattore/2;i++)
+				for(int j=player2.getProiettile().getX()-fattore/2;j<player2.getProiettile().getX()+fattore/2;j++)
+					if(player.getProiettile().getY()==player2.getProiettile().getY()&&i==j)
+					{
+						player.getProiettile().setVisible(false);
+						player2.getProiettile().setVisible(false);
+						player.getProiettile().setX(player.getX());
+						player.getProiettile().setY(player.getY());
+						player2.getProiettile().setX(player2.getX());
+						player2.getProiettile().setY(player2.getY());
+					}
+			/*if(player.getProiettile().collision(player2.getProiettile())&&player2.getProiettile().collision(player.getProiettile())) {
 				player.getProiettile().setVisible(false);
 				player2.getProiettile().setVisible(false);
 				player.getProiettile().setX(player.getX());
 				player.getProiettile().setY(player.getY());
 				player2.getProiettile().setX(player2.getX());
 				player2.getProiettile().setY(player2.getY());
-			}
+			}*/
 		}
 		
 		if(player.getProiettile().isVisible())
@@ -592,7 +603,7 @@ public class GameManager {
 						conteggio2=true;
 					}
 		if(conteggio1==true) {
-			if(pcont>=100) {
+			if(pcont>=1000) {
 				conteggio1=false;
 				player2.setSpeed(1);
 				
@@ -601,7 +612,7 @@ public class GameManager {
 				pcont++;
 		}
 		if(conteggio2==true) {
-			if(pcont2>=100) {
+			if(pcont2>=1000) {
 				conteggio2=false;
 				player.setSpeed(1);
 				
