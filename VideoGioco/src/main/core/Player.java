@@ -122,18 +122,26 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 		switch (getDirection())
         {
             case UP:
-            	for(int i=getX()-fattore/2;i<getX()+fattore/2;i++) {
+            	for(int i=getX()-fattore;i<getX()+fattore/2;i++) {
+            	try {
             	if(world.getObject(i, getY()) instanceof Stairs||world.getObject(i, getY()-1) instanceof Stairs)
             			setY(getY() - getSpeed());
-            	}            	
+            	}
+            	catch(Exception ArrayIndexOutOfBoundsException) {
             	lastDirection=Directions.UP;
+            	}
+            	}
                 break;
             case DOWN:
             	for(int i=getX()-fattore;i<getX()+fattore/2;i++) {
+            	try {
             	if(world.getObject(i, getY()+1) instanceof Stairs)
             		setY(getY() + getSpeed());
             	}
+            	catch(Exception ArrayIndexOutOfBoundsException) {
             	lastDirection=Directions.DOWN;
+            	}
+            	}
                 break;
             case LEFT:
             		if(getX()==0&&(world.getObject(world.getWidth()-1, getY()+1) instanceof Stairs||world.getObject(world.getWidth()-1, getY()+1) instanceof SolidBrick))
@@ -169,6 +177,10 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	public void setPlayerLastDir(Directions direction) {
 		lastDirection=direction;
 		
+	}
+	public void setPosition(int x,int y) {
+		setX(x);
+		setY(y);
 	}
 	
 	

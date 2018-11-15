@@ -30,6 +30,7 @@ public class MyPanel extends JPanel{
 	AudioManager audio_manager;
 	Toolkit tk=Toolkit.getDefaultToolkit();
 	
+	
 	Image []player=new Image[15];
 	
 	Image background;
@@ -215,8 +216,9 @@ public class MyPanel extends JPanel{
 				if(e.getKeyCode()==KeyEvent.VK_W)
 				{
 					gameManager.getPlayer().setDirection(Directions.UP);
-					if(gameManager.getLevels()==4)
-						c.sendDirection("up");
+					if(gameManager.getLevels()==4) {
+							c.sendDirection("up");
+					}
 					
 					 if (!pressed&& !gameManager.gameOver()&&!gameManager.win()) {
 						 audio_manager.playFly();
@@ -228,8 +230,9 @@ public class MyPanel extends JPanel{
 				else if(e.getKeyCode()==KeyEvent.VK_S)
 				{
 					gameManager.getPlayer().setDirection(Directions.DOWN);
-					if(gameManager.getLevels()==4)
-						c.sendDirection("down");
+					if(gameManager.getLevels()==4) {
+							c.sendDirection("down");
+					}
 					if (!pressed&& !gameManager.gameOver()&&!gameManager.win()) {
 						 audio_manager.playFly();
 				            pressed = true;
@@ -239,8 +242,9 @@ public class MyPanel extends JPanel{
 				else if(e.getKeyCode()==KeyEvent.VK_A)
 				{
 					gameManager.getPlayer().setDirection(Directions.LEFT);
-					if(gameManager.getLevels()==4)
+					if(gameManager.getLevels()==4) {
 						c.sendDirection("right");
+					}
 					if (!pressed&& !gameManager.gameOver()&&!gameManager.win()) {
 						 audio_manager.playFly();
 				            pressed = true;
@@ -250,8 +254,9 @@ public class MyPanel extends JPanel{
 				else if(e.getKeyCode()==KeyEvent.VK_D)
 				{
 					gameManager.getPlayer().setDirection(Directions.RIGHT);
-					if(gameManager.getLevels()==4)
+					if(gameManager.getLevels()==4) {
 						c.sendDirection("left");
+					}
 					if (!pressed&& !gameManager.gameOver()&&!gameManager.win()) {
 						 audio_manager.playFly();
 				            pressed = true;
@@ -349,11 +354,16 @@ public class MyPanel extends JPanel{
 		}
 		for(int i=0;i<gameManager.getStair().length/fattore;i++)
 		{
-			g.drawImage(stair,convertiX(gameManager.getStair()[i*fattore].getX()),convertiY(gameManager.getStair()[i*fattore].getY()), this);
+			g.drawImage(stair,convertiX(gameManager.getStair()[i*fattore].getX()-5),convertiY(gameManager.getStair()[i*fattore].getY()), this);
 		}
+		/*
+		for(int i=0;i<gameManager.getStair().length/fattore;i++)
+		{
+			g.drawImage(stair,convertiX(gameManager.getStair()[i*fattore].getX()-10),convertiY(gameManager.getStair()[i*fattore].getY()), this);
+		}*/
 		for(int i=0;i<gameManager.getMovableObject().length;i++)
 		{
-			if(21*fattore>gameManager.getMovableObject()[i].getY())
+			if(20*fattore>gameManager.getMovableObject()[i].getY())
 				g.drawImage(object7,convertiX(gameManager.getMovableObject()[i].getX()),convertiY(gameManager.getMovableObject()[i].getY()-fattore), this);
 		}
 		if(gameManager.getLevels()!=4)
@@ -386,19 +396,19 @@ public class MyPanel extends JPanel{
 	
 		if(gameManager.gameOver())
 		{
-			g.drawImage(gameOver[0], 400, 100, this);
+			g.drawImage(gameOver[0],width*400/1920,height*100/1080, this);
 			if(position[0] ==1)
-				g.drawImage(gameOver[1], 466, 436, this);
+				g.drawImage(gameOver[1], width*466/1920, height*436/1080, this);
 			else
-				g.drawImage(gameOver[2], 942, 436, this);
+				g.drawImage(gameOver[2], width*942/1920, height*436/1080, this);
 		}
 		if(gameManager.win())
 		{
-			g.drawImage(vittoria[0], 400, 100, this);
+			g.drawImage(vittoria[0], width*400/1920, height*100/1080, this);
 			if(pos2[0] ==1)
-				g.drawImage(vittoria[1], 466, 436, this);
+				g.drawImage(vittoria[1], width*466/1920, height*436/1080, this);
 			else
-				g.drawImage(vittoria[2], 930, 399, this);
+				g.drawImage(vittoria[2], width*930/1920, height*399/1080, this);
 		}
 	
 	}

@@ -31,12 +31,11 @@ public class MyHTPPanel extends JPanel{
 	MyLevelsFrame lv;
 	MyMenuFrame mmf;
 	URL BG= this.getClass().getResource("HOWTOPLAY.png");
-	Image background= tk.getImage(BG);
 	
 	Dimension screenSize = tk.getScreenSize();
 	int width = (int) screenSize.getWidth();
 	int height = (int) screenSize.getHeight();
-	
+	Image background= tk.getImage(BG).getScaledInstance(width,height,1);
 	Image HTPBackground = background.getScaledInstance(width, height,1);
 	
 	public MyHTPPanel()

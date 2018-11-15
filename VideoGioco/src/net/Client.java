@@ -20,7 +20,7 @@ public class Client extends Thread {
 	{
 		try
 		{
-			c=new Socket("127.0.0.1",8118);
+			c=new Socket("127.0.0.1",8118);//ale 192.168.137.45
 			in=new BufferedReader(new InputStreamReader(c.getInputStream()));
 			out=new PrintWriter(c.getOutputStream());
 			
@@ -62,8 +62,6 @@ public class Client extends Thread {
 					PrintWriter pout = new PrintWriter(c.getOutputStream());
 					pout.println(s);
 					pout.flush();
-					
-					
 				}
 
 				sleep(10);
@@ -108,5 +106,13 @@ public class Client extends Thread {
 	{
 		out.println("shoot");
 		out.flush();
+	}
+
+	public void sendPosition(String string) {
+		
+		
+		out.println(string);
+		out.flush();
+		
 	}
 }

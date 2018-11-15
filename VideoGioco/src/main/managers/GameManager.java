@@ -150,7 +150,7 @@ public class GameManager {
 			
 			
 			player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
-			solidBricks=new SolidBrick[65*fattore];
+			solidBricks=new SolidBrick[66*fattore];
 			stairs=new Stairs[23*fattore];
 			movableObjects =new MovableObject[4];
 			enemies=new Enemy[1];
@@ -168,7 +168,7 @@ public class GameManager {
 				solidBricks[j]=new SolidBrick(world,i,14*fattore);
 			for(int i=0,j=54*fattore;i<8*fattore;i++,j++)
 				solidBricks[j]=new SolidBrick(world,i,5*fattore);
-			for(int i=17*fattore,j=62*fattore;i<20*fattore;i++,j++)
+			for(int i=16*fattore,j=62*fattore;i<20*fattore;i++,j++)
 				solidBricks[j]=new SolidBrick(world,i,5*fattore);
 			
 			for(int i=5*fattore,j=0;i<10*fattore;i++,j++)//al posto di 19 ho messo 9
@@ -254,9 +254,9 @@ public class GameManager {
 			
 				
 			int cont=0;
-			movableObjects[cont++]=new MovableObject(world,0*fattore,13*fattore+fattore-1,Directions.STOP,0);
+			movableObjects[cont++]=new MovableObject(world,1*fattore,13*fattore+fattore-1,Directions.STOP,0);
 			movableObjects[cont++]=new MovableObject(world,17*fattore,8*fattore+fattore-1,Directions.STOP,0);
-			movableObjects[cont++]=new MovableObject(world,0*fattore,8*fattore+fattore-1,Directions.STOP,0);
+			movableObjects[cont++]=new MovableObject(world,1*fattore,8*fattore+fattore-1,Directions.STOP,0);
 			movableObjects[cont++]=new MovableObject(world,0*fattore,4*fattore+fattore-1,Directions.STOP,0);
 			movableObjects[cont++]=new MovableObject(world,8*fattore,4*fattore+fattore-1,Directions.STOP,0);
 			
@@ -313,7 +313,7 @@ public class GameManager {
 			world= new World (20*fattore,23*fattore);
 			
 			
-			player= new Player (world,2*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
+			player= new Player (world,3*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
 			solidBricks=new SolidBrick[62*fattore];
 			stairs=new Stairs[28*fattore];
 			movableObjects =new MovableObject[2];
