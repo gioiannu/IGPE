@@ -50,7 +50,7 @@ public class MyPanel extends JPanel{
 	Image lastImageP;
 	Image lastImageP2;
 	Image lastImageE;
-	Image [] gameOver= new Image[3];
+	Image [] gameOver= new Image[5];
 	Image [] vittoria= new Image[3];
 	int [] pos2;
 	int [] pos3;
@@ -166,9 +166,9 @@ public class MyPanel extends JPanel{
 		player[8]=tk.getImage(this.getClass().getResource("GOKUJUMPSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		player[9]=tk.getImage(this.getClass().getResource("GOKUDOWNSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		player[10]=tk.getImage(this.getClass().getResource("GOKUDOWNDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
-		player[11]=tk.getImage(this.getClass().getResource("GOKUSHOOTDX1.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[11]=tk.getImage(this.getClass().getResource("GOKUSHOOTDX2.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		player[12]=tk.getImage(this.getClass().getResource("GOKUSTORDDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
-		player[13]=tk.getImage(this.getClass().getResource("GOKUSHOOTSX1.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[13]=tk.getImage(this.getClass().getResource("GOKUSHOOTSX2.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		player[14]=tk.getImage(this.getClass().getResource("GOKUSTORDSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);	
 		
 		lastImageP=player[0];
@@ -200,6 +200,8 @@ public class MyPanel extends JPanel{
 		gameOver[0]= tk.getImage(this.getClass().getResource("GAMEOVER.png")).getScaledInstance(width*1000/1920,height*800/1080, 1);
 		gameOver[1]= tk.getImage(this.getClass().getResource("MENUGMPS.png")).getScaledInstance(width*362/1920,height*101/1080, 1);
 		gameOver[2]= tk.getImage(this.getClass().getResource("RESTART.png")).getScaledInstance(width*426/1920,height*100/1080, 1);
+		gameOver[3]= tk.getImage(this.getClass().getResource("HAIPERSO.png")).getScaledInstance(width*1000/1920,height*800/1080, 1);
+		gameOver[4]= tk.getImage(this.getClass().getResource("HAIVINTO.png")).getScaledInstance(width*1000/1920,height*800/1080, 1);
 		
 		vittoria[0]= tk.getImage(this.getClass().getResource("VITTORIA.png")).getScaledInstance(width*1000/1920,height*800/1080, 1);
 		vittoria[1]= tk.getImage(this.getClass().getResource("MENUVIT.png")).getScaledInstance(width*362/1920,height*101/1080, 1);
@@ -407,7 +409,7 @@ public class MyPanel extends JPanel{
 			g.drawImage(enemyMovement(gameManager.getEai()), convertiX(gameManager.getEai().getX()), convertiY(gameManager.getEai().getY()-fattore), this);
 		else
 		{
-			
+			g.drawImage(playerMovement2(gameManager.player2), convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
 			if(gameManager.conteggio1==true)
 			{
 				g.drawImage(enemyAI[11],convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
@@ -441,9 +443,9 @@ public class MyPanel extends JPanel{
 				else if (gameManager.getPlayerLastDir().equals(Directions.STOP) && gameManager.getPlayerLastDir().equals(Directions.RIGHT))
 					g.drawImage(player[12],convertiX(gameManager.getPlayer().getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
 			}
-			else
-			g.drawImage(playerMovement2(gameManager.player2), convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
 		}	
+		
+		
 		
 		if(gameManager.getPlayer().getProiettile().isVisible()==true&&gameManager.getPlayer().getProiettile().getDirection()==Directions.RIGHT)
 			g.drawImage(bullet[0], convertiX(gameManager.getPlayer().getProiettile().getX()), convertiY(gameManager.getPlayer().getProiettile().getY()-fattore), this);
@@ -463,19 +465,28 @@ public class MyPanel extends JPanel{
 	
 		if(gameManager.gameOver())
 		{
+			if(gameManager.getLevels()!=4) {
 			g.drawImage(gameOver[0],width*400/1920,height*100/1080, this);
 			if(position[0] ==1)
 				g.drawImage(gameOver[1], width*466/1920, height*436/1080, this);
 			else
 				g.drawImage(gameOver[2], width*942/1920, height*436/1080, this);
+			}
+			else {
+				g.drawImage(gameOver[3], width*400/1920, height*100/1080, this);
+			}
 		}
 		if(gameManager.win())
 		{
+			if(gameManager.getLevels()!=4) {
 			g.drawImage(vittoria[0], width*400/1920, height*100/1080, this);
 			if(pos2[0] ==1)
 				g.drawImage(vittoria[1], width*466/1920, height*436/1080, this);
 			else
 				g.drawImage(vittoria[2], width*930/1920, height*399/1080, this);
+			}
+			else
+				g.drawImage(gameOver[4], width*400/1920, height*100/1080, this);
 		}
 		
 		if(gameManager.pausa)

@@ -22,6 +22,8 @@ public class Player extends AbstractDynamicObject implements CanShoot {
 	
 	int contbullet=0;
 	public int bullet=3;
+	
+	public int ball=0;
 
 	
 	

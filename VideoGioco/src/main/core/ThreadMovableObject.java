@@ -22,6 +22,8 @@ public class ThreadMovableObject extends Thread{
 				{
 					if(GM.getPlayer().collision(GM.getMovableObject()[i]))
 					{
+						if(GM.getMovableObject()[i].getY()==189)
+							GM.player.ball++;
 						GM.getMovableObject()[i].falling();
 						AM.playCatch();
 						
@@ -30,6 +32,8 @@ public class ThreadMovableObject extends Thread{
 					if(GM.getLevels()==4)
 						if(GM.player2.collision(GM.getMovableObject()[i]))
 						{
+							if(GM.getMovableObject()[i].getY()==189)
+								GM.player2.ball++;
 							GM.getMovableObject()[i].falling();
 							AM.playCatch();
 						

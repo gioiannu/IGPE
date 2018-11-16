@@ -135,16 +135,26 @@ public class GameManager {
 	
 	public boolean gameOver()
 	{
-		if(getLevels()!=4||connected==true)
+		if(getLevels()!=4)
 			return player.getLives() <=0;
-		return false;
+		else {
+			if(player2.ball==2)
+				return true;
+			else
+				return false;
+		}
 	}
 	
 	public boolean win()
 	{
-		if(getLevels()!=4||connected==true)
+		if(getLevels()!=4)
 			return world.getWinnerCounter()==0;
-		return false;
+		else {
+			if(player.ball==2)
+				return true;
+			else
+				return false;
+		}
 	}
 	
 	public void startGame(int levels,int lives)
@@ -322,7 +332,7 @@ public class GameManager {
 			player= new Player (world,3*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
 			solidBricks=new SolidBrick[62*fattore];
 			stairs=new Stairs[28*fattore];
-			movableObjects =new MovableObject[2];
+			movableObjects =new MovableObject[3];
 			//enemies=new Enemy[1];
 			//enemies[0]=new Enemy(world,1*fattore,6*fattore+fattore-1,Directions.STOP,1);
 			//enemies[0].insertP(player);
@@ -366,6 +376,8 @@ public class GameManager {
 			int cont=0;
 			movableObjects[cont++]=new MovableObject(world,1*fattore,4*fattore+fattore-1,Directions.STOP,0);
 			movableObjects[cont++]=new MovableObject(world,19*fattore,4*fattore+fattore-1,Directions.STOP,0);
+			movableObjects[cont++]=new MovableObject(world,9*fattore,9
+					*fattore+fattore-1,Directions.STOP,0);
 
 			
 			
