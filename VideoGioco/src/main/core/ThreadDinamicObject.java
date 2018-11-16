@@ -19,36 +19,16 @@ public class ThreadDinamicObject extends Thread{
 	public void run() {
 		while(!GM.gameOver()&& !GM.win()) {
 			synchronized (this){
-			if(GM.connected==true||GM.getLevels()!=4) {
-			GM.getPlayer().update();
-			GM.getPlayer().setPlayerLastDir(GM.getPlayer().getDirection());
-			if(GM.getLevels()!=4) {
-				if(GM.getEai().collisione(GM.getPlayer().getProiettile()))
-					AM.playHit();
-				if(GM.getEai().collisionep(GM.getPlayer())&&(GM.getEai().getSpeed()!=0)) {
-					if(GM.getPlayer().getLives()!=1)
-						AM.playHit();
-					else
-					{
-						AM.playGameOver();
-						AM.stopMusic();
-					}
-					System.out.println("LE VITE SONO "+ GM.getPlayer().getLives());
-					if(GM.getED())
-						GM.startGame(GM.getLevels(),GM.getEDITOR(),GM.getPlayer().getLives()-1);
-					else	
-						GM.startGame(GM.getLevels(),GM.getPlayer().getLives()-1);
-					continue;
-				}
-			}
 				
-			if(GM.getLevels()!=4) {
-				GM.getEai().update();
-				
-				for(int i=0; i<GM.getEnemy().length; i++)
-				{
-					if(GM.getEnemy()[i]!= null) {
-						if(GM.getEnemy()[i].collisione(GM.getPlayer().getProiettile()))
+			if(!GM.pausa)
+			{
+					if(GM.connected==true||GM.getLevels()!=4) {
+					GM.getPlayer().update();
+					GM.getPlayer().setPlayerLastDir(GM.getPlayer().getDirection());
+					if(GM.getLevels()!=4) {
+						if(GM.getEai().collisione(GM.getPlayer().getProiettile()))
+							AM.playHit();
+						if(GM.getEai().collisionep(GM.getPlayer())&&(GM.getEai().getSpeed()!=0)) {
 							if(GM.getPlayer().getLives()!=1)
 								AM.playHit();
 							else
@@ -56,27 +36,52 @@ public class ThreadDinamicObject extends Thread{
 								AM.playGameOver();
 								AM.stopMusic();
 							}
-						if(GM.getEnemy()[i].collisionep(GM.getPlayer())&&(GM.getEnemy()[i].getSpeed()!=0)) {
-							AM.playHit();
+							System.out.println("LE VITE SONO "+ GM.getPlayer().getLives());
 							if(GM.getED())
 								GM.startGame(GM.getLevels(),GM.getEDITOR(),GM.getPlayer().getLives()-1);
 							else	
 								GM.startGame(GM.getLevels(),GM.getPlayer().getLives()-1);
-							break;
+							continue;
 						}
-						GM.getEnemy()[i].update();
 					}
-					
-					//gestire collisione player con nemico
-					//gestire collisione proiettile con nemico
+						
+					if(GM.getLevels()!=4) {
+						GM.getEai().update();
+						
+						for(int i=0; i<GM.getEnemy().length; i++)
+						{
+							if(GM.getEnemy()[i]!= null) {
+								if(GM.getEnemy()[i].collisione(GM.getPlayer().getProiettile()))
+									if(GM.getPlayer().getLives()!=1)
+										AM.playHit();
+									else
+									{
+										AM.playGameOver();
+										AM.stopMusic();
+									}
+								if(GM.getEnemy()[i].collisionep(GM.getPlayer())&&(GM.getEnemy()[i].getSpeed()!=0)) {
+									AM.playHit();
+									if(GM.getED())
+										GM.startGame(GM.getLevels(),GM.getEDITOR(),GM.getPlayer().getLives()-1);
+									else	
+										GM.startGame(GM.getLevels(),GM.getPlayer().getLives()-1);
+									break;
+								}
+								GM.getEnemy()[i].update();
+							}
+							
+							//gestire collisione player con nemico
+							//gestire collisione proiettile con nemico
+						}
+					}
+					else {
+						GM.player2.update();
+						GM.player2.setPlayerLastDir(GM.player2.getDirection());
+						GM.collisioneproiettili();
+						
+					}
 				}
-			}
-			else {
-				GM.player2.update();
-				GM.player2.setPlayerLastDir(GM.player2.getDirection());
-				GM.collisioneproiettili();
-				
-			}
+			
 			}
 			}
 			//panel.repaint();

@@ -35,12 +35,15 @@ public class MyPanel extends JPanel{
 	
 	Image background;
 	Image scaledBackground;
+	Image pausa;  
+	Image riprendi; 
+	Image menu; 
 	
 	Image brick;
 	
 	Image stair;
 	
-	Image []enemyAI= new Image[11];
+	Image []enemyAI= new Image[15];
 	
 	Image object7;
 	
@@ -50,6 +53,7 @@ public class MyPanel extends JPanel{
 	Image [] gameOver= new Image[3];
 	Image [] vittoria= new Image[3];
 	int [] pos2;
+	int [] pos3;
 	int [] position;
 	Image life;
 	Image onda;
@@ -77,9 +81,10 @@ public class MyPanel extends JPanel{
 		super();
 		position= new int [2];
 		pos2= new int [2];
+		pos3= new int [2];
 		position[0]=1; position [1]=0;	
 		pos2[0]=1; pos2[1]=0;
-		
+		pos3[0]=1; pos3[1]=0;
 		gameManager.startGame(l,3);
 		if(l==4) {
 			c=new Client(gameManager);
@@ -105,8 +110,10 @@ public class MyPanel extends JPanel{
 		creatoreDiLivelli=true;
 		position= new int [2];
 		pos2= new int [2];
+		pos3= new int [2];
 		position[0]=1; position [1]=0;	
 		pos2[0]=1; pos2[1]=0;
+		pos3[0]=1; pos3[1]=0;
 		gameManager.startGame(4,editor,3);
 		audio_manager = new AudioManager(this.gameManager);
 		initGUI();
@@ -160,26 +167,30 @@ public class MyPanel extends JPanel{
 		player[9]=tk.getImage(this.getClass().getResource("GOKUDOWNSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		player[10]=tk.getImage(this.getClass().getResource("GOKUDOWNDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		player[11]=tk.getImage(this.getClass().getResource("GOKUSHOOTDX1.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
-		player[12]=tk.getImage(this.getClass().getResource("GOKUSHOOTDX2.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		player[12]=tk.getImage(this.getClass().getResource("GOKUSTORDDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		player[13]=tk.getImage(this.getClass().getResource("GOKUSHOOTSX1.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
-		player[14]=tk.getImage(this.getClass().getResource("GOKUSHOOTSX2.png")).getScaledInstance(width*46/1920,height*58/1080, 1);	
-		
+		player[14]=tk.getImage(this.getClass().getResource("GOKUSTORDSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);	
 		
 		lastImageP=player[0];
-		lastImageP2=player[0];
+		
 		
 		enemyAI[0]=tk.getImage(this.getClass().getResource("ENEMYF1DX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[1]=tk.getImage(this.getClass().getResource("ENEMYF1DX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[2]=tk.getImage(this.getClass().getResource("ENEMYDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[3]=tk.getImage(this.getClass().getResource("ENEMYF1SX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
-		enemyAI[4]=tk.getImage(this.getClass().getResource("ENEMYF2SX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[4]=tk.getImage(this.getClass().getResource("ENEMYF1SX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[5]=tk.getImage(this.getClass().getResource("ENEMYSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[6]=tk.getImage(this.getClass().getResource("ENEMYTEL.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[7]=tk.getImage(this.getClass().getResource("ENEMYJUMPDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[8]=tk.getImage(this.getClass().getResource("ENEMYJUMPSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[9]=tk.getImage(this.getClass().getResource("ENEMYDOWNSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
 		enemyAI[10]=tk.getImage(this.getClass().getResource("ENEMYDOWNDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
-		
+		enemyAI[11]=tk.getImage(this.getClass().getResource("ENEMYSTORDDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[12]=tk.getImage(this.getClass().getResource("ENEMYSTORDSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[13]=tk.getImage(this.getClass().getResource("ENEMYSHOOTDX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+		enemyAI[14]=tk.getImage(this.getClass().getResource("ENEMYSHOOTSX.png")).getScaledInstance(width*46/1920,height*58/1080, 1);
+
+		lastImageP2=enemyAI[3];
 		
 		lastImageE=enemyAI[0];
 		
@@ -198,6 +209,10 @@ public class MyPanel extends JPanel{
 		life= tk.getImage(this.getClass().getResource("LIVES.png")).getScaledInstance(width*50/1920,height*50/1080, 1);
 		onda= tk.getImage(this.getClass().getResource("ondazza.png")).getScaledInstance(width*50/1920,height*50/1080, 1);
 		
+		pausa= tk.getImage(this.getClass().getResource("PAUSA.png")).getScaledInstance(width*1000/1920,height*800/1080,1); //AGGIUNTA
+		riprendi= tk.getImage(this.getClass().getResource("RIPRENDI.png")).getScaledInstance(width*441/1920, height*92/1080, 1);//AGGIUNTA
+		menu = tk.getImage(this.getClass().getResource("MENUPAUSA.png")).getScaledInstance(width*362/1920,height*101/1080, 1);
+		
 	}
 	
 	private boolean pressed=false;
@@ -211,10 +226,11 @@ public class MyPanel extends JPanel{
 			}
 
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) {				
 				
 				if(e.getKeyCode()==KeyEvent.VK_W)
 				{
+					if(!gameManager.conteggio2)
 					gameManager.getPlayer().setDirection(Directions.UP);
 					if(gameManager.getLevels()==4) {
 							c.sendDirection("up");
@@ -229,6 +245,7 @@ public class MyPanel extends JPanel{
 				
 				else if(e.getKeyCode()==KeyEvent.VK_S)
 				{
+					if(!gameManager.conteggio2)
 					gameManager.getPlayer().setDirection(Directions.DOWN);
 					if(gameManager.getLevels()==4) {
 							c.sendDirection("down");
@@ -241,6 +258,7 @@ public class MyPanel extends JPanel{
 				
 				else if(e.getKeyCode()==KeyEvent.VK_A)
 				{
+					if(!gameManager.conteggio2)
 					gameManager.getPlayer().setDirection(Directions.LEFT);
 					if(gameManager.getLevels()==4) {
 						c.sendDirection("right");
@@ -253,6 +271,7 @@ public class MyPanel extends JPanel{
 				
 				else if(e.getKeyCode()==KeyEvent.VK_D)
 				{
+					if(!gameManager.conteggio2)
 					gameManager.getPlayer().setDirection(Directions.RIGHT);
 					if(gameManager.getLevels()==4) {
 						c.sendDirection("left");
@@ -326,6 +345,15 @@ public class MyPanel extends JPanel{
 					if(gameManager.getLevels()==4)
 						c.sendDirection("stop");
 					c.sendShootof();
+				}			
+				else if(e.getKeyCode()==KeyEvent.VK_P)
+				{
+					if(gameManager.getLevels() != 4)
+					{
+						audio_manager.playButton19();
+						gameManager.pausa=true;
+					}
+					
 				}
 				
 				
@@ -341,6 +369,7 @@ public class MyPanel extends JPanel{
 		super.paintComponent(g);
 		
 	try {
+		
 		if(gameManager.connected==true||gameManager.getLevels()!=4) {
 		g.drawImage(background,0,0,this);
 		
@@ -378,8 +407,44 @@ public class MyPanel extends JPanel{
 		if(gameManager.getLevels()!=4)
 			g.drawImage(enemyMovement(gameManager.getEai()), convertiX(gameManager.getEai().getX()), convertiY(gameManager.getEai().getY()-fattore), this);
 		else
-			g.drawImage(playerMovement2(gameManager.player2), convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
+		{
 			
+			if(gameManager.conteggio1==true)
+			{
+				g.drawImage(enemyAI[11],convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
+				System.out.println("COLPITOOOOOOOOOOOOOOOOOOOO");
+				if(gameManager.getPlayerLastDir2().equals(Directions.RIGHT))
+					g.drawImage(enemyAI[11],convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
+					
+				else if(gameManager.getPlayerLastDir2().equals(Directions.LEFT))
+					g.drawImage( enemyAI[12],convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
+
+				else if(gameManager.getPlayerLastDir2().equals(Directions.STOP) && gameManager.getPlayerLastDir2().equals(Directions.LEFT))
+					g.drawImage( enemyAI[12],convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
+				
+				else if (gameManager.getPlayerLastDir2().equals(Directions.STOP) && gameManager.getPlayerLastDir2().equals(Directions.RIGHT))
+					g.drawImage(enemyAI[11],convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
+			}
+			
+			else if(gameManager.conteggio2==true)
+			{
+				g.drawImage(player[12],convertiX(gameManager.getPlayer().getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
+				System.out.println("COLPITOOOOOOOOOOOOOOOOOOOO");
+				if(gameManager.getPlayerLastDir().equals(Directions.RIGHT))
+					g.drawImage(player[12],convertiX(gameManager.getPlayer().getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
+					
+				else if(gameManager.getPlayerLastDir().equals(Directions.LEFT))
+					g.drawImage( player[14],convertiX(gameManager.getPlayer().getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
+
+				else if(gameManager.getPlayerLastDir().equals(Directions.STOP) && gameManager.getPlayerLastDir().equals(Directions.LEFT))
+					g.drawImage( player[14],convertiX(gameManager.getPlayer().getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
+				
+				else if (gameManager.getPlayerLastDir().equals(Directions.STOP) && gameManager.getPlayerLastDir().equals(Directions.RIGHT))
+					g.drawImage(player[12],convertiX(gameManager.player2.getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
+			}
+			else
+			g.drawImage(playerMovement2(gameManager.player2), convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
+		}	
 		
 		if(gameManager.getPlayer().getProiettile().isVisible()==true&&gameManager.getPlayer().getProiettile().getDirection()==Directions.RIGHT)
 			g.drawImage(bullet[0], convertiX(gameManager.getPlayer().getProiettile().getX()), convertiY(gameManager.getPlayer().getProiettile().getY()-fattore), this);
@@ -412,6 +477,15 @@ public class MyPanel extends JPanel{
 				g.drawImage(vittoria[1], width*466/1920, height*436/1080, this);
 			else
 				g.drawImage(vittoria[2], width*930/1920, height*399/1080, this);
+		}
+		
+		if(gameManager.pausa)
+		{
+			g.drawImage(pausa, width*400/1920, height*100/1080, this);
+			if(pos3[0] ==1)
+				g.drawImage(riprendi, width*436/1920, height*442/1080, this);
+			else
+				g.drawImage(menu, width*1021/1920, height*436/1080, this);
 		}
 	
 	}
@@ -577,134 +651,136 @@ public class MyPanel extends JPanel{
 	
 	private Image playerMovement2(Player p)
 	{
+		
+			
 		if(gameManager.shooting2==true) {
-			if(gameManager.getPlayerLastDir2().equals(Directions.RIGHT)||lastImageP2==player[0]||lastImageP2==player[1]||lastImageP2==player[2]){
-				lastImageP2=player[12];
+			if(gameManager.getPlayerLastDir2().equals(Directions.RIGHT)||lastImageP2==enemyAI[0]||lastImageP2==enemyAI[1]||lastImageP2==enemyAI[2]){
+				lastImageP2=enemyAI[12];
 			}
-			else if(gameManager.getPlayerLastDir2().equals(Directions.LEFT)||lastImageP2==player[3]||lastImageP2==player[4]||lastImageP2==player[5]){
-					lastImageP2=player[14];	
+			else if(gameManager.getPlayerLastDir2().equals(Directions.LEFT)||lastImageP2==enemyAI[3]||lastImageP2==enemyAI[4]||lastImageP2==enemyAI[5]){
+					lastImageP2=enemyAI[14];	
 			}
 		}
 		else {
-			if(lastImageP2==player[12]) {
-				lastImageP2=player[2];
+			if(lastImageP2==enemyAI[12]) {
+				lastImageP2=enemyAI[2];
 			}
-			if(lastImageP2==player[14]) {
-				lastImageP2=player[5];
+			if(lastImageP2==enemyAI[14]) {
+				lastImageP2=enemyAI[5];
 			}
 		
 			if(gameManager.getPlayerLastDir2().equals(Directions.STOP))
 			{
-				if(lastImageP2.equals(player[0]))
+				if(lastImageP2.equals(enemyAI[0]))
 				{
-					lastImageP2=player[1];
-					return player[1];
+					lastImageP2=enemyAI[1];
+					return enemyAI[1];
 				}
-				else if(lastImageP2.equals(player[1]))
+				else if(lastImageP2.equals(enemyAI[1]))
 				{
-					lastImageP2=player[0];
-					return player[0];
+					lastImageP2=enemyAI[0];
+					return enemyAI[0];
 				}
-				else if(lastImageP2.equals(player[2]))
+				else if(lastImageP2.equals(enemyAI[2]))
 				{
-					lastImageP2=player[0];
-					return player[0];
+					lastImageP2=enemyAI[0];
+					return enemyAI[0];
 				}
 						
-				else if(lastImageP2.equals(player[3]))
+				else if(lastImageP2.equals(enemyAI[3]))
 				{
-					lastImageP2=player[4];
-					return player[4];
+					lastImageP2=enemyAI[4];
+					return enemyAI[4];
 				}
-				else if(lastImageP2.equals(player[4]))
+				else if(lastImageP2.equals(enemyAI[4]))
 				{
-					lastImageP2=player[3];
-					return player[3];
+					lastImageP2=enemyAI[3];
+					return enemyAI[3];
 				}
-				else if(lastImageP2.equals(player[5]))
+				else if(lastImageP2.equals(enemyAI[5]))
 				{
-					lastImageP2=player[3];
-					return player[3];
+					lastImageP2=enemyAI[3];
+					return enemyAI[3];
 				}
-				else if(lastImageP2.equals(player[7])) 
+				else if(lastImageP2.equals(enemyAI[7])) 
 				{
-					lastImageP2=player[0];
-					return player[0];
+					lastImageP2=enemyAI[0];
+					return enemyAI[0];
 				}
-				else if(lastImageP2.equals(player[8])) 
+				else if(lastImageP2.equals(enemyAI[8])) 
 				{
-					lastImageP2=player[3];
-					return player[3];
+					lastImageP2=enemyAI[3];
+					return enemyAI[3];
 				}
-				else if(lastImageP2.equals(player[9])) 
+				else if(lastImageP2.equals(enemyAI[9])) 
 				{
-					lastImageP2=player[3];
-					return player[3];
+					lastImageP2=enemyAI[3];
+					return enemyAI[3];
 				}
-				else if(lastImageP2.equals(player[10])) 
+				else if(lastImageP2.equals(enemyAI[10])) 
 				{
-					lastImageP2=player[0];
-					return player[0];
+					lastImageP2=enemyAI[0];
+					return enemyAI[0];
 				}
 			}
 			
 			else if(gameManager.getPlayerLastDir2().equals(Directions.RIGHT))
 			{
-				lastImageP2=player[2];
-				return player[2];
+				lastImageP2=enemyAI[2];
+				return enemyAI[2];
 			}
 			else if(gameManager.getPlayerLastDir2().equals(Directions.LEFT))
 			{
-				lastImageP2=player[5];
-				return player[5];
+				lastImageP2=enemyAI[5];
+				return enemyAI[5];
 			}
 			
 			else if(gameManager.getPlayerLastDir2().equals(Directions.UP))
 			{
-				if(lastImageP2.equals(player[3]) || lastImageP2.equals(player[4]))
+				if(lastImageP2.equals(enemyAI[3]) || lastImageP2.equals(enemyAI[4]))
 				{
-					lastImageP2=player[8];
-					return player[8];
+					lastImageP2=enemyAI[8];
+					return enemyAI[8];
 				}
-				else if(lastImageP2.equals(player[0]) || lastImageP2.equals(player[1]))
+				else if(lastImageP2.equals(enemyAI[0]) || lastImageP2.equals(enemyAI[1]))
 				{
-					lastImageP2=player[7];
-					return player[7];
+					lastImageP2=enemyAI[7];
+					return enemyAI[7];
 				}
-				else if(lastImageP2.equals(player[9]))
+				else if(lastImageP2.equals(enemyAI[9]))
 				{
-					lastImageP2=player[8];
-					return player[8];
+					lastImageP2=enemyAI[8];
+					return enemyAI[8];
 				}
-				else if(lastImageP2.equals(player[10]))
+				else if(lastImageP2.equals(enemyAI[10]))
 				{
-					lastImageP2=player[7];
-					return player[7];
+					lastImageP2=enemyAI[7];
+					return enemyAI[7];
 				}
 				
 			}
 			
 			else if(gameManager.getPlayerLastDir2().equals(Directions.DOWN))
 			{
-				if(lastImageP2.equals(player[3]) || lastImageP2.equals(player[4]))
+				if(lastImageP2.equals(enemyAI[3]) || lastImageP2.equals(enemyAI[4]))
 				{
-					lastImageP2=player[9];
-					return player[9];
+					lastImageP2=enemyAI[9];
+					return enemyAI[9];
 				}
-				else if(lastImageP2.equals(player[0]) || lastImageP2.equals(player[1]))
+				else if(lastImageP2.equals(enemyAI[0]) || lastImageP2.equals(enemyAI[1]))
 				{
-					lastImageP2=player[10];
-					return player[10];
+					lastImageP2=enemyAI[10];
+					return enemyAI[10];
 				}
-				else if(lastImageP2.equals(player[7]))
+				else if(lastImageP2.equals(enemyAI[7]))
 				{
-					lastImageP2=player[10];
-					return player[10];
+					lastImageP2=enemyAI[10];
+					return enemyAI[10];
 				}
-				else if(lastImageP2.equals(player[8]))
+				else if(lastImageP2.equals(enemyAI[8]))
 				{
-					lastImageP2=player[9];
-					return player[9];
+					lastImageP2=enemyAI[9];
+					return enemyAI[9];
 				}
 			}
 		
@@ -855,7 +931,7 @@ public void initListener() {
 		
 		this.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e){
-				if(e.getKeyCode()==39&& (gameManager.gameOver() || gameManager.win())) {
+				if(e.getKeyCode()==39&& (gameManager.gameOver() || gameManager.win() || gameManager.pausa)) {
 					audio_manager.playButton19();
 					if(position[0]==1&& gameManager.gameOver()) {
 						position[0]=0;
@@ -867,8 +943,13 @@ public void initListener() {
 						pos2[1]=1;
 						System.out.println("A");
 					}
+					else if(pos3[0]==1&& gameManager.pausa) {
+						pos3[0]=0;
+						pos3[1]=1;
+						System.out.println("A");
+					}
 				}
-				else if(e.getKeyCode()==37&&(gameManager.gameOver() || gameManager.win())) {
+				else if(e.getKeyCode()==37&&(gameManager.gameOver() || gameManager.win() || gameManager.pausa)) {
 					audio_manager.playButton19();
 					if(position[1]==1&& gameManager.gameOver()) {
 						position[1]=0;
@@ -880,6 +961,12 @@ public void initListener() {
 						pos2[0]=1;
 						System.out.println("B");
 					}
+					else if(pos3[1]==1&& gameManager.pausa) {
+						pos3[1]=0;
+						pos3[0]=1;
+						System.out.println("Btdxcyjgvgyvkyvgky");
+					}
+					
 				}
 				else if(e.getKeyCode()==10 && gameManager.gameOver()) {
 					audio_manager.playButton3();
@@ -952,6 +1039,22 @@ public void initListener() {
 						}
 					}
 					
+				}
+				
+				else if(e.getKeyCode()==10 && gameManager.pausa) {
+					audio_manager.playButton3();
+					if(pos3[0]==1) {
+						gameManager.pausa=false;
+					}
+					else if(pos3[1]==1 && gameManager.pausa)
+					{
+						audio_manager.stopMusic();
+						mmp = new MyMenuFrame();
+						 JComponent comp = (JComponent) e.getSource();
+						  Window win = SwingUtilities.getWindowAncestor(comp);
+						  win.dispose();
+					}			
+						
 				}
 				
 				

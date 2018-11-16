@@ -17,8 +17,9 @@ public class GameManager {
 	
 	private World world;
 	
-	boolean conteggio1=false;
-	boolean conteggio2=false;
+	public boolean conteggio1=false;
+	public boolean conteggio2=false;
+	public boolean pausa= false;
 	int pcont=0;
 	int pcont2=0;
 	
@@ -603,18 +604,20 @@ public class GameManager {
 						conteggio2=true;
 					}
 		if(conteggio1==true) {
-			if(pcont>=1000) {
+			if(pcont>=100) {
 				conteggio1=false;
 				player2.setSpeed(1);
+				pcont=0;
 				
 			}
 			else
 				pcont++;
 		}
 		if(conteggio2==true) {
-			if(pcont2>=1000) {
+			if(pcont2>=100) {
 				conteggio2=false;
 				player.setSpeed(1);
+				pcont2=0;
 				
 			}
 			else
