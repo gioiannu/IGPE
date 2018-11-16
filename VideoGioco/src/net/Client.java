@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 import main.core.interfaces.Directions;
 import main.managers.GameManager;
 
-
+//ciao
 public class Client extends Thread {
 	private GameManager game_manager;
 	public Socket c;
@@ -20,7 +20,7 @@ public class Client extends Thread {
 	{
 		try
 		{
-			c=new Socket("127.0.0.1",8118);//ale 192.168.137.45 127.0.0.1
+			c=new Socket("192.168.137.45",8118);//ale 192.168.137.45 127.0.0.1
 			in=new BufferedReader(new InputStreamReader(c.getInputStream()));
 			out=new PrintWriter(c.getOutputStream());
 			
