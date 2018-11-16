@@ -343,8 +343,7 @@ public class MyPanel extends JPanel{
 					shooting=false;
 					pressed=false;
 					if(gameManager.getLevels()==4)
-						c.sendDirection("stop");
-					c.sendShootof();
+						c.sendShootof();
 				}			
 				else if(e.getKeyCode()==KeyEvent.VK_P)
 				{
@@ -440,7 +439,7 @@ public class MyPanel extends JPanel{
 					g.drawImage( player[14],convertiX(gameManager.getPlayer().getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
 				
 				else if (gameManager.getPlayerLastDir().equals(Directions.STOP) && gameManager.getPlayerLastDir().equals(Directions.RIGHT))
-					g.drawImage(player[12],convertiX(gameManager.player2.getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
+					g.drawImage(player[12],convertiX(gameManager.getPlayer().getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
 			}
 			else
 			g.drawImage(playerMovement2(gameManager.player2), convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
@@ -503,10 +502,10 @@ public class MyPanel extends JPanel{
 	{
 		if(shooting) {
 			if(gameManager.getPlayerLastDir().equals(Directions.RIGHT)||lastImageP==player[0]||lastImageP==player[1]||lastImageP==player[2]){
-				lastImageP=player[12];
+				lastImageP=player[11];
 			}
 			else if(gameManager.getPlayerLastDir().equals(Directions.LEFT)||lastImageP==player[3]||lastImageP==player[4]||lastImageP==player[5]){
-					lastImageP=player[14];	
+					lastImageP=player[13];	
 			}
 		}
 		else {
@@ -655,14 +654,14 @@ public class MyPanel extends JPanel{
 			
 		if(gameManager.shooting2==true) {
 			if(gameManager.getPlayerLastDir2().equals(Directions.RIGHT)||lastImageP2==enemyAI[0]||lastImageP2==enemyAI[1]||lastImageP2==enemyAI[2]){
-				lastImageP2=enemyAI[12];
+				lastImageP2=enemyAI[13];
 			}
 			else if(gameManager.getPlayerLastDir2().equals(Directions.LEFT)||lastImageP2==enemyAI[3]||lastImageP2==enemyAI[4]||lastImageP2==enemyAI[5]){
 					lastImageP2=enemyAI[14];	
 			}
 		}
 		else {
-			if(lastImageP2==enemyAI[12]) {
+			if(lastImageP2==enemyAI[13]) {
 				lastImageP2=enemyAI[2];
 			}
 			if(lastImageP2==enemyAI[14]) {
