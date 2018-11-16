@@ -633,7 +633,12 @@ public class GameManager {
 
 
 	public void setposition(String s) {
-		player2.setX(Integer.parseInt(s));
+		int x=Integer.parseInt(s.substring(0, s.lastIndexOf(".")));
+		System.out.println(x);
+		int y=Integer.parseInt(s.substring(s.lastIndexOf(".") +1, s.length()));
+		System.out.println(y);
+		player2.setX(x);
+		player2.setY(y);
 		
 	}
 		

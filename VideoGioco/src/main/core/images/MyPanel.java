@@ -240,9 +240,9 @@ public class MyPanel extends JPanel{
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(gameManager.getLevels()==4) {
-				if(timer==10) {
+				if(timer==5) {
 					int p=200- gameManager.player.getX();
-					c.sendplayer(""+p);
+					c.sendplayer(""+p+"."+gameManager.player.getY());
 					timer=0;
 				}
 				else
