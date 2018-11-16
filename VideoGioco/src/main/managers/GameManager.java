@@ -161,7 +161,7 @@ public class GameManager {
 	{
 		this.levels=levels;
 		
-		if(levels==1) {
+		if(levels==2) {
 			world= new World (20*fattore,23*fattore);
 			
 			
@@ -170,7 +170,7 @@ public class GameManager {
 			stairs=new Stairs[23*fattore];
 			movableObjects =new MovableObject[4];
 			enemies=new Enemy[1];
-			enemies[0]=new Enemy(world,1*fattore,9*fattore+fattore-1,Directions.STOP,1);
+			enemies[0]=new Enemy(world,15*fattore,9*fattore+fattore-1,Directions.STOP,1);
 			enemies[0].insertP(player);
 			eai=new EnemyAI(world,1*fattore,9*fattore+fattore-1,Directions.STOP,1,player);
 		
@@ -209,20 +209,20 @@ public class GameManager {
 			
 			
 		}
-		else if(levels==2) {
+		else if(levels==3) {
 			world= new World (20*fattore,23*fattore);
 			
 			
 			player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
-			solidBricks=new SolidBrick[56*fattore];
-			stairs=new Stairs[38*fattore];
+			solidBricks=new SolidBrick[57*fattore];
+			stairs=new Stairs[33*fattore];
 			movableObjects =new MovableObject[5];
 			enemies=new Enemy[2];
-			enemies[0]=new Enemy(world,1*fattore,18*fattore+fattore-1,Directions.STOP,1);
+			enemies[0]=new Enemy(world,1*fattore,4*fattore+fattore-1,Directions.STOP,1);
 			enemies[1]=new Enemy(world,15*fattore,8*fattore+fattore-1,Directions.STOP,1);
 			enemies[0].insertP(player);
 			enemies[1].insertP(player);
-			eai=new EnemyAI(world,11*fattore,9*fattore+fattore-1,Directions.STOP,1,player);
+			eai=new EnemyAI(world,11*fattore,8*fattore+fattore-1,Directions.STOP,1,player);
 		
 			for(int i=0;i<20*fattore;i++)
 				solidBricks[i]=new SolidBrick(world,i,19*fattore);
@@ -233,38 +233,36 @@ public class GameManager {
 			for(int i=8*fattore,j=23*fattore;i<14*fattore;i++,j++)
 				solidBricks[j]=new SolidBrick(world,i,14*fattore);
 				
-			for(int i=7*fattore,j=29*fattore;i<12*fattore;i++,j++)
-				solidBricks[j]=new SolidBrick(world,i,10*fattore);
-				
-			for(int i=0,j=34*fattore;i<3*fattore;i++,j++)
+			for(int i=7*fattore,j=29*fattore;i<13*fattore;i++,j++)
 				solidBricks[j]=new SolidBrick(world,i,9*fattore);
 				
-			for(int i=13*fattore,j=37*fattore;i<20*fattore;i++,j++)
+			for(int i=0,j=35*fattore;i<3*fattore;i++,j++)
+				solidBricks[j]=new SolidBrick(world,i,9*fattore);
+				
+			for(int i=13*fattore,j=38*fattore;i<20*fattore;i++,j++)
 				solidBricks[j]=new SolidBrick(world,i,9*fattore);
 			
-			for(int i=0*fattore,j=44*fattore;i<12*fattore;i++,j++)
+			for(int i=0*fattore,j=45*fattore;i<12*fattore;i++,j++)
 				solidBricks[j]=new SolidBrick(world,i,5*fattore);
 			
 			
 			for(int i=5*fattore,j=0;i<9*fattore;i++,j++)//al posto di 19 ho messo 9
 				stairs[j]=new Stairs(world,1*fattore,i);
 				
-			for(int i=5*fattore,j=4*fattore;i<10*fattore;i++,j++)//aggiunto
+			for(int i=5*fattore,j=4*fattore;i<9*fattore;i++,j++)//aggiunto
 				stairs[j]=new Stairs(world,10*fattore,i);//aggiunto
 				
-			for(int i=9*fattore,j=9*fattore;i<14*fattore;i++,j++)//aggiunto
+			for(int i=9*fattore,j=8*fattore;i<14*fattore;i++,j++)//aggiunto
 				stairs[j]=new Stairs(world,2*fattore,i);//aggiunto
 			
-			for(int i=10*fattore,j=14*fattore;i<14*fattore;i++,j++)
-				stairs[j]=new Stairs(world,11*fattore,i);
 				
-			for(int i=9*fattore,j=18*fattore;i<14*fattore;i++,j++)
+			for(int i=9*fattore,j=13*fattore;i<14*fattore;i++,j++)
 				stairs[j]=new Stairs(world,13*fattore,i);
 			
-			for(int i=9*fattore,j=23*fattore;i<19*fattore;i++,j++)
+			for(int i=9*fattore,j=18*fattore;i<19*fattore;i++,j++)
 				stairs[j]=new Stairs(world,18*fattore,i);
 			
-			for(int i=14*fattore,j=33*fattore;i<19*fattore;i++,j++)
+			for(int i=14*fattore,j=28*fattore;i<19*fattore;i++,j++)
 				stairs[j]=new Stairs(world,9*fattore,i);
 			
 			
@@ -280,48 +278,43 @@ public class GameManager {
 			
 			
 		}
-		else if(levels==3){
+		else if(levels==1){
 			world= new World (20*fattore,23*fattore);
 			
 			
 			player= new Player (world,11*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
-			solidBricks=new SolidBrick[65*fattore];
-			stairs=new Stairs[23*fattore];
+			solidBricks=new SolidBrick[80*fattore];
+			stairs=new Stairs[16*fattore];
 			movableObjects =new MovableObject[4];
 			enemies=new Enemy[1];
-			enemies[0]=new Enemy(world,1*fattore,9*fattore+fattore-1,Directions.STOP,1);
+			enemies[0]=new Enemy(world,10*fattore,14*fattore+fattore-1,Directions.STOP,1);
 			enemies[0].insertP(player);
-			eai=new EnemyAI(world,1*fattore,9*fattore+fattore-1,Directions.STOP,1,player);
+			eai=new EnemyAI(world,6*fattore,6*fattore+fattore-1,Directions.STOP,1,player);
 		
 			for(int i=0;i<20*fattore;i++)
 				solidBricks[i]=new SolidBrick(world,i,19*fattore);
 			for(int i=0,j=20*fattore ;i<20*fattore; i++,j++)
-				solidBricks[j]=new SolidBrick(world,i,10*fattore);
-			for(int i=0,j=40*fattore;i<6*fattore;i++,j++)
-				solidBricks[j]=new SolidBrick(world,i,14*fattore);
-			for(int i=12*fattore,j=46*fattore;i<20*fattore;i++,j++)
-				solidBricks[j]=new SolidBrick(world,i,14*fattore);
-			for(int i=0,j=54*fattore;i<8*fattore;i++,j++)
-				solidBricks[j]=new SolidBrick(world,i,5*fattore);
-			for(int i=17*fattore,j=62*fattore;i<20*fattore;i++,j++)
-				solidBricks[j]=new SolidBrick(world,i,5*fattore);
+				solidBricks[j]=new SolidBrick(world,i,15*fattore);
+			for(int i=0,j=40*fattore;i<20*fattore;i++,j++)
+				solidBricks[j]=new SolidBrick(world,i,11*fattore);
+			for(int i=0*fattore,j=60*fattore;i<20*fattore;i++,j++)
+				solidBricks[j]=new SolidBrick(world,i,7*fattore);
 			
-			for(int i=5*fattore,j=0;i<10*fattore;i++,j++)//al posto di 19 ho messo 9
-				stairs[j]=new Stairs(world,4*fattore,i);
-			for(int i=10*fattore,j=5*fattore;i<14*fattore;i++,j++)//aggiunto
-				stairs[j]=new Stairs(world,1*fattore,i);//aggiunto
-			for(int i=14*fattore,j=9*fattore;i<19*fattore;i++,j++)//aggiunto
-				stairs[j]=new Stairs(world,4*fattore,i);//aggiunto
-			
-			for(int i=5*fattore,j=14*fattore;i<10*fattore;i++,j++)
+			for(int i=7*fattore,j=0;i<11*fattore;i++,j++)//al posto di 19 ho messo 9
+				stairs[j]=new Stairs(world,9*fattore,i);
+			for(int i=11*fattore,j=4*fattore;i<15*fattore;i++,j++)//aggiunto
+				stairs[j]=new Stairs(world,2*fattore,i);//aggiunto
+			for(int i=15*fattore,j=8*fattore;i<19*fattore;i++,j++)//aggiunto
+				stairs[j]=new Stairs(world,9*fattore,i);//aggiunto
+			for(int i=11*fattore,j=12*fattore;i<15*fattore;i++,j++)
 				stairs[j]=new Stairs(world,17*fattore,i);
-			for(int i=10*fattore,j=19*fattore;i<14*fattore;i++,j++)
-				stairs[j]=new Stairs(world,13*fattore,i);
+			
+			
 			int cont=0;
-			movableObjects[cont++]=new MovableObject(world,1*fattore,4*fattore+fattore-1,Directions.STOP,0);
-			movableObjects[cont++]=new MovableObject(world,18*fattore,4*fattore+fattore-1,Directions.STOP,0);
-			movableObjects[cont++]=new MovableObject(world,18*fattore,13*fattore+fattore-1,Directions.STOP,0);
-			movableObjects[cont++]=new MovableObject(world,10*fattore,9*fattore+fattore-1,Directions.STOP,0);
+			movableObjects[cont++]=new MovableObject(world,6*fattore,6*fattore+fattore-1,Directions.STOP,0);
+			movableObjects[cont++]=new MovableObject(world,10*fattore,14*fattore+fattore-1,Directions.STOP,0);
+			movableObjects[cont++]=new MovableObject(world,14*fattore,6*fattore+fattore-1,Directions.STOP,0);
+			movableObjects[cont++]=new MovableObject(world,18*fattore,14*fattore+fattore-1,Directions.STOP,0);
 			
 			world.update(player, enemies, movableObjects, solidBricks, stairs, eai);
 		}
@@ -635,6 +628,13 @@ public class GameManager {
 			else
 				pcont2++;
 		}
+	}
+
+
+
+	public void setposition(String s) {
+		player2.setX(Integer.parseInt(s));
+		
 	}
 		
 }

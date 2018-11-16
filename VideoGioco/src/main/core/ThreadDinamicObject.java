@@ -36,7 +36,6 @@ public class ThreadDinamicObject extends Thread{
 								AM.playGameOver();
 								AM.stopMusic();
 							}
-							System.out.println("LE VITE SONO "+ GM.getPlayer().getLives());
 							if(GM.getED())
 								GM.startGame(GM.getLevels(),GM.getEDITOR(),GM.getPlayer().getLives()-1);
 							else	

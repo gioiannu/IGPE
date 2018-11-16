@@ -80,6 +80,7 @@ public class MyPanel extends JPanel{
 	boolean creatoreDiLivelli=false;
 	
 	private int fattore=10;
+	int timer=0;
 	
 	Dimension screenSize = tk.getScreenSize();
 	int width = (int) screenSize.getWidth();
@@ -237,7 +238,16 @@ public class MyPanel extends JPanel{
 			}
 
 			@Override
-			public void keyPressed(KeyEvent e) {				
+			public void keyPressed(KeyEvent e) {
+				if(gameManager.getLevels()==4) {
+				if(timer==10) {
+					int p=200- gameManager.player.getX();
+					c.sendplayer(""+p);
+					timer=0;
+				}
+				else
+					timer++;
+				}
 				
 				if(e.getKeyCode()==KeyEvent.VK_W)
 				{
@@ -422,7 +432,6 @@ public class MyPanel extends JPanel{
 			if(gameManager.conteggio1==true)
 			{
 				g.drawImage(enemyAI[11],convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
-				System.out.println("COLPITOOOOOOOOOOOOOOOOOOOO");
 				if(gameManager.getPlayerLastDir2().equals(Directions.RIGHT))
 					g.drawImage(enemyAI[11],convertiX(gameManager.player2.getX()), convertiY(gameManager.player2.getY()-fattore), this);
 					
@@ -439,7 +448,6 @@ public class MyPanel extends JPanel{
 			else if(gameManager.conteggio2==true)
 			{
 				g.drawImage(player[12],convertiX(gameManager.getPlayer().getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
-				System.out.println("COLPITOOOOOOOOOOOOOOOOOOOO");
 				if(gameManager.getPlayerLastDir().equals(Directions.RIGHT))
 					g.drawImage(player[12],convertiX(gameManager.getPlayer().getX()), convertiY(gameManager.getPlayer().getY()-fattore), this);
 					
@@ -469,7 +477,6 @@ public class MyPanel extends JPanel{
 		}
 	}
 	catch(NullPointerException n){
-		//System.out.println("");
 	}
 	
 		if(gameManager.gameOver())
@@ -955,17 +962,14 @@ public void initListener() {
 					if(position[0]==1&& gameManager.gameOver()) {
 						position[0]=0;
 						position[1]=1;
-						System.out.println("A");
 					}
 					else if(pos2[0]==1&& gameManager.win()) {
 						pos2[0]=0;
 						pos2[1]=1;
-						System.out.println("A");
 					}
 					else if(pos3[0]==1&& gameManager.pausa) {
 						pos3[0]=0;
 						pos3[1]=1;
-						System.out.println("A");
 					}
 				}
 				else if(e.getKeyCode()==37&&(gameManager.gameOver() || gameManager.win() || gameManager.pausa)) {
@@ -973,17 +977,14 @@ public void initListener() {
 					if(position[1]==1&& gameManager.gameOver()) {
 						position[1]=0;
 						position[0]=1;
-						System.out.println("B");
 					}
 					else if(pos2[1]==1&& gameManager.win()) {
 						pos2[1]=0;
 						pos2[0]=1;
-						System.out.println("B");
 					}
 					else if(pos3[1]==1&& gameManager.pausa) {
 						pos3[1]=0;
 						pos3[0]=1;
-						System.out.println("Btdxcyjgvgyvkyvgky");
 					}
 					
 				}

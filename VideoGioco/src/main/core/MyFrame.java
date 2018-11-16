@@ -37,7 +37,6 @@ public class MyFrame extends JFrame{
 	}
 	
 	public void init2() {
-		System.out.println("SONO NELL'EDITOR");
 		panel=new MyPanel(editor);
 		this.setSize(width,height);
 		this.setContentPane(panel);

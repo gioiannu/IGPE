@@ -109,7 +109,6 @@ public void initListener() {
 					if(position[0]==1) {
 						position[0]=0;
 						position[1]=1;
-						System.out.println("A");
 					}
 				}
 				else if(e.getKeyCode()==38) {

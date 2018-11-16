@@ -106,9 +106,7 @@ public class Enemy extends AbstractDynamicObject{
 			for(int j=this.getX()-fattore/2;j<this.getX()+fattore/2;j++)
 				if(g.getY()==this.getY()&&i==j)
 				{
-					//System.out.println("LE VITE SONO "+ g.getLives());
-					//g.removeOneLife();
-					//System.out.println("LE VITE SONO "+ g.getLives());
+					
 					return true;
 				}
 	

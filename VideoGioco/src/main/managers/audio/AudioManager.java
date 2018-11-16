@@ -206,9 +206,7 @@ public class AudioManager{
 	{
 		if(go_clip.isActive()) {
 			go_clip.stop();
-			System.out.println("STOPPATO");
 		}
-		System.out.println("GAME OVER");
 		go_clip.setMicrosecondPosition(0);
 		
 		go_clip.drain();
@@ -219,9 +217,7 @@ public class AudioManager{
 	{
 		if(button_clip.isActive()) {
 			button_clip.stop();
-			System.out.println("STOPPATO");
 		}
-		System.out.println("PREMUTO");
 		button_clip.setMicrosecondPosition(0);
 		
 		button_clip.drain();
@@ -232,9 +228,7 @@ public class AudioManager{
 	{
 		if(enter_clip.isActive()) {
 			enter_clip.stop();
-			System.out.println("STOPPATO");
 		}
-		System.out.println("PREMUTO");
 		enter_clip.setMicrosecondPosition(0);
 		
 		enter_clip.drain();
@@ -245,9 +239,7 @@ public class AudioManager{
 	{
 		if(win_clip.isActive()) {
 			win_clip.stop();
-			System.out.println("STOPPATO");
 		}
-		System.out.println("PRESO");
 		win_clip.setMicrosecondPosition(0);
 		
 		win_clip.drain();
@@ -258,9 +250,7 @@ public class AudioManager{
 	{
 		if(catch_clip.isActive()) {
 			catch_clip.stop();
-			System.out.println("STOPPATO");
 		}
-		System.out.println("PRESO");
 		catch_clip.setMicrosecondPosition(0);
 		
 		catch_clip.drain();
@@ -271,9 +261,7 @@ public class AudioManager{
 	{
 		if(hit_clip.isActive()) {
 			hit_clip.stop();
-			System.out.println("STOPPATO");
 		}
-		System.out.println("COLPITO");
 		hit_clip.setMicrosecondPosition(0);
 		
 		hit_clip.drain();
@@ -284,9 +272,7 @@ public class AudioManager{
 	{
 		if(fly_clip.isActive()) {
 			fly_clip.stop();
-			System.out.println("STOPPATO");
 		}
-		System.out.println("VOLO");
 		fly_clip.setMicrosecondPosition(0);
 		
 		fly_clip.drain();
@@ -300,9 +286,7 @@ public class AudioManager{
 	{
 		if(shoot_clip.isActive()){
 			shoot_clip.stop();
-			System.out.println("STOPPATO");
 		}
-		System.out.println("SPARATO");
 		
 		shoot_clip.setMicrosecondPosition(0);
 		

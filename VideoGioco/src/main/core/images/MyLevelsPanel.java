@@ -112,12 +112,10 @@ public void initListener() {
 					if(position[0]==1) {
 						position[0]=0;
 						position[1]=1;
-						System.out.println("A");
 					}
 					else if(position[1]==1) {
 						position[1]=0;
 						position[2]=1;
-						System.out.println("B");
 					}
 				}
 				else if(e.getKeyCode()==38) {

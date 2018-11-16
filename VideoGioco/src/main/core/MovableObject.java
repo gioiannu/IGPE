@@ -24,7 +24,6 @@ public class MovableObject extends AbstractDynamicObject {
             case DOWN:
             	if(getY()>=20*fattore) {
             		world.remove(getX(), getY());
-            		System.out.println("CIAO");
             		world.removeOneCounter();
             		setSpeed(0);
         			setDirection(Directions.STOP);
@@ -40,7 +39,6 @@ public class MovableObject extends AbstractDynamicObject {
             case STOP:
             	if(getY()>=21*fattore) {
         			world.remove(getY(), getX());
-        			System.out.println("CIAO");
         			world.removeOneCounter();
             	}
             	break;

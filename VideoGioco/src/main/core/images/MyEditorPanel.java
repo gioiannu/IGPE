@@ -350,8 +350,6 @@ public void initListener() {
 					if(k >=x && k <= x+larghezza && h >= y && h <= y+altezza )
 					{
 						
-						System.out.println(k);
-						System.out.println(h);
 						if (e.getButton() == MouseEvent.BUTTON1)
 						{
 								if(position[0]==1)
@@ -435,8 +433,6 @@ public void initListener() {
 							
 						}
 						
-						System.out.println(p.x);
-						System.out.println(p.y);
 					}
 				}
 

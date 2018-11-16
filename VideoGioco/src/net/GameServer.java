@@ -29,8 +29,6 @@ public class GameServer {
 				
 				ClientHandler ch = new ClientHandler(socketList,incoming,i);
 				ch.start();
-				//System.out.println("CONNESSO");
-				
 				
 				
 			}
