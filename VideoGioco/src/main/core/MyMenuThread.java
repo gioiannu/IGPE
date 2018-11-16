@@ -1,5 +1,6 @@
 package main.core;
 
+import main.core.images.MyMenuPanel;
 
 public class MyMenuThread extends Thread {
 	

@@ -1,5 +1,7 @@
 package main.core;
 
+import main.core.images.MyEditorPanel;
+
 public class MyEditorThread extends Thread{
 	MyEditorPanel me;
 	public MyEditorThread(MyEditorPanel me) {

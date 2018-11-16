@@ -1,5 +1,7 @@
 package main.core;
 
+import main.core.images.MyLevelsPanel;
+
 public class MyLevelsThread extends Thread{
 	MyLevelsPanel mlp;
 	public MyLevelsThread(MyLevelsPanel mlp) {

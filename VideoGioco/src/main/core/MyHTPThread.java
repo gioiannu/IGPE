@@ -1,5 +1,7 @@
 package main.core;
 
+import main.core.images.MyHTPPanel;
+
 public class MyHTPThread extends Thread{
 	MyHTPPanel mhtp;
 	public MyHTPThread(MyHTPPanel mhtp) {

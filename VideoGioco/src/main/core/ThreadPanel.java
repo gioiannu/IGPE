@@ -2,6 +2,7 @@ package main.core;
 
 import java.awt.Image;
 
+import main.core.images.MyPanel;
 import main.core.interfaces.Directions;
 import main.managers.GameManager;
 

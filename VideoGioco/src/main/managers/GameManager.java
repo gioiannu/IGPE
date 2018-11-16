@@ -8,7 +8,7 @@ import main.core.Enemy;
 import main.core.EnemyAI;
 import main.core.Player;
 import main.core.MovableObject;
-import main.core.MyEditorPanel;
+import main.core.images.MyEditorPanel;
 import main.core.Stairs;
 import main.core.World;
 
@@ -332,7 +332,7 @@ public class GameManager {
 			player= new Player (world,3*fattore,18*fattore+fattore-1, Directions.STOP,1,lives);
 			solidBricks=new SolidBrick[62*fattore];
 			stairs=new Stairs[28*fattore];
-			movableObjects =new MovableObject[3];
+			movableObjects =new MovableObject[4];
 			//enemies=new Enemy[1];
 			//enemies[0]=new Enemy(world,1*fattore,6*fattore+fattore-1,Directions.STOP,1);
 			//enemies[0].insertP(player);
@@ -362,9 +362,9 @@ public class GameManager {
 				stairs[j]=new Stairs(world,18*fattore,i);
 			
 			for(int i=10*fattore,j=10*fattore;i<15*fattore;i++,j++)
-				stairs[j]=new Stairs(world,1*fattore,i);
+				stairs[j]=new Stairs(world,4*fattore,i);
 			for(int i=10*fattore,j=15*fattore;i<15*fattore;i++,j++)
-				stairs[j]=new Stairs(world,19*fattore,i);
+				stairs[j]=new Stairs(world,16*fattore,i);
 			
 			for(int i=15*fattore,j=20*fattore;i<19*fattore;i++,j++)
 				stairs[j]=new Stairs(world,7*fattore,i);
@@ -376,8 +376,8 @@ public class GameManager {
 			int cont=0;
 			movableObjects[cont++]=new MovableObject(world,1*fattore,4*fattore+fattore-1,Directions.STOP,0);
 			movableObjects[cont++]=new MovableObject(world,19*fattore,4*fattore+fattore-1,Directions.STOP,0);
-			movableObjects[cont++]=new MovableObject(world,9*fattore,9
-					*fattore+fattore-1,Directions.STOP,0);
+			movableObjects[cont++]=new MovableObject(world,9*fattore,9*fattore+fattore-1,Directions.STOP,0);
+			movableObjects[cont++]=new MovableObject(world,10*fattore,9*fattore+fattore-1,Directions.STOP,0);
 
 			
 			

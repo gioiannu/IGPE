@@ -5,6 +5,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import main.core.images.MyMenuPanel;
+
 public class MyMenuFrame extends JFrame {
 	
 	/**
